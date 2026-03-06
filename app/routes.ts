@@ -16,6 +16,9 @@ export default [
   layout("components/layouts/AuthLayout.tsx", [
     route("login", "features/auth/pages/Login.tsx"),
     route("register", "features/auth/pages/Register.tsx"),
+    route("forgot-password", "features/auth/pages/ForgotPassword.tsx"),
+    route("verification", "features/auth/pages/Verification.tsx"),
+    route("reset-password", "features/auth/pages/ResetPassword.tsx"),
   ]),
 
   // Main routes
