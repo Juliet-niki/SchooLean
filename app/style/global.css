@@ -58,6 +58,35 @@ body {
   @apply bg-white text-black font-poppins;
 }
 
+/* scrollBar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #159d6233;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: radial-gradient(circle at -65% -65%, #0eb26b, #2f9e8f);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #40b6a6;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /*  ---break---  */
 
 @theme inline {

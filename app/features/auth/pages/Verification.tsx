@@ -35,7 +35,7 @@ const Verification = () => {
         setSubmitStatus("success");
       }
     } catch {
-      // Error
+      // TODO: handle error
     } finally {
       setLoading(false);
     }

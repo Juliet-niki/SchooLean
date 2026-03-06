@@ -67,12 +67,6 @@ const ForgotPasswordForm = () => {
   };
 
   const handleContinueAfterSuccess = () => {
-    // navigate("/verification", {
-    //   state: {
-    //     identifier: form.getValues("identifier"),
-    //     type: identifierType,
-    //   },
-    // });
     navigate("/verification", {
       state: {
         identifier: form.getValues("identifier"),
