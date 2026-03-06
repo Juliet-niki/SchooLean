@@ -9,6 +9,7 @@ import {
 
 import type { Route } from "./+types/root";
 import "./style/global.css";
+import { Toaster } from "./components/ui/toaster";
 
 export const links: Route.LinksFunction = () => [];
 
@@ -23,6 +24,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
+        <Toaster position="top-center" richColors />
         <ScrollRestoration />
         <Scripts />
       </body>

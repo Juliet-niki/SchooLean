@@ -1,5 +1,8 @@
+import AuthPageWrapper from "../components/AuthPageWrapper";
+import RegisterForm from "../components/RegisterForm";
+
 const Register = () => {
-  return <div>Register</div>;
+  return <AuthPageWrapper content={<RegisterForm />} />;
 };
 
 export default Register;
