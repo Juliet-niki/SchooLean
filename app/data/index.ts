@@ -118,3 +118,46 @@ export const PLATFORM_HIGHLIGHTS_DATA: Record<
     standardPlan: { month: "Jan 2027", digit: 1800000 },
   },
 };
+
+export const INACTIVE_SCHOOLS_DATA = [
+  {
+    id: "1",
+    name: "Baptist International High School Owerri, Imo State, Nigeria.",
+    logo: "/images/schoolLogo.png",
+    phone: "+234-909-895-8786",
+    email: "yangomapee@gmail.com",
+    lastActive: "8, July, 2025",
+  },
+  {
+    id: "2",
+    name: "Baptist International High School Owerri, Imo State, Nigeria.",
+    logo: "/images/schoolLogo.png",
+    phone: "+234-909-895-8786",
+    email: "yangomapee@gmail.com",
+    lastActive: "8, July, 2025",
+  },
+  {
+    id: "3",
+    name: "Baptist International High School Owerri, Imo State, Nigeria.",
+    logo: "/images/schoolLogo.png",
+    phone: "+234-909-895-8786",
+    email: "yangomapee@gmail.com",
+    lastActive: "8, July, 2025",
+  },
+  {
+    id: "4",
+    name: "Baptist International High School Owerri, Imo State, Nigeria.",
+    logo: "/images/schoolLogo.png",
+    phone: "+234-909-895-8786",
+    email: "yangomapee@gmail.com",
+    lastActive: "8, July, 2025",
+  },
+  {
+    id: "5",
+    name: "Baptist International High School Owerri, Imo State, Nigeria.",
+    logo: "/images/schoolLogo.png",
+    phone: "+234-909-895-8786",
+    email: "yangomapee@gmail.com",
+    lastActive: "8, July, 2025",
+  },
+];
