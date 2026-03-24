@@ -5,10 +5,10 @@ import {
   SchoolIcon,
   StaffIcon,
   StudentIcon,
-} from "~/assets/icon";
+} from "~/assets/Icons";
 import SearchInput from "~/components/SearchInput";
 
-import PopoverDropdown from "../components/PopoverDropdown";
+import PopoverDropdown from "../../../components/PopoverDropdown";
 import SchoolGrowthLineChart from "../components/SchoolGrowthLineChart";
 import PlatformActivityLineChart from "../components/PlatformActivityLineChart";
 import PlatformHighlight from "../components/PlatformHighlight";
@@ -19,7 +19,7 @@ import InactiveSchools from "../components/InactiveSchools";
 const Dashboard = () => {
   const [open, setOpen] = useState(false);
   return (
-    <>
+    <div className="px-4 ml:px-6 py-4 ml:py-8 bg-[#EDEDED]">
       <div className="w-full flex flex-col gap-10 mb-15">
         <div className="ml-auto flex items-center gap-8 lg:gap-16">
           <SearchInput
@@ -81,7 +81,7 @@ const Dashboard = () => {
       <FullScreenModal isOpen={open}>
         <InactiveSchools onBack={() => setOpen(false)} />
       </FullScreenModal>
-    </>
+    </div>
   );
 };
 

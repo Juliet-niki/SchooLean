@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router";
+import { NavLink } from "react-router";
 import {
   AdminManagementIcon,
   AnalyticsIcon,
@@ -10,7 +10,7 @@ import {
   SchoolManagementIcon,
   SubscriptionIcon,
   SystemSecurityIcon,
-} from "~/assets/icon";
+} from "~/assets/Icons";
 
 const Sidebar = () => {
   const menuItems = [

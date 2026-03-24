@@ -7,7 +7,7 @@ const MainLayout = () => {
       <aside className="max-w-[23%] shrink-0 overflow-y-auto hide-scrollbar">
         <Sidebar />
       </aside>
-      <main className="flex-1 overflow-y-auto px-4 ml:px-8 py-4 ml:py-8 bg-[#EDEDED]">
+      <main className="flex-1 overflow-y-auto">
         <Outlet />
       </main>
     </div>
