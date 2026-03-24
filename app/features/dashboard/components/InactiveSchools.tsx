@@ -1,4 +1,4 @@
-import { LeftIcon, MailIcon, PhoneIcon } from "~/assets/icon";
+import { LeftIcon, MailIcon, PhoneIcon } from "~/assets/icons";
 import { Button } from "~/components/ui/button";
 import { INACTIVE_SCHOOLS_DATA } from "~/data";
 

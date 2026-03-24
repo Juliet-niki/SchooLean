@@ -1,5 +1,5 @@
-import { FilledDownIcon } from "~/assets/icon";
-import PopoverDropdown from "./PopoverDropdown";
+import { FilledDownIcon } from "~/assets/icons";
+import PopoverDropdown from "../../../components/PopoverDropdown";
 import { useState } from "react";
 import { PLATFORM_HIGHLIGHTS_DATA } from "~/data";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { DateCalenderIcon } from "~/assets/Icons";
+import { DateCalenderIcon } from "~/assets/icons";
 import PopoverDropdown from "~/components/PopoverDropdown";
 import { Button } from "~/components/ui/button";
 import { Calendar } from "~/components/ui/calendar";

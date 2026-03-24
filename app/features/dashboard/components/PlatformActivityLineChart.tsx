@@ -1,5 +1,5 @@
-import { FilledDownIcon } from "~/assets/icon";
-import PopoverDropdown from "./PopoverDropdown";
+import { FilledDownIcon } from "~/assets/icons";
+import PopoverDropdown from "../../../components/PopoverDropdown";
 import { useMemo, useState } from "react";
 import { PLATFORM_ACTIVITY_DATA } from "~/data";
 import PlatformChart from "./PlatformChart";

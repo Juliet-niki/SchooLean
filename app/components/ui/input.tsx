@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { useState } from "react";
-import { HideEyeIcon, ShowEyeIcon } from "~/assets/icon";
+import { HideEyeIcon, ShowEyeIcon } from "~/assets/icons";
 import { cn } from "~/lib/utils";
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {

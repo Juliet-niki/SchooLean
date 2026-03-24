@@ -1,4 +1,4 @@
-import { MegaPhone2Icon, PersonIcon } from "~/assets/Icons";
+import { MegaPhone2Icon, PersonIcon } from "~/assets/icons";
 import FilterBar from "../components/FilterBar";
 import SearchInput from "~/components/SearchInput";
 import SchoolTable from "../components/SchoolTable";

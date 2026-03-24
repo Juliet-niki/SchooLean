@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { MoreIcon } from "~/assets/Icons";
+import { MoreIcon } from "~/assets/icons";
 import StatusView from "~/components/StatusView";
 import TablePagination from "~/components/TablePagination";
 import {
