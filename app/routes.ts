@@ -62,4 +62,13 @@ export default [
       "features/systemHealthStatus/pages/SystemHealthStatus.tsx",
     ),
   ]),
+
+  //Fullscreen routes
+  layout("components/layouts/FullscreenLayout.tsx", [
+    route(
+      "school-management/:schoolId",
+      "features/schoolManagement/pages/SchoolDetails.tsx",
+    ),
+    route("storybook", "StoryBook.tsx"),
+  ]),
 ] satisfies RouteConfig;

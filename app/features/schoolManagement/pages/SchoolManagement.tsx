@@ -22,19 +22,19 @@ const SchoolManagement = () => {
           Send Announcement
         </p>
       </div>
-
-      <div className="border border-[#D5D5D5] shadow-md shadow-[#00000040] rounded-[15px] px-6 py-4 mt-8 w-fit ml-auto">
-        <FilterBar
-          filters={filters}
-          onFilterChange={handleFilterChange}
-          joinedDate={joinedDate}
-          onJoinedDateChange={(date) => {
-            setJoinedDate(date);
-            setCurrentPage(1);
-          }}
-        />
+      <div className="w-full overflow-x-auto hide-scrollbar pb-2 px-1">
+        <div className="border border-[#D5D5D5] shadow-md shadow-[#00000040] rounded-[15px] px-2.5 md:px-4 lg:px-6 py-2 md:py-3 lg::py-4 mt-8 w-fit ml-auto">
+          <FilterBar
+            filters={filters}
+            onFilterChange={handleFilterChange}
+            joinedDate={joinedDate}
+            onJoinedDateChange={(date) => {
+              setJoinedDate(date);
+              setCurrentPage(1);
+            }}
+          />
+        </div>
       </div>
-
       <div className="ml-auto mt-16">
         <SearchInput
           setSearchText={(text) => {

@@ -7,6 +7,8 @@ export type VerifyPageState = {
 export interface ISchool {
   id: string;
   schoolId: string;
+  logo: string;
+  motto: string;
   name: string;
   location: {
     city: string;
@@ -20,4 +22,16 @@ export interface ISchool {
   totalParents: number;
   dateJoined: string;
   lastActivity: string;
+  address: string;
+  email: string;
+  phone: string;
+  website: string;
+  subscriptionExpiry: string;
+  suspensionStatus: string;
+  admins: {
+    name: string;
+    email: string;
+    role: string;
+    profilePic: null | string;
+  }[];
 }

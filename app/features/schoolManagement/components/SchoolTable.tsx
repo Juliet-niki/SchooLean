@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { MoreIcon } from "~/assets/icons";
+import { MoreIcon, RightIcon } from "~/assets/icons";
 import StatusView from "~/components/StatusView";
 import TablePagination from "~/components/TablePagination";
 import {
@@ -17,21 +17,22 @@ const parseDate = (dateStr: string): Date => {
 };
 
 const SchoolTableRow = ({ item }: { item: ISchool }) => {
+  const [isEnabled, setIsEnabled] = useState<"enable" | "disable" | null>(null);
   const navigate = useNavigate();
 
   return (
-    <tr
-      onClick={() => navigate(`/school-management/${item.schoolId}`)}
-      className="border border-[#D5D5D5] rounded-[15px] text-[clamp(11px,1.2vw,14px)] text-[#373737] font-medium cursor-pointer"
-    >
-      <td className="py-3 px-4 w-52 border-y border-l border-[#D5D5D5] rounded-l-[15px] text-[#067890] text-[clamp(13px,1.4vw,16px)]">
+    <tr className="text-[clamp(11px,1.2vw,14px)] text-[#373737] font-medium ">
+      <td
+        onClick={() => navigate(`/school-management/${item.schoolId}`)}
+        className="py-3 px-4 w-44 md:w-52 border-y border-l border-[#D5D5D5] rounded-l-[15px] text-[#067890] text-[clamp(13px,1.4vw,16px)] cursor-pointer"
+      >
         {item.name}
       </td>
       <td className="py-3 px-4 border-y border-[#D5D5D5]">{item.schoolId}</td>
-      <td className="py-3 px-4 w-44 border-y border-[#D5D5D5] text-wrap">
+      <td className="py-3 px-4 w-36 md:w-44 border-y border-[#D5D5D5] text-wrap">
         {item.location.city} {item.location.state} {item.location.country}
       </td>
-      <td className="py-2 px-2 border-y border-[#D5D5D5]">
+      <td className="py-2 px-3 border-y border-[#D5D5D5]">
         <div className="w-24">
           <StatusView
             styleOption={true}
@@ -49,7 +50,7 @@ const SchoolTableRow = ({ item }: { item: ISchool }) => {
           />
         </div>
       </td>
-      <td className="py-2 px-2 border-y border-[#D5D5D5]">
+      <td className="py-2 px-3 border-y border-[#D5D5D5]">
         <div className="w-24">
           <StatusView
             styleOption={true}
@@ -80,20 +81,48 @@ const SchoolTableRow = ({ item }: { item: ISchool }) => {
       <td className="py-3 px-4 border-y border-[#D5D5D5]">
         {item.lastActivity}
       </td>
+
       <td className="py-3 px-4 border-y border-r border-[#D5D5D5] rounded-r-[15px] text-end">
         <Popover>
           <PopoverTrigger asChild>
-            <button type="button">
+            <button type="button" className="cursor-pointer">
               <MoreIcon className="w-4 h-4" />
             </button>
           </PopoverTrigger>
           <PopoverContent
-            className="w-fit py-1 px-0 border-[1.5px] border-[#92929280] rounded-[5px] mr-20"
+            className="w-fit py-1 px-2 border-[1.5px] border-[#92929280] rounded-[5px] mr-20  text-[13px] font-medium"
             sideOffset={6}
           >
-            <p className="py-1 px-4 text-[clamp(11px,1.2vw,14px)] font-medium text-[#373737] cursor-pointer hover:bg-[#F7F7F7]">
-              View Details
-            </p>
+            <div className="flex items-center gap-1 mb-2">
+              <RightIcon className="h-3.5 w-3.5 " />
+              <p className="text-[clamp(11px,1.2vw,14px)] font-medium text-[#373737] ">
+                Custom website
+              </p>
+            </div>
+            <div className="flex flex-col gap-2 mb-2">
+              {[
+                {
+                  key: "enable" as const,
+                  label: "Enable",
+                  color: "text-[#0EB26B]",
+                },
+                {
+                  key: "disable" as const,
+                  label: "Disable",
+                  color: "text-[#E81E1E]",
+                },
+              ].map((option) => (
+                <p
+                  key={option.key}
+                  className={`cursor-pointer hover:bg-[#F7F7F7] py-1 px-4 rounded-lg ${option.color} ${isEnabled === option.key ? "bg-[#e6e3e3]" : ""}`}
+                  onClick={() => {
+                    setIsEnabled(option.key);
+                  }}
+                >
+                  {option.label}
+                </p>
+              ))}
+            </div>
           </PopoverContent>
         </Popover>
       </td>
