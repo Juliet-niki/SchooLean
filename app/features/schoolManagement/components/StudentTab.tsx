@@ -54,7 +54,7 @@ const TableRow = ({ student }: { student: IStudent }) => {
         {student.class} {student.classArm}
       </td>
       <td className="py-3 px-4 text-center">
-        {student.gender}, {student.Age}
+        {student.gender}, {student.age}
       </td>
       <td className="py-3 px-4 ">
         <div className="flex items-center gap-2 font-bold">
@@ -299,7 +299,7 @@ const StudentTab = ({ school }: { school: ISchool }) => {
               <tbody>
                 {paginatedData.length > 0 ? (
                   paginatedData.map((student) => (
-                    <TableRow key={student.id} student={student} />
+                    <TableRow key={student.studentId} student={student} />
                   ))
                 ) : (
                   <tr>

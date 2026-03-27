@@ -10,7 +10,7 @@ import {
 } from "~/components/ui/popover";
 import type { IParent, ISchool } from "~/types";
 
-const TableRow = ({ parent }: { parent: IParent }) => {
+const TableRow = ({ parent, school }: { parent: IParent; school: ISchool }) => {
   return (
     <tr className="text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] font-medium border-b border-[#EBEBEB]">
       <td className="py-3 px-4">
@@ -30,17 +30,25 @@ const TableRow = ({ parent }: { parent: IParent }) => {
       </td>
       <td className="py-3 px-4 lg:px-8 border-r border-l border-[#EBEBEB]">
         <div className="flex flex-col gap-2 w-[90%] xl:w-[80%]">
-          {parent.linkedChildren.map((child) => (
-            <div
-              key={child.id}
-              className="grid grid-cols-[2.2fr_1fr] gap-4 items-center"
-            >
-              <p>{child.name}</p>
-              <p>
-                {child.class} {child.classArm}
-              </p>
-            </div>
-          ))}
+          {parent.linkedChildren.map((child) => {
+            const student = school.students.find(
+              (s) => s.studentId === child.studentId,
+            );
+
+            if (!student) return null;
+
+            return (
+              <div
+                key={student.studentId}
+                className="grid grid-cols-[2.2fr_1fr] gap-4 items-center"
+              >
+                <p>{student.name}</p>
+                <p>
+                  {student.class} {student.classArm}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </td>
       <td className="py-3 px-4 lg:px-8 border-r border-l border-[#EBEBEB]">
@@ -105,15 +113,17 @@ const ParentTab = ({ school }: { school: ISchool }) => {
     return school.parents.filter((parent) => {
       const matchesParent = parent.name.toLowerCase().includes(search);
 
-      const matchesChild = parent.linkedChildren.some((child) =>
-        child.name.toLowerCase().includes(search),
-      );
+      const matchesChild = parent.linkedChildren.some((child) => {
+        const student = school.students.find(
+          (s) => s.studentId === child.studentId,
+        );
+        if (!student) return false;
+        const matchesName = student.name.toLowerCase().includes(search);
+        const matchesClass = student.class.toLowerCase().includes(search);
+        return matchesName || matchesClass;
+      });
 
-      const matchesChildClass = parent.linkedChildren.some((child) =>
-        child.class.toLowerCase().includes(search),
-      );
-
-      return matchesParent || matchesChild || matchesChildClass;
+      return matchesParent || matchesChild;
     });
   }, [searchText, school.parents]);
 
@@ -164,7 +174,11 @@ const ParentTab = ({ school }: { school: ISchool }) => {
             <tbody>
               {paginatedData.length > 0 ? (
                 paginatedData.map((parent) => (
-                  <TableRow key={parent.id} parent={parent} />
+                  <TableRow
+                    key={parent.parentId}
+                    parent={parent}
+                    school={school}
+                  />
                 ))
               ) : (
                 <tr>

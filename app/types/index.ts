@@ -28,22 +28,22 @@ export interface ISchool {
   website: string;
   subscriptionExpiry: string;
   suspensionStatus: string;
+
   admins: {
     name: string;
     email: string;
     role: string;
     profilePic: null | string;
   }[];
+
   teachers: ITeacher[];
   students: IStudent[];
-  // classes: {
-  //   class: string;
-  //   classArm: string[];
-  // }[];
   parents: IParent[];
+  reportCards: IReportCard[];
 }
+
 export interface ITeacher {
-  id: number;
+  teacherId: number;
   name: string;
   email: string;
   profilePic: null | string;
@@ -53,28 +53,35 @@ export interface ITeacher {
 }
 
 export interface IStudent {
-  id: number;
+  studentId: number;
   name: string;
   profilePic: null | string;
   class: string;
   classArm: string;
   gender: string;
-  Age: number;
+  age: number;
   attendanceRate: number;
   averageGrade: number;
   status: "ACTIVE" | "INACTIVE";
 }
 
 export interface IParent {
-  id: number;
+  parentId: number;
   name: string;
-  profilePic: null;
+  profilePic: null | string;
   linkedChildren: {
-    id: number;
-    name: string;
-    class: string;
-    classArm: string;
+    studentId: number;
   }[];
   loginActivity: string;
-  status: string;
+  status: "ACTIVE" | "INACTIVE";
+}
+
+export interface IReportCard {
+  reportCardId: number;
+  studentId: number;
+  session: string;
+  term: "1st Term" | "2nd Term" | "3rd Term";
+  generatedOn: string;
+  averageGrade: number;
+  status: "PENDING" | "COMPLETED";
 }
