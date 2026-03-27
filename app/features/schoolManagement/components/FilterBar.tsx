@@ -8,7 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "~/components/ui/popover";
-import { FILTERS } from "~/data";
+import { SCHOOL_MANAGEMENT_FILTERS } from "~/data";
 
 type FilterBarProps = {
   filters: Record<string, string>;
@@ -29,7 +29,7 @@ const FilterBar = ({
 
   return (
     <div className="flex items-center gap-3">
-      {FILTERS.slice(0, 5).map((filter) => (
+      {SCHOOL_MANAGEMENT_FILTERS.slice(0, 5).map((filter) => (
         <PopoverDropdown
           key={filter.key}
           options={filter.options}
@@ -59,7 +59,7 @@ const FilterBar = ({
               <DateCalenderIcon className="w-5 h-5" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-auto p-0 text-[#666666]">
+          <PopoverContent className="w-auto mr-8 p-0 text-[#666666]">
             <Calendar
               mode="single"
               selected={joinedDate}

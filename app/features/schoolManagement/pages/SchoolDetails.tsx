@@ -33,6 +33,9 @@ import { SCHOOL_MANAGEMENT_DATA } from "~/data";
 import type { ISchool } from "~/types";
 import { CapitalizeFirstLetter } from "~/utils/formatText";
 import SchoolAdminTab from "../components/SchoolAdminTab";
+import TeacherStaffTab from "../components/TeacherStaffTab";
+import StudentTab from "../components/StudentTab";
+import ParentTab from "../components/ParentTab";
 
 const SchoolDetails = () => {
   const [school, setSchool] = useState<ISchool | null>(null);
@@ -391,12 +394,10 @@ const SchoolDetails = () => {
               ))}
             </TabsList>
           </div>
-          <div className="py-5 bg-white rounded-[13px]">
+          <div className="py-5 bg-white rounded-[13px] text-[#4E4E4E] text-[clamp(14px,1.8vw,20px)] font-bold">
             <TabsContent value="schoolAdmin">
               <div className="flex items-center justify-between px-6 pb-5 border-b border-[#E4E4E4]">
-                <p className="text-[#4E4E4E] text-[clamp(14px,1.8vw,20px)] font-bold">
-                  School Admins
-                </p>
+                <p>School Admins</p>
                 <Popover>
                   <PopoverTrigger asChild>
                     <button type="button" className="cursor-pointer">
@@ -416,15 +417,21 @@ const SchoolDetails = () => {
               </div>
             </TabsContent>
             <TabsContent value="teachers">
-              {" "}
-              <p> teachers</p>
+              <div className="px-6 pb-5 border-b border-[#E4E4E4]">
+                <p>Teachers & Staff</p>
+              </div>
+              <div className="px-6 py-5">
+                <TeacherStaffTab school={school} />
+              </div>
             </TabsContent>
             <TabsContent value="students">
-              {" "}
-              <p> students</p>
+              <p className="px-6 pb-5">Teachers & Staff</p>
+
+              <StudentTab school={school} />
             </TabsContent>
             <TabsContent value="parents">
-              <p> parents</p>
+              <p className="pl-6 pb-3"> Parents</p>
+              <ParentTab school={school} />
             </TabsContent>
             <TabsContent value="reportCards">
               <p> report cards</p>

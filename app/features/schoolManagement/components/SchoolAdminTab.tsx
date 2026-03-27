@@ -153,7 +153,7 @@ const SchoolAdminTab = ({ school }: { school: ISchool }) => {
                         </button>
                       </PopoverTrigger>
                       <PopoverContent
-                        className="w-fit py-1 px-2 border-[1.5px] border-[#92929280] rounded-[5px] mr-8  text-[13px] font-medium"
+                        className="w-fit py-1 px-2 border-[1.5px] border-[#92929280] shadow-md shadow-[#00000026]  rounded-[5px] mr-8  text-[13px] font-medium"
                         sideOffset={2}
                       >
                         <div className="flex flex-col gap-2 mb-2">

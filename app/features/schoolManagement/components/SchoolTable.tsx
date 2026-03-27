@@ -16,7 +16,7 @@ const parseDate = (dateStr: string): Date => {
   return new Date(year, month - 1, day);
 };
 
-const SchoolTableRow = ({ item }: { item: ISchool }) => {
+const TableRow = ({ item }: { item: ISchool }) => {
   const [isEnabled, setIsEnabled] = useState<"enable" | "disable" | null>(null);
   const navigate = useNavigate();
 
@@ -90,7 +90,7 @@ const SchoolTableRow = ({ item }: { item: ISchool }) => {
             </button>
           </PopoverTrigger>
           <PopoverContent
-            className="w-fit py-1 px-2 border-[1.5px] border-[#92929280] rounded-[5px] mr-20  text-[13px] font-medium"
+            className="w-fit py-1 px-2 border-[1.5px] border-[#92929280] shadow-md shadow-[#00000026]  rounded-[5px] mr-20  text-[13px] font-medium"
             sideOffset={6}
           >
             <div className="flex items-center gap-1 mb-2">
@@ -264,9 +264,7 @@ const SchoolTable = ({
         </thead>
         <tbody>
           {paginatedData.length > 0 ? (
-            paginatedData.map((item) => (
-              <SchoolTableRow key={item.id} item={item} />
-            ))
+            paginatedData.map((item) => <TableRow key={item.id} item={item} />)
           ) : (
             <tr>
               <td

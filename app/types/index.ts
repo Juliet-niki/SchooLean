@@ -34,4 +34,47 @@ export interface ISchool {
     role: string;
     profilePic: null | string;
   }[];
+  teachers: ITeacher[];
+  students: IStudent[];
+  // classes: {
+  //   class: string;
+  //   classArm: string[];
+  // }[];
+  parents: IParent[];
+}
+export interface ITeacher {
+  id: number;
+  name: string;
+  email: string;
+  profilePic: null | string;
+  assignedSubjects: string[];
+  assignedClass: string[];
+  status: "ACTIVE" | "INACTIVE";
+}
+
+export interface IStudent {
+  id: number;
+  name: string;
+  profilePic: null | string;
+  class: string;
+  classArm: string;
+  gender: string;
+  Age: number;
+  attendanceRate: number;
+  averageGrade: number;
+  status: "ACTIVE" | "INACTIVE";
+}
+
+export interface IParent {
+  id: number;
+  name: string;
+  profilePic: null;
+  linkedChildren: {
+    id: number;
+    name: string;
+    class: string;
+    classArm: string;
+  }[];
+  loginActivity: string;
+  status: string;
 }
