@@ -35,12 +35,13 @@ export default function SearchInput({
         value={rawInput}
         onChange={handleChange}
         className={cn(
-          "h-12 w-75 border border-[#c4c4c433] has-focus:ring-0 bg-[#FFF]",
+          "h-12 w-75 border border-[#c4c4c433] has-focus:ring-0 bg-[#FFF] ",
           className,
         )}
         leftIcon={leftIcon}
         placeholder={placeholder}
         rightIcon={rightIcon}
+        inputClassName="text-[#4E4E4E] font-medium"
       />
     </div>
   );

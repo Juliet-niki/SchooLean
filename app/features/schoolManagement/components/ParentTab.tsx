@@ -28,7 +28,7 @@ const TableRow = ({ parent, school }: { parent: IParent; school: ISchool }) => {
           <p className="font-bold w-44">{parent.name}</p>
         </div>
       </td>
-      <td className="py-3 px-4 lg:px-8 border-r border-l border-[#EBEBEB]">
+      <td className="py-3 px-4 lg:px-8 border-x border-[#EBEBEB]">
         <div className="flex flex-col gap-2 w-[90%] xl:w-[80%]">
           {parent.linkedChildren.map((child) => {
             const student = school.students.find(
@@ -51,7 +51,7 @@ const TableRow = ({ parent, school }: { parent: IParent; school: ISchool }) => {
           })}
         </div>
       </td>
-      <td className="py-3 px-4 lg:px-8 border-r border-l border-[#EBEBEB]">
+      <td className="py-3 px-4 lg:px-8 border-x border-[#EBEBEB]">
         <div className="flex flex-col gap-2">
           <p>{parent.loginActivity}</p>
 

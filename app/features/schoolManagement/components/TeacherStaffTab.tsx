@@ -125,7 +125,7 @@ const TeacherStaffTab = ({ school }: { school: ISchool }) => {
         <tbody>
           {paginatedData.length > 0 ? (
             paginatedData.map((teacher) => (
-              <TableRow key={teacher.id} teacher={teacher} />
+              <TableRow key={teacher.teacherId} teacher={teacher} />
             ))
           ) : (
             <tr>

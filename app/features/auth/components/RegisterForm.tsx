@@ -331,7 +331,7 @@ const RegisterForm = () => {
                 type="submit"
                 variant="default"
                 size="lg"
-                className="w-full bg-linear-to-t from-[#0EB26B] via-[#12A86A] to-[#2f9e8f] hover:bg-linear-to-t hover:from-[#0EB26B]/90 hover:via-[#12A86A]/90 hover:to-[#2f9e8f]/90"
+                className="w-full"
                 disabled={!isValid || isSubmitting}
               >
                 {isSubmitting ? (

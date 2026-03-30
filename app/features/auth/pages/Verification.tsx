@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import AuthPageWrapper from "../components/AuthPageWrapper";
 import VerificationCodeInput from "../components/VerificationCodeInput";
 import type { VerifyPageState } from "~/types";
 import { DrawerDialog } from "~/components/DrawerDialog";
 import PopUtility from "~/components/PopUtility";
+import { toast } from "sonner";
 
 const Verification = () => {
   const [loading, setLoading] = useState(false);
@@ -13,10 +14,13 @@ const Verification = () => {
   const location = useLocation();
   const state = location.state as VerifyPageState | null;
 
-  if (!state?.identifier) {
-    navigate("/login", { replace: true });
-    return null;
-  }
+  useEffect(() => {
+    if (!state?.identifier) {
+      navigate("/login", { replace: true });
+    }
+  }, [state, navigate]);
+
+  if (!state?.identifier) return null;
 
   const handleVerify = async (code: string) => {
     setLoading(true);
@@ -34,8 +38,10 @@ const Verification = () => {
       } else {
         setSubmitStatus("success");
       }
-    } catch {
-      // TODO: handle error
+    } catch (error) {
+      toast.error("Invalid or expired code. Please try again.", {
+        id: "verification-error",
+      });
     } finally {
       setLoading(false);
     }

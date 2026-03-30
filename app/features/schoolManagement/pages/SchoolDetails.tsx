@@ -36,6 +36,7 @@ import SchoolAdminTab from "../components/SchoolAdminTab";
 import TeacherStaffTab from "../components/TeacherStaffTab";
 import StudentTab from "../components/StudentTab";
 import ParentTab from "../components/ParentTab";
+import ReportCardTab from "../components/ReportCardTab";
 
 const SchoolDetails = () => {
   const [school, setSchool] = useState<ISchool | null>(null);
@@ -394,7 +395,7 @@ const SchoolDetails = () => {
               ))}
             </TabsList>
           </div>
-          <div className="py-5 bg-white rounded-[13px] text-[#4E4E4E] text-[clamp(14px,1.8vw,20px)] font-bold">
+          <div className="py-10 bg-white rounded-[13px] text-[#4E4E4E] text-[clamp(14px,1.8vw,20px)] font-bold">
             <TabsContent value="schoolAdmin">
               <div className="flex items-center justify-between px-6 pb-5 border-b border-[#E4E4E4]">
                 <p>School Admins</p>
@@ -434,7 +435,8 @@ const SchoolDetails = () => {
               <ParentTab school={school} />
             </TabsContent>
             <TabsContent value="reportCards">
-              <p> report cards</p>
+              <p className="pl-6 pb-3">Report Cards & Academics</p>
+              <ReportCardTab school={school} />
             </TabsContent>
             <TabsContent value="fees">
               <p> fees</p>

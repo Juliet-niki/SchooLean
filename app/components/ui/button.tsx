@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Spinner } from "./spinner";
@@ -11,7 +10,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-[#0B653E] text-primary-foreground text-white shadow-xs hover:bg-[#0B653E]/90",
+          "bg-linear-to-t from-[#0EB26B] via-[#12A86A] to-[#2f9e8f] hover:bg-linear-to-t hover:from-[#0EB26B]/90 hover:via-[#12A86A]/90 hover:to-[#2f9e8f]/90 text-primary-foreground text-white shadow-xs",
+        // default:
+        //   "bg-[#0B653E] text-primary-foreground text-white shadow-xs hover:bg-[#0B653E]/90",
         destructive:
           "bg-[#DD3232] text-white shadow-xs hover:bg-[#DD3232]/90 focus-visible:ring-[#DD3232]/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:

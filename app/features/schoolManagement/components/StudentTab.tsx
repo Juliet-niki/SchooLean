@@ -19,16 +19,7 @@ import { Progress } from "~/components/ui/progress";
 import { STUDENT_TAB_FILTERS } from "~/data";
 import type { ISchool, IStudent } from "~/types";
 import { StudentChart } from "./studentChart";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuPortal,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu";
+import NestedDropdown from "~/components/NestedDropdown";
 
 const TableRow = ({ student }: { student: IStudent }) => {
   const planProgress =
@@ -167,11 +158,7 @@ const StudentTab = ({ school }: { school: ISchool }) => {
     setCurrentPage(1);
   };
 
-  const getClassLabel = () => {
-    if (!filters.class || filters.class === "all") return "Classes";
-    if (filters.classArm) return filters.classArm;
-    return filters.class;
-  };
+  const classFilter = STUDENT_TAB_FILTERS.find((f) => f.key === "class")!;
 
   return (
     <div>
@@ -188,75 +175,19 @@ const StudentTab = ({ school }: { school: ISchool }) => {
             />
           </div>
           <div className="flex items-center gap-4">
-            {STUDENT_TAB_FILTERS.filter((f) => f.key === "class").map(
-              (filter) => (
-                <DropdownMenu key={filter.key}>
-                  <DropdownMenuTrigger asChild>
-                    <button
-                      type="button"
-                      className="border border-[#D5D5D5] rounded-[5px] px-2.5 py-1.5 text-[#4E4E4E] font-semibold flex items-center gap-1"
-                    >
-                      {getClassLabel()}
-                      <DownIcon
-                        className="w-2.5 h-2.5 lg:w-3 lg:h-3"
-                        fill="#000"
-                      />
-                    </button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuItem
-                      onClick={() =>
-                        setFilters((prev) => ({
-                          ...prev,
-                          class: "all",
-                          classArm: "",
-                        }))
-                      }
-                    >
-                      All Classes
-                    </DropdownMenuItem>
-                    {filter.options
-                      .filter((o) => o.value !== "all")
-                      .map((option) => (
-                        <DropdownMenuSub key={option.value}>
-                          <DropdownMenuSubTrigger>
-                            {option.label}
-                          </DropdownMenuSubTrigger>
-                          <DropdownMenuPortal>
-                            <DropdownMenuSubContent>
-                              <DropdownMenuItem
-                                onClick={() =>
-                                  setFilters((prev) => ({
-                                    ...prev,
-                                    class: option.value,
-                                    classArm: "",
-                                  }))
-                                }
-                              >
-                                All {option.label}
-                              </DropdownMenuItem>
-                              {option.classArm?.map((arm) => (
-                                <DropdownMenuItem
-                                  key={arm}
-                                  onClick={() =>
-                                    setFilters((prev) => ({
-                                      ...prev,
-                                      class: option.value,
-                                      classArm: arm,
-                                    }))
-                                  }
-                                >
-                                  {arm}
-                                </DropdownMenuItem>
-                              ))}
-                            </DropdownMenuSubContent>
-                          </DropdownMenuPortal>
-                        </DropdownMenuSub>
-                      ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ),
-            )}
+            <NestedDropdown
+              label={classFilter.label}
+              options={classFilter.options}
+              selectedValue={filters.class}
+              selectedArm={filters.classArm}
+              onChange={(value, arm) =>
+                setFilters((prev) => ({
+                  ...prev,
+                  class: value,
+                  classArm: arm ?? "",
+                }))
+              }
+            />
             {STUDENT_TAB_FILTERS.filter((filter) => filter.key !== "class").map(
               (filter) => (
                 <PopoverDropdown
@@ -347,11 +278,16 @@ const StudentTab = ({ school }: { school: ISchool }) => {
             <div className="px-7 py-6 text-[clamp(12px,1.2vw,14px)]">
               <div className="flex items-center gap-2 mb-3">
                 <ChartIcon className="w-4 h-4" />
-                <p>Classes With Low Attendance: 10</p>
+                <p>
+                  Classes With Low Attendance: {school.classesWithLowAttendance}
+                </p>
               </div>
               <div className="flex items-center gap-2">
                 <WaterDropletIcon className="w-4 h-4" />
-                <p>Days/Weeks with Abnormal Drops: 3</p>
+                <p>
+                  Days/Weeks with Abnormal Drops:{" "}
+                  {school.daysWeekswithAbnormalDrops}
+                </p>
               </div>
             </div>
           </div>
@@ -386,7 +322,7 @@ const StudentTab = ({ school }: { school: ISchool }) => {
             </div>
             <div className="flex items-center gap-3 px-7.5 py-6">
               <DateCalenderIcon className="w-5 h-5" />
-              <p>Upcoming Exams: 0</p>
+              <p>Upcoming Exams: {school.upcomingExams}</p>
             </div>
           </div>
         </div>

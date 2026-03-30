@@ -120,7 +120,7 @@ const ForgotPasswordForm = () => {
             variant="default"
             size="lg"
             disabled={!isValid || isSubmitting}
-            className="w-full bg-linear-to-t from-[#0EB26B] via-[#12A86A] to-[#2f9e8f] hover:opacity-90 transition-opacity"
+            className="w-full"
           >
             {isSubmitting ? <Spinner /> : "Continue"}
           </Button>
