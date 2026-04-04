@@ -114,7 +114,7 @@ const PerformanceAnalytics = ({
   };
 
   return (
-    <div className="flex flex-col gap-6 px-6 pt-4 pb-10 border border-[#E9E9E9] shadow-md shadow-[#0000001A] rounded-[13px]">
+    <div className="flex flex-col gap-6 px-3 md:px-6 pt-4 pb-10 border border-[#E9E9E9] shadow-md shadow-[#0000001A] rounded-[13px]">
       <h2 className="text-[#4E4E4E] text-[clamp(18px,2vw,24px)] font-bold">
         Performance Analytics
       </h2>
@@ -261,7 +261,7 @@ const PerformanceAnalytics = ({
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid md:grid-cols-2 gap-3">
             {/* Subject Performance */}
             <div className="border border-[#E9E9E9] shadow-sm rounded-[13px]  p-3 lg:p-5 space-y-3">
               <h3 className="font-semibold text-[clamp(16px,1.6vw,18px)]">

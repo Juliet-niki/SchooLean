@@ -25,30 +25,32 @@ const TableRow = ({ parent, school }: { parent: IParent; school: ISchool }) => {
             <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-[#D9D9D9]" />
           )}
 
-          <p className="font-bold w-44">{parent.name}</p>
+          <p className="font-bold w-32 md:w-36 lg:w-44">{parent.name}</p>
         </div>
       </td>
       <td className="py-3 px-4 lg:px-8 border-x border-[#EBEBEB]">
-        <div className="flex flex-col gap-2 w-[90%] xl:w-[80%]">
-          {parent.linkedChildren.map((child) => {
-            const student = school.students.find(
-              (s) => s.studentId === child.studentId,
-            );
+        <div className="w-44 md:w-full">
+          <div className="flex flex-col gap-2 w-full md:w-[90%] xl:w-[80%] ">
+            {parent.linkedChildren.map((child) => {
+              const student = school.students.find(
+                (s) => s.studentId === child.studentId,
+              );
 
-            if (!student) return null;
+              if (!student) return null;
 
-            return (
-              <div
-                key={student.studentId}
-                className="grid grid-cols-[2.2fr_1fr] gap-4 items-center"
-              >
-                <p>{student.name}</p>
-                <p>
-                  {student.class} {student.classArm}
-                </p>
-              </div>
-            );
-          })}
+              return (
+                <div
+                  key={student.studentId}
+                  className="grid grid-cols-[2.2fr_1fr] gap-4 items-center bg-amber-200"
+                >
+                  <p>{student.name}</p>
+                  <p>
+                    {student.class} {student.classArm}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </td>
       <td className="py-3 px-4 lg:px-8 border-x border-[#EBEBEB]">
@@ -72,7 +74,7 @@ const TableRow = ({ parent, school }: { parent: IParent; school: ISchool }) => {
             </button>
           </PopoverTrigger>
           <PopoverContent
-            className="w-fit py-1 px-1 border-[1.5px] border-[#92929280] shadow-md shadow-[#00000026] rounded-[5px] mr-24 text-[13px] font-medium"
+            className="w-fit py-1 px-1 border-[1.5px] border-[#92929280] shadow-md shadow-[#00000026] rounded-[5px] mr-12 text-[13px] font-medium"
             sideOffset={6}
           >
             <div className="flex flex-col gap-1 mb-2">
@@ -139,6 +141,9 @@ const ParentTab = ({ school }: { school: ISchool }) => {
   return (
     <div className="flex flex-col gap-2 divide-y divide-[#E4E4E4]">
       <div className="pl-4 pb-3">
+        <h2 className="text-[#4E4E4E] text-[clamp(15px,1.8vw,20px)] font-bold leading-tight pb-4 ml:pb-6">
+          Parents
+        </h2>
         <SearchInput
           setSearchText={(text) => {
             setSearchText(text);
@@ -149,7 +154,7 @@ const ParentTab = ({ school }: { school: ISchool }) => {
         />
       </div>
       <div className="px-4">
-        <div className="shadow-md shadow-[#0000001A] rounded-[15px]">
+        <div className="shadow-md shadow-[#0000001A] rounded-[15px]  overflow-x-auto hide-scrollbar">
           <table className="w-full border-collapse">
             <thead className="sticky top-0 z-10 text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] text-nowrap">
               <tr>

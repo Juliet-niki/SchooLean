@@ -173,19 +173,22 @@ const ReportCardTab = ({ school }: { school: ISchool }) => {
       <div className="flex flex-col divide-y divide-[#E4E4E4] gap-6">
         <div className="flex flex-col divide-y divide-[#E4E4E4] pb-6">
           {/* Filters */}
-          <div className="flex items-center justify-between gap-4 px-6 pb-2">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 sm:gap-4 px-4 pb-2">
             <div>
+              <h2 className="text-[#4E4E4E] text-[clamp(15px,1.8vw,20px)] font-bold leading-tight pb-4 ml:pb-6">
+                Report Cards & Academics
+              </h2>
               <SearchInput
                 setSearchText={(text) => {
                   setSearchText(text);
                   setCurrentPage(1);
                 }}
-                className="border-[#D5D5D5] h-10 w-80"
+                className="border-[#D5D5D5] h-10 w-60 md:w-80 ml-auto"
                 placeholder="Search by student name or class"
               />
             </div>
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4 ml-auto">
               {REPORT_CARD_TAB_FILTERS.filter(
                 (filter) => filter.key !== "class",
               ).map((filter) => (
@@ -215,7 +218,7 @@ const ReportCardTab = ({ school }: { school: ISchool }) => {
           </div>
 
           {/*Report Cards & Academics Table */}
-          <div className="shadow-md shadow-[#0000001A] rounded-[15px] mx-6 pt-2">
+          <div className="shadow-md shadow-[#0000001A] rounded-[15px] mx-4 md:mx-6 pt-2 overflow-x-auto hide-scrollbar">
             <table className="w-full border-collapse">
               <thead className="sticky top-0 z-10 text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] text-nowrap">
                 <tr>
@@ -274,13 +277,13 @@ const ReportCardTab = ({ school }: { school: ISchool }) => {
         </div>
 
         {/* Grading system table */}
-        <div className="px-6 pb-6">
-          <div className="border border-[#E9E9E9] shadow-md shadow-[#0000001A] rounded-[13px] px-8 py-6 ">
+        <div className="px-4 md:px-6 pb-6">
+          <div className="border border-[#E9E9E9] shadow-md shadow-[#0000001A] rounded-[13px] px-3 md:px-6 lg:px-8 py-4 md:py-6 ">
             <h2 className=" text-[#4E4E4E] text-[clamp(14px,1.8vw,20px)] font-bold mb-3">
               Grading System
             </h2>
-            <div className="-mx-20 -my-3">
-              <table className="w-full border-separate border-spacing-x-20 border-spacing-y-3">
+            <div className="-mx-3 md:-mx-6 ml:-mx-14 lg:-mx-20 -my-3">
+              <table className="w-full border-separate border-spacing-x-3 md:border-spacing-x-6 ml:border-spacing-x-14 lg:border-spacing-x-20 border-spacing-y-3">
                 <thead className="sticky top-0 z-10 text-[clamp(14px,1.8vw,20px)] text-[#4E4E4E]">
                   <tr className="">
                     {[
@@ -292,7 +295,7 @@ const ReportCardTab = ({ school }: { school: ISchool }) => {
                     ].map((col) => (
                       <th
                         key={col}
-                        className={`py-3 px-4 text-center font-semibold bg-[#E6F7F0]
+                        className={`py-3 px-2 md:px-4 text-center font-semibold bg-[#E6F7F0]
                     border-2 border-[#545454]`}
                       >
                         {col}
@@ -307,19 +310,19 @@ const ReportCardTab = ({ school }: { school: ISchool }) => {
                       key={index}
                       className="text-[clamp(16px,1.9vw,20px)] text-[#4E4E4E] font-semibold "
                     >
-                      <td className="py-4 px-4 text-center border-2 border-[#545454]">
+                      <td className="py-4 px-2 md:px-4 text-center border-2 border-[#545454]">
                         {grade.grade}
                       </td>
-                      <td className="py-4 px-4 text-center border-2 border-[#545454]">
+                      <td className="py-4 px-2 md:px-4 text-center border-2 border-[#545454]">
                         {grade.minScore}
                       </td>
-                      <td className="py-4 px-4 text-center border-2 border-[#545454]">
+                      <td className="py-4 px-2 md:px-4 text-center border-2 border-[#545454]">
                         {grade.maxScore}
                       </td>
-                      <td className="py-4 px-4 text-center border-2 border-[#545454]">
+                      <td className="py-4 px-2 md:px-4 text-center border-2 border-[#545454]">
                         {grade.remark}
                       </td>
-                      <td className="py-4 px-4 text-center border-2 border-[#545454]">
+                      <td className="py-4 px-2 md:px-4 text-center border-2 border-[#545454]">
                         {grade.gpaScale}
                       </td>
                     </tr>
@@ -331,17 +334,17 @@ const ReportCardTab = ({ school }: { school: ISchool }) => {
         </div>
 
         {/* Performance Analytics */}
-        <div className="px-6 pb-6">
+        <div className="px-4 md:px-6 pb-6">
           <PerformanceAnalytics analytics={school.performanceAnalytics} />
         </div>
 
         {/* Subjects */}
-        <div className="px-6 pb-6">
-          <div className="text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)] font-medium border border-[#E9E9E9] shadow-md shadow-[#0000001A] rounded-[13px] px-8 py-6">
+        <div className="px-4 md:px-6 pb-6">
+          <div className="text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)] font-medium border border-[#E9E9E9] shadow-md shadow-[#0000001A] rounded-[13px] px-4 md:px-8 py-4 md:py-6">
             <h2 className="text-[clamp(18px,1.8vw,20px)] font-bold mb-3">
               Subjects
             </h2>
-            <div className="grid grid-cols-2 gap-5 lg:gap-8 gap-x-10 lg:gap-x-20">
+            <div className="grid grid-cols-2 gap-5 lg:gap-8 md:gap-x-10 lg:gap-x-20">
               {school.subjects.map((section, index) => (
                 <div
                   key={index}

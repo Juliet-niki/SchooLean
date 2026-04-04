@@ -38,7 +38,7 @@ const TableRow = ({ student }: { student: IStudent }) => {
             <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-[#D9D9D9]" />
           )}
 
-          <p className="font-bold w-44">{student.name}</p>
+          <p className="font-bold w-32 md:w-36 lg:w-44">{student.name}</p>
         </div>
       </td>
       <td className="py-3 px-4 text-center">
@@ -61,7 +61,7 @@ const TableRow = ({ student }: { student: IStudent }) => {
             </button>
           </PopoverTrigger>
           <PopoverContent
-            className="w-fit py-1 px-1 border-[1.5px] border-[#92929280] shadow-md shadow-[#00000026] rounded-[5px] mr-24 text-[13px] font-medium"
+            className="w-fit py-1 px-1 border-[1.5px] border-[#92929280] shadow-md shadow-[#00000026] rounded-[5px] mr-12 text-[13px] font-medium"
             sideOffset={6}
           >
             <div className="flex flex-col gap-1 mb-2">
@@ -162,19 +162,22 @@ const StudentTab = ({ school }: { school: ISchool }) => {
 
   return (
     <div>
-      <div className="grid grid-cols-[2.1fr_1fr] gap-4 pb-3">
-        <div className="flex items-center justify-between gap-4 ml-4 ">
+      <div className="grid lg:grid-cols-[2.1fr_1fr] gap-4 pb-3">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 sm:gap-4  mx-4">
           <div>
+            <h2 className="text-[#4E4E4E] text-[clamp(15px,1.8vw,20px)] font-bold leading-tight pb-4 ml:pb-6">
+              Students
+            </h2>
             <SearchInput
               setSearchText={(text) => {
                 setSearchText(text);
                 setCurrentPage(1);
               }}
-              className="border-[#D5D5D5] h-10 w-80"
+              className="border-[#D5D5D5] h-10 w-60 md:w-80 ml-auto"
               placeholder="Search for name of student "
             />
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 ml-auto">
             <NestedDropdown
               label={classFilter.label}
               options={classFilter.options}
@@ -203,9 +206,9 @@ const StudentTab = ({ school }: { school: ISchool }) => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-[2.1fr_1fr] gap-4 border-t border-[#DCDADA] text-[#4E4E4E]">
-        <div className="flex flex-col gap-5">
-          <div className="pt-2 border-r border-[#DCDADA]">
+      <div className="grid lg:grid-cols-[1.9fr_1fr] xl:grid-cols-[2.1fr_1fr] gap-4 border-t border-[#DCDADA] text-[#4E4E4E]">
+        <div className="flex flex-col gap-5 overflow-x-auto hide-scrollbar">
+          <div className="pt-2 lg:border-r border-[#DCDADA]">
             <table className="w-full border-collapse">
               <thead>
                 <tr>
@@ -253,11 +256,11 @@ const StudentTab = ({ school }: { school: ISchool }) => {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-4 mr-2 pt-2 text-[clamp(12px,1.4vw,16px)] font-medium">
+        <div className="flex flex-col md:flex-row lg:flex-col gap-4 mx-4 md:mx-6 lg:mx-0 lg:mr-2 pt-2 text-[clamp(12px,1.4vw,16px)] font-medium">
           <div className="border border-[#B7B7B7] shadow-md shadow-[#00000040] rounded-[10px] divide-y divide-[#E4E4E4]">
-            <div className="px-7 py-6 flex flex-col gap-6">
+            <div className="px-5 py-6 flex flex-col gap-6">
               <h2 className="font-bold">Attendance Summary</h2>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <StudentChart
                   value={averageAttendance}
                   color="#0EB26B"
@@ -265,17 +268,17 @@ const StudentTab = ({ school }: { school: ISchool }) => {
                 />
                 <div className="text-[clamp(12px,1.2vw,14px)]">
                   <p>Overall Attendance</p>
-                  <p className="font-bold text-[clamp(18px,2.2vw,30px)]">
+                  <p className="font-bold text-[clamp(18px,2.1vw,26px)]">
                     {Math.round(averageAttendance)}%
                   </p>
-                  <p className="text-[clamp(14px,1.6vw,18px)] font-extrabold">
-                    <span className=" text-2xl">+</span> 3% Attendance Rate
+                  <p className="text-[clamp(13px,1.4vw,15px)] font-extrabold">
+                    <span className="text-lg">+</span> 3% Attendance Rate
                   </p>
                   <p> This Term</p>
                 </div>
               </div>
             </div>
-            <div className="px-7 py-6 text-[clamp(12px,1.2vw,14px)]">
+            <div className="px-5 py-6 text-[clamp(12px,1.2vw,14px)]">
               <div className="flex items-center gap-2 mb-3">
                 <ChartIcon className="w-4 h-4" />
                 <p>
@@ -292,7 +295,7 @@ const StudentTab = ({ school }: { school: ISchool }) => {
             </div>
           </div>
           <div className="border border-[#B7B7B7] shadow-md shadow-[#00000040] rounded-[10px] divide-y divide-[#E4E4E4]">
-            <div className="px-7.5 py-6 flex flex-col gap-6">
+            <div className="px-5.5 py-6 flex flex-col gap-6">
               <h2 className="font-bold">Academic Performance</h2>
               <div className="flex items-center gap-3">
                 <StudentChart
@@ -320,7 +323,7 @@ const StudentTab = ({ school }: { school: ISchool }) => {
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-3 px-7.5 py-6">
+            <div className="flex items-center gap-3 px-5.5 py-6">
               <DateCalenderIcon className="w-5 h-5" />
               <p>Upcoming Exams: {school.upcomingExams}</p>
             </div>

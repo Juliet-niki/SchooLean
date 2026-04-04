@@ -97,54 +97,59 @@ const TeacherStaffTab = ({ school }: { school: ISchool }) => {
   );
 
   return (
-    <div className="border border-[#F3F3F3] shadow-md shadow-[#0000001A] rounded-t-[15px]">
-      <table className="w-full border-collapse">
-        <thead className="sticky top-0 z-10 text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] text-nowrap">
-          <tr>
-            {[
-              "Name & Email",
-              "Assigned Subjects",
-              "Assigned Classes",
-              "Status",
-              "Actions",
-            ].map((col, index, arr) => (
-              <th
-                key={col}
-                className={`py-3 px-4 text-center font-bold bg-[#E6F7F0]
+    <div className="flex flex-col gap-4 ml:gap-6 divide-y divide-[#E4E4E4]">
+      <h2 className="text-[#4E4E4E] text-[clamp(15px,1.8vw,20px)] font-bold leading-tight px-4 ml:px-6 pb-2 ml:pb-4">
+        Teachers & Staff
+      </h2>
+      <div className="mx-4 ml:mx-6 border border-[#F3F3F3] shadow-md shadow-[#0000001A] rounded-[15px] space-y-5 pb-5 overflow-x-auto hide-scrollbar">
+        <table className="w-full border-collapse">
+          <thead className="sticky top-0 z-10 text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] text-nowrap">
+            <tr>
+              {[
+                "Name & Email",
+                "Assigned Subjects",
+                "Assigned Classes",
+                "Status",
+                "Actions",
+              ].map((col, index, arr) => (
+                <th
+                  key={col}
+                  className={`py-3 px-4 text-center font-bold bg-[#E6F7F0]
                     ${index === 0 ? "rounded-tl-[15px] text-start" : ""}
                     ${index === 1 ? "text-start" : ""}
                     ${index === arr.length - 1 ? "rounded-tr-[15px]" : ""}
                   `}
-              >
-                {col}
-              </th>
-            ))}
-          </tr>
-        </thead>
-
-        <tbody>
-          {paginatedData.length > 0 ? (
-            paginatedData.map((teacher) => (
-              <TableRow key={teacher.teacherId} teacher={teacher} />
-            ))
-          ) : (
-            <tr>
-              <td
-                colSpan={5}
-                className="py-10 text-center text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)]"
-              >
-                No teachers found.
-              </td>
+                >
+                  {col}
+                </th>
+              ))}
             </tr>
-          )}
-        </tbody>
-      </table>
-      <div className="py-5">
-        <TablePagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-        />
+          </thead>
+
+          <tbody>
+            {paginatedData.length > 0 ? (
+              paginatedData.map((teacher) => (
+                <TableRow key={teacher.teacherId} teacher={teacher} />
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan={5}
+                  className="py-10 text-center text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)]"
+                >
+                  No teachers found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+        <div>
+          <TablePagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
+        </div>
       </div>
     </div>
   );

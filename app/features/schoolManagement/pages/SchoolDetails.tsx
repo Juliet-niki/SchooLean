@@ -184,7 +184,7 @@ const SchoolDetails = () => {
             <p className="text-[clamp(14px,1.4vw,16px)]">{school.motto}</p>
           </div>
         </div>
-        <div className="grid grid-cols-[1.2fr_1fr] gap-5 gap-x-10 lg:gap-x-20 w-full px-6 md:px-10 lg:px-20 py-5">
+        <div className="grid sm:grid-cols-[1.2fr_1fr] gap-5 md:gap-x-10 lg:gap-x-20 w-full px-6 md:px-10 lg:px-20 py-5">
           {[
             {
               key: "1",
@@ -268,7 +268,7 @@ const SchoolDetails = () => {
                 />
               )}
               <div className="flex items-start gap-1">
-                {item.label && <p>{item.label}: </p>}
+                {item.label && <p className="text-nowrap">{item.label}: </p>}
                 {item.onClick ? (
                   <Link to={""} className="text-[#2392E7]">
                     {" "}
@@ -395,47 +395,20 @@ const SchoolDetails = () => {
               ))}
             </TabsList>
           </div>
-          <div className="py-10 bg-white rounded-[13px] text-[#4E4E4E] text-[clamp(14px,1.8vw,20px)] font-bold">
+          <div className="py-8 bg-white rounded-[13px]">
             <TabsContent value="schoolAdmin">
-              <div className="flex items-center justify-between px-6 pb-5 border-b border-[#E4E4E4]">
-                <p>School Admins</p>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <button type="button" className="cursor-pointer">
-                      <MoreIcon className="w-5 h-5 rotate-90" />
-                    </button>
-                  </PopoverTrigger>
-                  <PopoverContent
-                    className="w-fit py-1 px-2 border-[1.5px] border-[#92929280] rounded-[5px] mr-8  text-[13px] font-medium"
-                    sideOffset={2}
-                  >
-                    <p>Schoo admin</p>
-                  </PopoverContent>
-                </Popover>
-              </div>
-              <div className="px-6 py-5">
-                <SchoolAdminTab school={school} />
-              </div>
+              <SchoolAdminTab school={school} />
             </TabsContent>
             <TabsContent value="teachers">
-              <div className="px-6 pb-5 border-b border-[#E4E4E4]">
-                <p>Teachers & Staff</p>
-              </div>
-              <div className="px-6 py-5">
-                <TeacherStaffTab school={school} />
-              </div>
+              <TeacherStaffTab school={school} />
             </TabsContent>
             <TabsContent value="students">
-              <p className="px-6 pb-5">Teachers & Staff</p>
-
               <StudentTab school={school} />
             </TabsContent>
             <TabsContent value="parents">
-              <p className="pl-6 pb-3"> Parents</p>
               <ParentTab school={school} />
             </TabsContent>
             <TabsContent value="reportCards">
-              <p className="pl-6 pb-3">Report Cards & Academics</p>
               <ReportCardTab school={school} />
             </TabsContent>
             <TabsContent value="fees">
