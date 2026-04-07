@@ -4,42 +4,6 @@ export type VerifyPageState = {
   context: "register" | "forgot-password";
 };
 
-export interface ISchool {
-  id: string;
-  schoolId: string;
-  logo: string;
-  motto: string;
-  name: string;
-  location: {
-    city: string;
-    state: string;
-    country: string;
-  };
-  plan: "PREMIUM" | "FREE TRIAL" | "STANDARD";
-  status: "ACTIVE" | "INACTIVE" | "AT-RISK";
-  totalStudents: number;
-  totalStaff: number;
-  totalParents: number;
-  dateJoined: string;
-  lastActivity: string;
-  address: string;
-  email: string;
-  phone: string;
-  website: string;
-  subscriptionExpiry: string;
-  suspensionStatus: string;
-  classesWithLowAttendance: number;
-  daysWeekswithAbnormalDrops: number;
-  upcomingExams: number;
-  admins: IAdmin[];
-  teachers: ITeacher[];
-  students: IStudent[];
-  parents: IParent[];
-  reportCards: IReportCard[];
-  performanceAnalytics: IPerformanceAnalytics;
-  subjects: ISubject[];
-}
-
 export interface IAdmin {
   name: string;
   email: string;
@@ -130,4 +94,87 @@ export interface ISubject {
   coreSubjects: string[];
   NAPPSSchemeofWorkSubjects: string[];
   optionalEnrichmentSubjects: string[];
+}
+
+export type PaymentStatus = "COMPLETED" | "PENDING" | "FAILED";
+export type PlanType = "PREMIUM" | "FREE TRIAL" | "STANDARD";
+
+export interface ISubscriptionPlan {
+  planName: PlanType;
+  amount: number;
+  billingCycleDays: number;
+  billingCycleStart: string;
+  billingCycleEnd: string;
+  gracePeriod: string;
+}
+
+export interface ISchoolPaymentHistory {
+  paymentId: number;
+  date: string;
+  referenceId: string;
+  amount: number;
+  status: PaymentStatus;
+}
+
+export interface ISchoolFailedTransaction {
+  transactionId: number;
+  date: string;
+  referenceId: string;
+  amount: number;
+  receiptError: "Network Error" | "Insufficient Funds" | string;
+}
+
+export interface IParentFeesPayment {
+  feeId: number;
+  date: string;
+  parentId: number;
+  amount: number;
+  status: PaymentStatus;
+}
+
+export interface IFeesPayment {
+  subscription: ISubscriptionPlan;
+  schoolPaymentHistory: ISchoolPaymentHistory[];
+  schoolFailedTransactions: ISchoolFailedTransaction[];
+  parentTotalFeesCollected: number;
+  parentPendingPayments: number;
+  parentFailedPayments: number;
+  parentFeesPayment: IParentFeesPayment[];
+}
+
+export interface ISchool {
+  id: string;
+  schoolId: string;
+  logo: string;
+  motto: string;
+  name: string;
+  location: {
+    city: string;
+    state: string;
+    country: string;
+  };
+  status: "ACTIVE" | "INACTIVE" | "AT-RISK";
+  plan: PlanType;
+  totalStudents: number;
+  totalStaff: number;
+  totalParents: number;
+  dateJoined: string;
+  lastActivity: string;
+  address: string;
+  email: string;
+  phone: string;
+  website: string;
+  subscriptionExpiry: string;
+  suspensionStatus: string;
+  classesWithLowAttendance: number;
+  daysWeekswithAbnormalDrops: number;
+  upcomingExams: number;
+  admins: IAdmin[];
+  teachers: ITeacher[];
+  students: IStudent[];
+  parents: IParent[];
+  reportCards: IReportCard[];
+  performanceAnalytics: IPerformanceAnalytics;
+  subjects: ISubject[];
+  feesPayment: IFeesPayment;
 }

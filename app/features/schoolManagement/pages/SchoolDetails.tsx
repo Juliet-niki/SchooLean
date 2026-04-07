@@ -37,6 +37,7 @@ import TeacherStaffTab from "../components/TeacherStaffTab";
 import StudentTab from "../components/StudentTab";
 import ParentTab from "../components/ParentTab";
 import ReportCardTab from "../components/ReportCardTab";
+import FeesPaymentTab from "../components/FeesPaymentTab";
 
 const SchoolDetails = () => {
   const [school, setSchool] = useState<ISchool | null>(null);
@@ -128,7 +129,7 @@ const SchoolDetails = () => {
               key={index}
             >
               <item.icon className="w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5" />
-              <p className="text-white font-semibold text-[clamp(8px,1.2vw,14px)]">
+              <p className="text-white font-semibold text-[clamp(10px,1.2vw,14px)]">
                 {item.text}
               </p>
             </div>
@@ -321,7 +322,7 @@ const SchoolDetails = () => {
               onClick={item.onClick}
               key={index}
             >
-              <p className="text-white font-semibold text-[clamp(8px,1.2vw,14px)]">
+              <p className="text-white font-semibold text-[clamp(10px,1.2vw,14px)]">
                 {item.text}
               </p>
             </div>
@@ -395,7 +396,7 @@ const SchoolDetails = () => {
               ))}
             </TabsList>
           </div>
-          <div className="py-8 bg-white rounded-[13px]">
+          <div className="py-8 bg-white rounded-t-[13px]">
             <TabsContent value="schoolAdmin">
               <SchoolAdminTab school={school} />
             </TabsContent>
@@ -412,7 +413,7 @@ const SchoolDetails = () => {
               <ReportCardTab school={school} />
             </TabsContent>
             <TabsContent value="fees">
-              <p> fees</p>
+              <FeesPaymentTab school={school} />
             </TabsContent>
             <TabsContent value="activityLogs">
               <p> activity logs</p>
