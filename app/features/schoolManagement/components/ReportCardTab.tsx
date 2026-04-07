@@ -340,64 +340,72 @@ const ReportCardTab = ({ school }: { school: ISchool }) => {
 
         {/* Subjects */}
         <div className="px-4 md:px-6 pb-6">
-          <div className="text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)] font-medium border border-[#E9E9E9] shadow-md shadow-[#0000001A] rounded-[13px] px-4 md:px-8 py-4 md:py-6">
+          <div className="text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)] font-medium border border-[#E9E9E9] shadow-md shadow-[#0000001A] rounded-t-[13px] px-4 md:px-8 py-4 md:py-6">
             <h2 className="text-[clamp(18px,1.8vw,20px)] font-bold mb-3">
               Subjects
             </h2>
-            <div className="grid grid-cols-2 gap-5 lg:gap-8 md:gap-x-10 lg:gap-x-20">
+            <div className="flex flex-col gap-5 lg:gap-8">
               {school.subjects.map((section, index) => (
                 <div
                   key={index}
                   className="border border-[#E9E9E9] shadow-sm rounded-[15px] p-5 space-y-3"
                 >
-                  <h3 className="font-bold italic text-[clamp(15px,1.6vw,18px)]">
+                  <h3 className="font-bold italic text-[clamp(15px,1.6vw,18px)] text-[#0EB26B]">
                     {section.category}
                   </h3>
 
                   {/* Core Subjects */}
                   <div className="mb-5">
                     <h4 className="font-semibold text-[#3D3D3F] text-[clamp(15px,1.6vw,18px)]">
-                      Core Subjects
+                      Core Subjects{" "}
+                      {section.category === "Pre-Nursery Section" && (
+                        <span>
+                          (Approved by the Nigerian Ministry of Education)
+                        </span>
+                      )}
                     </h4>
-                    {section.category === "Pre-Nursery Section" && (
-                      <p>(Approved by the Nigerian Ministry of Education)</p>
-                    )}
-                    <ul className="space-y-2 mt-2">
+
+                    <ul className="grid grid-cols-2 ml:grid-cols-3 gap-2 gap-x-6 ml:gap-x-10 mt-2">
                       {section.coreSubjects.map((subject, i) => (
                         <li key={i}>{subject}</li>
                       ))}
                     </ul>
                   </div>
+                  <div
+                    className={`grid ${section.NAPPSSchemeofWorkSubjects.length > 0 ? "grid-cols-[1fr_2fr] gap-5 ml:gap-10 " : ""}`}
+                  >
+                    {/* NAPPS */}
+                    {section.NAPPSSchemeofWorkSubjects.length > 0 && (
+                      <div className="mb-5">
+                        <h4 className="font-semibold text-[#3D3D3F] text-[clamp(15px,1.6vw,18px)] ">
+                          NAPPS Scheme of Work Subjects
+                        </h4>
+                        <ul className="space-y-2 mt-2">
+                          {section.NAPPSSchemeofWorkSubjects.map(
+                            (subject, i) => (
+                              <li key={i}>{subject}</li>
+                            ),
+                          )}
+                        </ul>
+                      </div>
+                    )}
 
-                  {/* NAPPS */}
-                  {section.NAPPSSchemeofWorkSubjects.length > 0 && (
-                    <div className="mb-5">
-                      <h4 className="font-semibold text-[#3D3D3F] text-[clamp(15px,1.6vw,18px)]">
-                        NAPPS Scheme of Work Subjects
-                      </h4>
-                      <ul className="space-y-2 mt-2">
-                        {section.NAPPSSchemeofWorkSubjects.map((subject, i) => (
-                          <li key={i}>{subject}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Optional */}
-                  {section.optionalEnrichmentSubjects.length > 0 && (
-                    <div>
-                      <h4 className="font-semibold text-[#3D3D3F] text-[clamp(15px,1.6vw,18px)]">
-                        Optional Subjects
-                      </h4>
-                      <ul className="space-y-2 mt-2">
-                        {section.optionalEnrichmentSubjects.map(
-                          (subject, i) => (
-                            <li key={i}>{subject}</li>
-                          ),
-                        )}
-                      </ul>
-                    </div>
-                  )}
+                    {/* Optional */}
+                    {section.optionalEnrichmentSubjects.length > 0 && (
+                      <div>
+                        <h4 className="font-semibold text-[#3D3D3F] text-[clamp(15px,1.6vw,18px)]">
+                          Optional Subjects
+                        </h4>
+                        <ul className="grid grid-cols-2 gap-2 gap-x-6 ml:gap-x-10 mt-2">
+                          {section.optionalEnrichmentSubjects.map(
+                            (subject, i) => (
+                              <li key={i}>{subject}</li>
+                            ),
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>

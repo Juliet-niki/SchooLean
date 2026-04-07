@@ -90,7 +90,7 @@ const SchoolDetails = () => {
     setIsOpen(false);
   };
   return (
-    <div className="py-4 ml:py-7  font-medium">
+    <div className="py-4 ml:py-7 font-medium">
       <Button
         variant="ghost"
         size="icon"

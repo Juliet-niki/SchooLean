@@ -461,8 +461,8 @@ export const SCHOOL_MANAGEMENT_DATA: ISchool[] = [
           "Physical & Health Education (PHE)",
           "Christian Religious Studies (CRS)",
           "Islamic Studies",
-          "Creative & Expressive Arts (Drawing, Singing, Dance, etc.)",
           "Health Habits / Personal Hygiene",
+          "Creative & Expressive Arts (Drawing, Singing, Dance, etc.)",
           "Practical Life Activities (e.g., sorting, cleaning, etc.)",
         ],
         NAPPSSchemeofWorkSubjects: [
