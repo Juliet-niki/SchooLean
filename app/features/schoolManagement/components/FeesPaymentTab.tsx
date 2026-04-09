@@ -21,6 +21,7 @@ import type {
   ISchoolFailedTransaction,
   ISchoolPaymentHistory,
 } from "~/types";
+import { formatDate } from "~/utils/formatDate";
 import { CapitalizeFirstLetter } from "~/utils/formatText";
 
 const ITEMS_PER_PAGE = 3;
@@ -65,7 +66,7 @@ const SchoolPaymentHistoryTableRow = ({
   return (
     <tr className="text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] font-semibold border-b  border-[#EBEBEB]">
       <td className="py-3 px-4 text-center font-medium text-nowrap">
-        {payment.date}
+        {formatDate(payment.date)}
       </td>
       <td className="py-3 px-4 text-center border-l border-[#E4E4E4]">
         {payment.referenceId}
@@ -105,7 +106,7 @@ const SchoolFailedTransactionsTableRow = ({
   return (
     <tr className="text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] font-semibold border-b  border-[#EBEBEB]">
       <td className="py-3 px-4 text-center font-medium text-nowrap">
-        {transaction.date}
+        {formatDate(transaction.date)}
       </td>
       <td className="py-3 px-4 text-center border-l border-[#E4E4E4]">
         {transaction.referenceId}
@@ -146,7 +147,7 @@ const ParentFeesPaymentTableRow = ({
   return (
     <tr className="text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] font-semibold border-b  border-[#EBEBEB]">
       <td className="py-3 px-4 text-center font-medium text-nowrap">
-        {payment.date}
+        {formatDate(payment.date)}
       </td>
       <td className="py-3 px-4 text-center border-l border-[#E4E4E4] text-nowrap">
         {parent.name}
@@ -401,7 +402,7 @@ const FeesPaymentTab = ({ school }: { school: ISchool }) => {
             Fees & Payments{" "}
             <span className="font-medium">(Parents - School)</span>
           </h2>
-          <div className="border border-[#E9E9E9] shadow-md shadow-[#0000001A] rounded-[13px] flex md:items-center md:justify-evenly gap-2 md:gap-4 py-4 px-4 ml:px-16 flex-wrap">
+          <div className="border border-[#E9E9E9] shadow-md shadow-[#0000001A] rounded-[13px] flex justify-center gap-2 md:gap-4 lg:gap-8 py-4 px-4 flex-wrap">
             {[
               {
                 icon: <FeesIcon className="w-5 h-5 md:w-7 md:h-7" />,
@@ -429,7 +430,7 @@ const FeesPaymentTab = ({ school }: { school: ISchool }) => {
             ].map((item) => (
               <div
                 key={item.label}
-                className="border border-[#CFCFCF] rounded-[7px] px-2.5 ml:px-5 py-3.5 flex items-start gap-1.5 font-semibold"
+                className="border border-[#CFCFCF] rounded-[7px] w-44 md:w-56 ml:w-65 lg:w-72 px-2.5 ml:px-5 py-3.5 flex items-start gap-1.5 font-semibold"
               >
                 {item.icon}
                 <div>

@@ -1,3 +1,4 @@
+import { useMediaQuery } from "react-responsive";
 import { AdminIcon, MoreIcon } from "~/assets/icons";
 import { Button } from "~/components/ui/button";
 import {
@@ -8,6 +9,10 @@ import {
 import type { ISchool } from "~/types";
 
 const SchoolAdminTab = ({ school }: { school: ISchool }) => {
+  const isMobile = useMediaQuery({
+    query: "(max-width: 768px)",
+  });
+
   return (
     <div className="flex flex-col gap-4 ml:gap-6 divide-y divide-[#E4E4E4]">
       <div className="px-4 ml:px-6 pb-2 ml:pb-4 flex items-center justify-between ">
@@ -60,17 +65,19 @@ const SchoolAdminTab = ({ school }: { school: ISchool }) => {
                     </div>
                   </div>
                   <div className="flex items-center gap-5 ml-auto">
-                    <div className="flex ml:flex-col lg:flex-row items-center gap-2">
+                    <div className="flex flex-col items-center gap-2">
                       <Button
+                        variant={isMobile ? "ghost" : "secondary"}
                         size="sm"
-                        className="text-[clamp(11px,1.1vw,13px)] font-medium w-24"
+                        className={`text-[clamp(12px,1.1vw,13px)] font-medium w-24  ${isMobile ? "h-fit w-fit p-0 text-[#0B653E]" : "bg-[#0B653E] hover:bg-[#0B653E]/95 text-white"}`}
                         onClick={() => {}}
                       >
                         View Profile
                       </Button>
                       <Button
+                        variant={isMobile ? "ghost" : "secondary"}
                         size="sm"
-                        className="text-[clamp(11px,1.1vw,13px)] font-medium w-24"
+                        className={`text-[clamp(12px,1.1vw,13px)] font-medium w-24  ${isMobile ? "h-fit w-fit p-0 text-[#0B653E]" : "bg-[#0B653E] hover:bg-[#0B653E]/95 text-white"}`}
                         onClick={() => {}}
                       >
                         Change Role
@@ -148,17 +155,19 @@ const SchoolAdminTab = ({ school }: { school: ISchool }) => {
                     </div>
                   </div>
                   <div className="flex items-center gap-5 ml-auto">
-                    <div className="flex ml:flex-col lg:flex-row items-center gap-2">
+                    <div className="flex flex-col items-center gap-2">
                       <Button
+                        variant={isMobile ? "ghost" : "secondary"}
                         size="sm"
-                        className="text-[clamp(11px,1.1vw,13px)] font-medium w-24"
+                        className={`text-[clamp(12px,1.1vw,13px)] font-medium w-24  ${isMobile ? "h-fit w-fit p-0 text-[#0B653E]" : "bg-[#0B653E] hover:bg-[#0B653E]/95 text-white"}`}
                         onClick={() => {}}
                       >
                         View Profile
                       </Button>
                       <Button
+                        variant={isMobile ? "ghost" : "secondary"}
                         size="sm"
-                        className="text-[clamp(11px,1.1vw,13px)] font-medium w-24"
+                        className={`text-[clamp(12px,1.1vw,13px)] font-medium w-24  ${isMobile ? "h-fit w-fit p-0 text-[#0B653E]" : "bg-[#0B653E] hover:bg-[#0B653E]/95 text-white"}`}
                         onClick={() => {}}
                       >
                         Change Role

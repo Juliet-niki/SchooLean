@@ -190,24 +190,28 @@ export const SCHOOL_MANAGEMENT_DATA: ISchool[] = [
     upcomingExams: 0,
     admins: [
       {
+        adminId: 1,
         name: "Emmanuel Yangomapee",
         email: "yangomapee@gmail.com",
         role: "Super Admin",
         profilePic: null,
       },
       {
+        adminId: 2,
         name: "James Alexander",
         email: "jamesAlexander@gmail.com",
         role: "Super Admin",
         profilePic: null,
       },
       {
+        adminId: 3,
         name: "John Robinson",
         email: "johnRobinson@gmail.com",
         role: "Sub Admin",
         profilePic: null,
       },
       {
+        adminId: 4,
         name: "Samuel Jackson",
         email: "samuelJackson@gmail.com",
         role: "Sub Admin",
@@ -664,42 +668,42 @@ export const SCHOOL_MANAGEMENT_DATA: ISchool[] = [
       schoolPaymentHistory: [
         {
           paymentId: 1,
-          date: "Dec 1, 2026",
+          date: "2026-12-01",
           referenceId: "SCH1350/39830398",
           amount: 100000,
           status: "COMPLETED",
         },
         {
           paymentId: 2,
-          date: "Dec 3, 2026",
+          date: "2025-11-05",
           referenceId: "SCH1350/39830398",
           amount: 100000,
           status: "COMPLETED",
         },
         {
           paymentId: 3,
-          date: "Dec 7, 2026",
+          date: "2026-05-06",
           referenceId: "SCH1350/39830398",
           amount: 100000,
           status: "PENDING",
         },
         {
           paymentId: 4,
-          date: "Dec 10, 2026",
+          date: "2025-04-07",
           referenceId: "SCH1350/39830398",
           amount: 100000,
           status: "COMPLETED",
         },
         {
           paymentId: 5,
-          date: "Dec 13, 2026",
+          date: "2026-03-08",
           referenceId: "SCH1350/39830398",
           amount: 100000,
           status: "COMPLETED",
         },
         {
           paymentId: 6,
-          date: "Dec 18, 2026",
+          date: "2026-02-09",
           referenceId: "SCH1350/39830398",
           amount: 100000,
           status: "PENDING",
@@ -708,21 +712,21 @@ export const SCHOOL_MANAGEMENT_DATA: ISchool[] = [
       schoolFailedTransactions: [
         {
           transactionId: 1,
-          date: "Dec 2, 2026",
+          date: "2026-10-03",
           referenceId: "SCH1350/39830398",
           amount: 100000,
           receiptError: "Network Error",
         },
         {
           transactionId: 2,
-          date: "Dec 4, 2026",
+          date: "2026-11-04",
           referenceId: "SCH1350/39830398",
           amount: 100000,
           receiptError: "Insufficient Funds",
         },
         {
           transactionId: 3,
-          date: "Dec 9, 2026",
+          date: "2026-12-05",
           referenceId: "SCH1350/39830398",
           amount: 100000,
           receiptError: "Insufficient Funds",
@@ -734,45 +738,102 @@ export const SCHOOL_MANAGEMENT_DATA: ISchool[] = [
       parentFeesPayment: [
         {
           feeId: 1,
-          date: "Dec 5, 2026",
+          date: "2024-09-24",
           parentId: 1,
           amount: 100000,
           status: "COMPLETED",
         },
         {
           feeId: 2,
-          date: "Dec 7, 2026",
+          date: "2025-04-21",
           parentId: 2,
           amount: 100000,
           status: "PENDING",
         },
         {
           feeId: 3,
-          date: "Dec 24, 2026",
+          date: "2026-08-20",
           parentId: 3,
           amount: 100000,
           status: "FAILED",
         },
         {
           feeId: 4,
-          date: "Dec 28, 2026",
+          date: "2023-05-19",
           parentId: 4,
           amount: 100000,
           status: "COMPLETED",
         },
         {
           feeId: 5,
-          date: "Nov 1, 2026",
+          date: "2024-06-18",
           parentId: 5,
           amount: 100000,
           status: "PENDING",
         },
         {
           feeId: 6,
-          date: "Nov 11, 2026",
+          date: "2025-07-17",
           parentId: 6,
           amount: 100000,
           status: "FAILED",
+        },
+      ],
+    },
+    activityLog: {
+      summary: {
+        totalLogins: 280,
+        totalActions: 823,
+        totalErrors: 10,
+      },
+      logs: [
+        {
+          logId: 1,
+          user: {
+            id: 1,
+            type: "ADMIN",
+          },
+          role: "Admin",
+          activity: "Login",
+          activityType: "LOGIN",
+          ipAddress: "967.984.29",
+          date: "2026-02-27",
+        },
+        {
+          logId: 2,
+          user: {
+            id: 2,
+            type: "TEACHER",
+          },
+          role: "Staff",
+          activity: "Logout",
+          activityType: "LOGOUT",
+          ipAddress: "967.984.29",
+          date: "2026-01-23",
+        },
+        {
+          logId: 3,
+          user: {
+            id: 4,
+            type: "STUDENT",
+          },
+          role: "Student",
+          activity: "Changed Admin password",
+          activityType: "PASSWORD_CHANGE",
+          ipAddress: "967.984.29",
+          date: "2026-01-13",
+        },
+        {
+          logId: 4,
+          user: {
+            id: 3,
+            type: "PARENT",
+          },
+          role: "Parent",
+          activity: "Exported students data",
+          activityType: "EXPORT",
+          ipAddress: "967.984.29",
+          date: "2026-03-15",
         },
       ],
     },
@@ -1032,6 +1093,40 @@ export const GRADING_SYSTEM = [
     maxScore: 39,
     remark: "Fail",
     gpaScale: 0.0,
+  },
+];
+
+export const ACTIVITY_LOG_TAB_FILTERS = [
+  {
+    key: "role",
+    label: "All roles",
+    options: [
+      { label: "All roles", value: "all" },
+      { label: "Admins & Staffs", value: "admin" },
+      { label: "Students", value: "student" },
+      { label: "Parents", value: "parent" },
+    ],
+  },
+  {
+    key: "activity",
+    label: "All activities",
+    options: [
+      { label: "All activities", value: "all" },
+      { label: "Login", value: "LOGIN" },
+      { label: "Logout", value: "LOGOUT" },
+      { label: "Password change", value: "PASSWORD_CHANGE" },
+    ],
+  },
+  {
+    key: "date",
+    label: "All dates",
+    options: [
+      { label: "All dates", value: "all" },
+      { label: "Last 30 days", value: "30days" },
+      { label: "Last 60 days", value: "60days" },
+      { label: "Last 90 days", value: "90days" },
+      { label: "Last 180 days", value: "180days" },
+    ],
   },
 ];
 

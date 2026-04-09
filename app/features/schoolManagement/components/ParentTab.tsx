@@ -41,7 +41,7 @@ const TableRow = ({ parent, school }: { parent: IParent; school: ISchool }) => {
               return (
                 <div
                   key={student.studentId}
-                  className="grid grid-cols-[2.2fr_1fr] gap-4 items-center bg-amber-200"
+                  className="grid grid-cols-[2.2fr_1fr] gap-4 items-center"
                 >
                   <p>{student.name}</p>
                   <p>

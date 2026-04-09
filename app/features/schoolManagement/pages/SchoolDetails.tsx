@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import {
   AdminIcon,
@@ -38,11 +38,14 @@ import StudentTab from "../components/StudentTab";
 import ParentTab from "../components/ParentTab";
 import ReportCardTab from "../components/ReportCardTab";
 import FeesPaymentTab from "../components/FeesPaymentTab";
+import ActivityLogTab from "../components/ActivityLogTab";
 
 const SchoolDetails = () => {
   const [school, setSchool] = useState<ISchool | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isSuspend, setIsSuspend] = useState<"ACTIVE" | "SUSPENDED">("ACTIVE");
+
+  const modalActionLabel = useRef<"Enable" | "Disable">("Disable");
 
   const params = useParams();
   const navigate = useNavigate();
@@ -54,7 +57,7 @@ const SchoolDetails = () => {
       );
       setSchool(found || null);
     }
-  }, [params.saleId]);
+  }, [params.schoolId]);
 
   useEffect(() => {
     if (school) {
@@ -83,6 +86,11 @@ const SchoolDetails = () => {
     if (status === "ACTIVE") return "text-[#0EB26B]";
     if (status === "INACTIVE") return "text-[#E81E1E]";
     return "text-[#F7B801]";
+  };
+
+  const handleOpenModal = () => {
+    modalActionLabel.current = isSuspend === "SUSPENDED" ? "Enable" : "Disable";
+    setIsOpen(true);
   };
 
   const handleSuspendToggle = () => {
@@ -138,15 +146,14 @@ const SchoolDetails = () => {
         <div>
           <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-              <Button variant="destructive">
+              <Button variant="destructive" onClick={handleOpenModal}>
                 {isSuspend === "SUSPENDED" ? "Activate" : "Suspend"}
               </Button>
             </DialogTrigger>
             <DialogContent className="p-10">
               <div className="flex flex-col gap-20">
                 <h2 className="text-[#4E4E4E] text-[clamp(14px,1.8vw,20px)] font-semibold">
-                  Are you sure you want to{" "}
-                  {isSuspend === "SUSPENDED" ? "Activate" : "Suspend"}?
+                  Are you sure you want to {modalActionLabel.current}?
                 </h2>
                 <div className="flex items-center gap-6 ml-auto">
                   <Button
@@ -263,10 +270,7 @@ const SchoolDetails = () => {
               className="flex items-start gap-4.5 text-[#4E4E4E] text-[clamp(13px,1.4vw,16px)] font-semibold"
             >
               {item.icon && (
-                <item.icon
-                  className="w-4 h-4 lg:w-5 lg:h-5"
-                  fill={item.icon === PhoneIcon ? "#057B48" : "#057B48"}
-                />
+                <item.icon className="w-4 h-4 lg:w-5 lg:h-5" fill={"#057B48"} />
               )}
               <div className="flex items-start gap-1">
                 {item.label && <p className="text-nowrap">{item.label}: </p>}
@@ -386,7 +390,7 @@ const SchoolDetails = () => {
                 <TabsTrigger
                   key={item.key}
                   value={item.value}
-                  className="data-[state=active]:bg-transparent data-[state=active]:shadow-none border-b-0 data-[state=active]:border-b-4 data-[state=active]:border-[#0B653E] data-[state=active]:rounded-none text-[#4E4E4E] data-[state=active]:text-[#4E4E4E] text-[clamp(8px,1.4vw,16px)] py-5 px-0 [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-5"
+                  className="data-[state=active]:bg-transparent data-[state=active]:shadow-none border-b-0 data-[state=active]:border-b-4 data-[state=active]:border-[#0B653E] data-[state=active]:rounded-none text-[#4E4E4E] data-[state=active]:text-[#4E4E4E] text-[clamp(10px,1.4vw,16px)] py-5 px-0 [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 ml:[&_svg:not([class*='size-'])]:size-5"
                 >
                   <div className="flex items-center gap-2 bg-white px-2 py-2 rounded-[7px] ">
                     <item.icon className="w-4 h-4" fill="#000" stroke="#000" />
@@ -416,7 +420,7 @@ const SchoolDetails = () => {
               <FeesPaymentTab school={school} />
             </TabsContent>
             <TabsContent value="activityLogs">
-              <p> activity logs</p>
+              <ActivityLogTab school={school} />
             </TabsContent>
             <TabsContent value="adminTools">
               <p> admin tools</p>

@@ -5,6 +5,7 @@ export type VerifyPageState = {
 };
 
 export interface IAdmin {
+  adminId: number;
   name: string;
   email: string;
   role: string;
@@ -142,6 +143,40 @@ export interface IFeesPayment {
   parentFeesPayment: IParentFeesPayment[];
 }
 
+export type ActivityType =
+  | "LOGIN"
+  | "LOGOUT"
+  | "PASSWORD_CHANGE"
+  | "EXPORT"
+  | "OTHER";
+
+export type ActivityRole = "Admin" | "Staff" | "Student" | "Parent";
+
+export type ActivityUserType = "ADMIN" | "TEACHER" | "STUDENT" | "PARENT";
+
+export interface IActivityLogItem {
+  logId: number;
+  user: {
+    id: number;
+    type: ActivityUserType;
+  };
+  role: ActivityRole;
+  activity: string;
+  activityType: ActivityType;
+  ipAddress: string;
+  date: string;
+}
+
+export interface IActivitySummary {
+  totalLogins: number;
+  totalActions: number;
+  totalErrors: number;
+}
+
+export interface IActivityLog {
+  summary: IActivitySummary;
+  logs: IActivityLogItem[];
+}
 export interface ISchool {
   id: string;
   schoolId: string;
@@ -177,4 +212,5 @@ export interface ISchool {
   performanceAnalytics: IPerformanceAnalytics;
   subjects: ISubject[];
   feesPayment: IFeesPayment;
+  activityLog: IActivityLog;
 }
