@@ -1,7 +1,7 @@
 import { FilledDownIcon } from "~/assets/icons";
 import PopoverDropdown from "../../../components/PopoverDropdown";
 import { useState } from "react";
-import { PLATFORM_HIGHLIGHTS_DATA } from "~/data";
+import { PLATFORM_HIGHLIGHTS_DATA } from "~/data/schoolData";
 
 const PlatformHighlight = () => {
   const PLATFORM_HIGHLIGHTS_META = [

@@ -14,7 +14,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "~/components/ui/popover";
-import { ACTIVITY_LOG_TAB_FILTERS } from "~/data";
+import { ACTIVITY_LOG_TAB_FILTERS } from "~/data/schoolData";
 import type { IActivityLogItem, ISchool } from "~/types";
 import { formatDate } from "~/utils/formatDate";
 

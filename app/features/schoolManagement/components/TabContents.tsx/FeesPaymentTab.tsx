@@ -318,7 +318,7 @@ const FeesPaymentTab = ({ school }: { school: ISchool }) => {
         <h2 className="text-[clamp(15px,1.8vw,20px)] leading-tight px-4 ml:px-6">
           Payment History
         </h2>
-        <div className="mx-4 ml:mx-6 shadow-md shadow-[#0000001A] rounded-t-[7px] rounded-b-[15px] space-y-5 pb-5  overflow-x-auto hide-scrollbar">
+        <div className="mx-4 ml:mx-6 shadow-md shadow-[#0000001A] rounded-t-[7px] rounded-b-[15px] space-y-5 pb-5 overflow-x-auto hide-scrollbar">
           <table className="w-full border-collapse">
             <TableHead
               columns={["Date", "Reference ID", "Amount", "Status", "Receipt"]}
@@ -430,7 +430,7 @@ const FeesPaymentTab = ({ school }: { school: ISchool }) => {
             ].map((item) => (
               <div
                 key={item.label}
-                className="border border-[#CFCFCF] rounded-[7px] w-44 md:w-56 ml:w-65 lg:w-72 px-2.5 ml:px-5 py-3.5 flex items-start gap-1.5 font-semibold"
+                className="border border-[#CFCFCF] rounded-[7px] sm:w-44 md:w-56 ml:w-65 lg:w-72 px-2.5 ml:px-5 py-3.5 flex items-start gap-1.5 font-semibold"
               >
                 {item.icon}
                 <div>

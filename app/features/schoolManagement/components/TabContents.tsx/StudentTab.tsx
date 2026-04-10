@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import {
   ChartIcon,
   CircleIcon,
-  DateCalenderIcon,
+  Calendar2Icon,
   DownIcon,
   MoreIcon,
   WaterDropletIcon,
@@ -16,7 +16,7 @@ import {
   PopoverTrigger,
 } from "~/components/ui/popover";
 import { Progress } from "~/components/ui/progress";
-import { STUDENT_TAB_FILTERS } from "~/data";
+import { STUDENT_TAB_FILTERS } from "~/data/schoolData";
 import type { ISchool, IStudent } from "~/types";
 import { StudentChart } from "./studentChart";
 import NestedDropdown from "~/components/NestedDropdown";
@@ -324,7 +324,7 @@ const StudentTab = ({ school }: { school: ISchool }) => {
               </div>
             </div>
             <div className="flex items-center gap-3 px-5.5 py-6">
-              <DateCalenderIcon className="w-5 h-5" />
+              <Calendar2Icon className="w-5 h-5" />
               <p>Upcoming Exams: {school.upcomingExams}</p>
             </div>
           </div>

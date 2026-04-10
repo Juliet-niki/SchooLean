@@ -10,7 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "~/components/ui/popover";
-import { GRADING_SYSTEM, REPORT_CARD_TAB_FILTERS } from "~/data";
+import { GRADING_SYSTEM, REPORT_CARD_TAB_FILTERS } from "~/data/schoolData";
 import type { IReportCard, ISchool, IStudent } from "~/types";
 import PerformanceAnalytics from "./PerformanceAnalytics";
 import FullScreenModal from "~/components/FullScreenModal";

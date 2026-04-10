@@ -1,5 +1,5 @@
 import React from "react";
-import { DateCalenderIcon } from "~/assets/icons";
+import { Calendar2Icon } from "~/assets/icons";
 import PopoverDropdown from "~/components/PopoverDropdown";
 import { Button } from "~/components/ui/button";
 import { Calendar } from "~/components/ui/calendar";
@@ -8,7 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "~/components/ui/popover";
-import { SCHOOL_MANAGEMENT_FILTERS } from "~/data";
+import { SCHOOL_MANAGEMENT_FILTERS } from "~/data/schoolData";
 
 type FilterBarProps = {
   filters: Record<string, string>;
@@ -56,7 +56,7 @@ const FilterBar = ({
               className="w-full px-2.5 py-1.5 text-left text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)] font-semibold flex items-center gap-2 hover:bg-transparent"
             >
               {joinedDate ? joinedDate.toLocaleDateString() : "Joined Date"}
-              <DateCalenderIcon className="w-5 h-5" />
+              <Calendar2Icon className="w-5 h-5" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto mr-8 p-0 text-[#666666]">

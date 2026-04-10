@@ -8,7 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "~/components/ui/popover";
-import { SCHOOL_MANAGEMENT_DATA } from "~/data";
+import { SCHOOL_MANAGEMENT_DATA } from "~/data/schoolData";
 import type { ISchool } from "~/types";
 
 const parseDate = (dateStr: string): Date => {
@@ -21,7 +21,7 @@ const TableRow = ({ item }: { item: ISchool }) => {
   const navigate = useNavigate();
 
   return (
-    <tr className="text-[clamp(11px,1.2vw,14px)] text-[#373737] font-medium ">
+    <tr className="text-[clamp(11px,1.2vw,14px)] text-[#373737] font-medium">
       <td
         onClick={() => navigate(`/school-management/${item.schoolId}`)}
         className="py-3 px-4 w-44 md:w-52 border-y border-l border-[#D5D5D5] rounded-l-[15px] text-[#067890] text-[clamp(13px,1.4vw,16px)] cursor-pointer"
@@ -95,7 +95,7 @@ const TableRow = ({ item }: { item: ISchool }) => {
           >
             <div className="flex items-center gap-1 mb-2">
               <RightIcon className="h-3.5 w-3.5 " />
-              <p className="text-[clamp(11px,1.2vw,14px)] font-medium text-[#373737] ">
+              <p className="text-[clamp(11px,1.2vw,14px)] font-medium text-[#373737]">
                 Custom website
               </p>
             </div>

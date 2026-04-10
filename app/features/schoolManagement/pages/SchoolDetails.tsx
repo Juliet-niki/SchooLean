@@ -12,7 +12,6 @@ import {
   LocationIcon,
   Mail2Icon,
   MegaPhone2Icon,
-  MoreIcon,
   NoFillPersonIcon,
   Parents2Icon,
   PhoneIcon,
@@ -23,29 +22,37 @@ import {
 } from "~/assets/icons";
 import { Button } from "~/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "~/components/ui/dialog";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "~/components/ui/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { SCHOOL_MANAGEMENT_DATA } from "~/data";
+import { SCHOOL_MANAGEMENT_DATA } from "~/data/schoolData";
 import type { ISchool } from "~/types";
 import { CapitalizeFirstLetter } from "~/utils/formatText";
-import SchoolAdminTab from "../components/SchoolAdminTab";
-import TeacherStaffTab from "../components/TeacherStaffTab";
-import StudentTab from "../components/StudentTab";
-import ParentTab from "../components/ParentTab";
-import ReportCardTab from "../components/ReportCardTab";
-import FeesPaymentTab from "../components/FeesPaymentTab";
-import ActivityLogTab from "../components/ActivityLogTab";
+import SchoolAdminTab from "../components/TabContents.tsx/SchoolAdminTab";
+import TeacherStaffTab from "../components/TabContents.tsx/TeacherStaffTab";
+import StudentTab from "../components/TabContents.tsx/StudentTab";
+import ParentTab from "../components/TabContents.tsx/ParentTab";
+import ReportCardTab from "../components/TabContents.tsx/ReportCardTab";
+import FeesPaymentTab from "../components/TabContents.tsx/FeesPaymentTab";
+import ActivityLogTab from "../components/TabContents.tsx/ActivityLogTab";
+import AdminToolsTab from "../components/TabContents.tsx/AdminToolsTab";
+import SchoolCustomWebsite from "../components/SchoolCustomWebsite";
+
+interface SectionDispaly {
+  schoolCustomWebsite: boolean;
+  schoolDetailsTab: boolean;
+}
 
 const SchoolDetails = () => {
   const [school, setSchool] = useState<ISchool | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isSuspend, setIsSuspend] = useState<"ACTIVE" | "SUSPENDED">("ACTIVE");
+  const [sectionDisplay, setSectionDisplay] = useState<SectionDispaly>({
+    schoolCustomWebsite: false,
+    schoolDetailsTab: true,
+  });
 
-  const modalActionLabel = useRef<"Enable" | "Disable">("Disable");
+  const modalActionLabel = useRef<
+    "activate this school" | "suspend this school"
+  >("suspend this school");
 
   const params = useParams();
   const navigate = useNavigate();
@@ -89,7 +96,10 @@ const SchoolDetails = () => {
   };
 
   const handleOpenModal = () => {
-    modalActionLabel.current = isSuspend === "SUSPENDED" ? "Enable" : "Disable";
+    modalActionLabel.current =
+      isSuspend === "SUSPENDED"
+        ? "activate this school"
+        : "suspend this school";
     setIsOpen(true);
   };
 
@@ -97,6 +107,7 @@ const SchoolDetails = () => {
     setIsSuspend((prev) => (prev === "ACTIVE" ? "SUSPENDED" : "ACTIVE"));
     setIsOpen(false);
   };
+
   return (
     <div className="py-4 ml:py-7 font-medium">
       <Button
@@ -137,7 +148,7 @@ const SchoolDetails = () => {
               key={index}
             >
               <item.icon className="w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5" />
-              <p className="text-white font-semibold text-[clamp(10px,1.2vw,14px)]">
+              <p className="text-white text-[clamp(10px,1.2vw,14px)]">
                 {item.text}
               </p>
             </div>
@@ -298,11 +309,21 @@ const SchoolDetails = () => {
           {[
             {
               text: "Edit School Details",
-              onClick: () => {},
+              onClick: () =>
+                setSectionDisplay((prev) => ({
+                  ...prev,
+                  schoolCustomWebsite: false,
+                  schoolDetailsTab: true,
+                })),
             },
             {
               text: "View Custom Website",
-              onClick: () => {},
+              onClick: () =>
+                setSectionDisplay((prev) => ({
+                  ...prev,
+                  schoolDetailsTab: false,
+                  schoolCustomWebsite: true,
+                })),
             },
             {
               text: "View Active Subjects",
@@ -322,112 +343,123 @@ const SchoolDetails = () => {
             },
           ].map((item, index) => (
             <div
-              className="flex items-center gap-2 cursor-pointer  bg-[#0B9E5E] rounded-[6px] lg:rounded-[10px] px-2 md:px-3 py-2"
+              className={`flex items-center gap-2 cursor-pointer rounded-[6px] lg:rounded-[10px] px-2 md:px-3 py-2 ${item.text === "View Custom Website" && sectionDisplay.schoolCustomWebsite ? "bg-[#0EB26B]" : "bg-[#0B653E]"}`}
               onClick={item.onClick}
               key={index}
             >
-              <p className="text-white font-semibold text-[clamp(10px,1.2vw,14px)]">
+              <p className="text-white text-[clamp(10px,1.2vw,14px)]">
                 {item.text}
               </p>
             </div>
           ))}
         </div>
       </div>
-      <div className="mx-4 md:mx-6 mt-5 ">
-        <Tabs defaultValue="schoolAdmin" className="gap-0">
-          <div className="w-full overflow-x-auto hide-scrollbar pb-2 px-1">
-            <TabsList className="w-max gap-2 lg:gap-3 rounded-none bg-transparent ">
-              {[
-                {
-                  key: "1",
-                  value: "schoolAdmin",
-                  label: "School Admins",
-                  icon: AdminIcon,
-                },
-                {
-                  key: "2",
-                  value: "teachers",
-                  label: "Teachers & Staff",
-                  icon: TeacherIcon,
-                },
-                {
-                  key: "3",
-                  value: "students",
-                  label: "Students",
-                  icon: Student2Icon,
-                },
-                {
-                  key: "4",
-                  value: "parents",
-                  label: "Parents",
-                  icon: Parents2Icon,
-                },
-                {
-                  key: "5",
-                  value: "reportCards",
-                  label: "Report Card",
-                  icon: IdCardIcon,
-                },
-                {
-                  key: "6",
-                  value: "fees",
-                  label: "Fees & Payment",
-                  icon: CreditCardIcon,
-                },
-                {
-                  key: "7",
-                  value: "activityLogs",
-                  label: "Activity Logs",
-                  icon: DashedMenuIcon,
-                },
-                {
-                  key: "8",
-                  value: "adminTools",
-                  label: "Admin Tools",
-                  icon: GearIcon,
-                },
-              ].map((item) => (
-                <TabsTrigger
-                  key={item.key}
-                  value={item.value}
-                  className="data-[state=active]:bg-transparent data-[state=active]:shadow-none border-b-0 data-[state=active]:border-b-4 data-[state=active]:border-[#0B653E] data-[state=active]:rounded-none text-[#4E4E4E] data-[state=active]:text-[#4E4E4E] text-[clamp(10px,1.4vw,16px)] py-5 px-0 [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 ml:[&_svg:not([class*='size-'])]:size-5"
-                >
-                  <div className="flex items-center gap-2 bg-white px-2 py-2 rounded-[7px] ">
-                    <item.icon className="w-4 h-4" fill="#000" stroke="#000" />
-                    <p>{item.label}</p>
-                  </div>
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </div>
-          <div className="py-8 bg-white rounded-t-[13px]">
-            <TabsContent value="schoolAdmin">
-              <SchoolAdminTab school={school} />
-            </TabsContent>
-            <TabsContent value="teachers">
-              <TeacherStaffTab school={school} />
-            </TabsContent>
-            <TabsContent value="students">
-              <StudentTab school={school} />
-            </TabsContent>
-            <TabsContent value="parents">
-              <ParentTab school={school} />
-            </TabsContent>
-            <TabsContent value="reportCards">
-              <ReportCardTab school={school} />
-            </TabsContent>
-            <TabsContent value="fees">
-              <FeesPaymentTab school={school} />
-            </TabsContent>
-            <TabsContent value="activityLogs">
-              <ActivityLogTab school={school} />
-            </TabsContent>
-            <TabsContent value="adminTools">
-              <p> admin tools</p>
-            </TabsContent>
-          </div>
-        </Tabs>
-      </div>
+      {sectionDisplay.schoolDetailsTab && (
+        <div className="mx-4 md:mx-6 mt-5 ">
+          <Tabs defaultValue="schoolAdmin" className="gap-0">
+            <div className="w-full overflow-x-auto hide-scrollbar pb-2 pt-1 px-1">
+              <TabsList className="w-max gap-2 lg:gap-3 rounded-none bg-transparent">
+                {[
+                  {
+                    key: "1",
+                    value: "schoolAdmin",
+                    label: "School Admins",
+                    icon: AdminIcon,
+                  },
+                  {
+                    key: "2",
+                    value: "teachers",
+                    label: "Teachers & Staff",
+                    icon: TeacherIcon,
+                  },
+                  {
+                    key: "3",
+                    value: "students",
+                    label: "Students",
+                    icon: Student2Icon,
+                  },
+                  {
+                    key: "4",
+                    value: "parents",
+                    label: "Parents",
+                    icon: Parents2Icon,
+                  },
+                  {
+                    key: "5",
+                    value: "reportCards",
+                    label: "Report Card",
+                    icon: IdCardIcon,
+                  },
+                  {
+                    key: "6",
+                    value: "fees",
+                    label: "Fees & Payment",
+                    icon: CreditCardIcon,
+                  },
+                  {
+                    key: "7",
+                    value: "activityLogs",
+                    label: "Activity Logs",
+                    icon: DashedMenuIcon,
+                  },
+                  {
+                    key: "8",
+                    value: "adminTools",
+                    label: "Admin Tools",
+                    icon: GearIcon,
+                  },
+                ].map((item) => (
+                  <TabsTrigger
+                    key={item.key}
+                    value={item.value}
+                    className="data-[state=active]:bg-transparent data-[state=active]:shadow-none border-b-0 data-[state=active]:border-b-4 data-[state=active]:border-[#0B653E] data-[state=active]:rounded-none text-[#4E4E4E] data-[state=active]:text-[#4E4E4E] text-[clamp(10px,1.4vw,16px)] py-5 px-0 [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 ml:[&_svg:not([class*='size-'])]:size-5"
+                  >
+                    <div className="flex items-center gap-2 bg-white px-2 py-2 rounded-[7px] ">
+                      <item.icon
+                        className="w-4 h-4"
+                        fill="#000"
+                        stroke="#000"
+                      />
+                      <p>{item.label}</p>
+                    </div>
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
+            <div className="py-8 bg-white rounded-t-[13px]">
+              <TabsContent value="schoolAdmin">
+                <SchoolAdminTab school={school} />
+              </TabsContent>
+              <TabsContent value="teachers">
+                <TeacherStaffTab school={school} />
+              </TabsContent>
+              <TabsContent value="students">
+                <StudentTab school={school} />
+              </TabsContent>
+              <TabsContent value="parents">
+                <ParentTab school={school} />
+              </TabsContent>
+              <TabsContent value="reportCards">
+                <ReportCardTab school={school} />
+              </TabsContent>
+              <TabsContent value="fees">
+                <FeesPaymentTab school={school} />
+              </TabsContent>
+              <TabsContent value="activityLogs">
+                <ActivityLogTab school={school} />
+              </TabsContent>
+              <TabsContent value="adminTools">
+                <AdminToolsTab />
+              </TabsContent>
+            </div>
+          </Tabs>
+        </div>
+      )}
+      {sectionDisplay.schoolCustomWebsite && (
+        <div className="mx-4 md:mx-6 mt-5 py-8 bg-white rounded-t-[13px]">
+          <SchoolCustomWebsite school={school} />
+        </div>
+      )}
     </div>
   );
 };

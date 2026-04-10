@@ -1,4 +1,4 @@
-import { CalanderIcon, FilledDownIcon, TrendUpIcon } from "~/assets/icons";
+import { CalendarIcon, FilledDownIcon, TrendUpIcon } from "~/assets/icons";
 import PopoverDropdown from "../../../components/PopoverDropdown";
 import { useMemo, useState } from "react";
 import {
@@ -9,7 +9,7 @@ import {
 import { CalendarRange } from "~/components/ui/caladerRange";
 import type { DateRange } from "react-day-picker";
 import { addDays, format } from "date-fns";
-import { SCHOOL_ANALYTICS_DATA } from "~/data";
+import { SCHOOL_ANALYTICS_DATA } from "~/data/schoolData";
 import SchoolChart from "./SchoolChart";
 
 // Trends
@@ -112,7 +112,7 @@ const SchoolGrowthLineChart = () => {
             <Popover>
               <PopoverTrigger asChild>
                 <button type="button" className="cursor-pointer">
-                  <CalanderIcon className="w-4 h-4 lg:w-6 lg:h-6" />
+                  <CalendarIcon className="w-4 h-4 lg:w-6 lg:h-6" />
                 </button>
               </PopoverTrigger>
               <PopoverContent className="w-fit p-0 border-0 rounded-md">

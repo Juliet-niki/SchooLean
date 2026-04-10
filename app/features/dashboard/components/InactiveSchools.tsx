@@ -1,6 +1,6 @@
 import { LeftIcon, MailIcon, PhoneIcon } from "~/assets/icons";
 import { Button } from "~/components/ui/button";
-import { INACTIVE_SCHOOLS_DATA } from "~/data";
+import { INACTIVE_SCHOOLS_DATA } from "~/data/schoolData";
 
 const InactiveSchools = ({ onBack }: { onBack?: () => void }) => {
   return (

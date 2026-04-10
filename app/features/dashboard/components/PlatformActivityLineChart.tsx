@@ -1,7 +1,7 @@
 import { FilledDownIcon } from "~/assets/icons";
 import PopoverDropdown from "../../../components/PopoverDropdown";
 import { useMemo, useState } from "react";
-import { PLATFORM_ACTIVITY_DATA } from "~/data";
+import { PLATFORM_ACTIVITY_DATA } from "~/data/schoolData";
 import PlatformChart from "./PlatformChart";
 
 export const usersMeta = [

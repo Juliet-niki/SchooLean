@@ -154,7 +154,7 @@ const ParentTab = ({ school }: { school: ISchool }) => {
         />
       </div>
       <div className="px-4">
-        <div className="shadow-md shadow-[#0000001A] rounded-[15px]  overflow-x-auto hide-scrollbar">
+        <div className="shadow-md shadow-[#0000001A] rounded-[15px] overflow-x-auto hide-scrollbar">
           <table className="w-full border-collapse">
             <thead className="sticky top-0 z-10 text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] text-nowrap">
               <tr>
