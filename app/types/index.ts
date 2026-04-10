@@ -177,6 +177,30 @@ export interface IActivityLog {
   summary: IActivitySummary;
   logs: IActivityLogItem[];
 }
+
+export interface IWebsitePages {
+  name: string;
+  url: string;
+  status: "ACTIVE" | "DRAFT";
+  lastUpdated: string;
+}
+
+export interface ICustomWebsite {
+  status: "ACTIVE" | "INACTIVE";
+  domain: string;
+  numberOfPages: number;
+  totalVisitors: number;
+  visitorsOverview: {
+    todayVisitors: number;
+    thisMonthVisitors: number;
+  };
+  weeklyVisitors: {
+    day: string;
+    visitors: number;
+  }[];
+  websitePages: IWebsitePages[];
+}
+
 export interface ISchool {
   id: string;
   schoolId: string;
@@ -213,4 +237,5 @@ export interface ISchool {
   subjects: ISubject[];
   feesPayment: IFeesPayment;
   activityLog: IActivityLog;
+  customWebsite: ICustomWebsite;
 }
