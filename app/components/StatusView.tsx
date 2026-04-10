@@ -65,7 +65,7 @@ const StatusView = ({
   purple,
   styleOption = false,
   disable = false,
-  classStyleName = "leading-[13px] flex justify-center items-center rounded-[7px] py-1 px-4",
+  classStyleName = "leading-[13px] flex justify-center items-center rounded-[7px] py-1 px-4 text-white",
 }: StatusProps) => {
   let colorString: string;
   switch (status) {
@@ -115,7 +115,7 @@ const StatusView = ({
       }`}
     >
       <div
-        className={`text-[clamp(10px,1.2vw,14px)] font-medium text-white ${classStyleName} ${colorString} ${classText}`}
+        className={`text-[clamp(10px,1.2vw,14px)] font-medium ${classStyleName} ${colorString} ${classText}`}
       >
         <span>{icon}</span>
         {status}
