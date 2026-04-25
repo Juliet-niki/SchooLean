@@ -239,3 +239,14 @@ export interface ISchool {
   activityLog: IActivityLog;
   customWebsite: ICustomWebsite;
 }
+
+export interface IAdminActivityLog {
+  logId: number;
+  action: string;
+  actionIcon: string;
+  adminName: string;
+  adminProfilePic: string | null;
+  timestamp: string;
+  reason: string;
+  ipAddress: string;
+}

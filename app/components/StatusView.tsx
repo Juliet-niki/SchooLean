@@ -115,7 +115,7 @@ const StatusView = ({
       }`}
     >
       <div
-        className={`text-[clamp(10px,1.2vw,14px)] font-medium ${classStyleName} ${colorString} ${classText}`}
+        className={`text-[clamp(10px,1.2vw,14px)] text-white font-medium ${classStyleName} ${colorString} ${classText}`}
       >
         <span>{icon}</span>
         {status}
