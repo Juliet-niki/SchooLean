@@ -173,7 +173,7 @@ const ReportCardTab = ({ school }: { school: ISchool }) => {
       <div className="flex flex-col divide-y divide-[#E4E4E4] gap-6">
         <div className="flex flex-col divide-y divide-[#E4E4E4] pb-6">
           {/* Filters */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 sm:gap-4 px-4 pb-2">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 px-4 pb-2">
             <div>
               <h2 className="text-[#4E4E4E] text-[clamp(15px,1.8vw,20px)] font-bold leading-tight pb-4 ml:pb-6">
                 Report Cards & Academics
@@ -183,7 +183,7 @@ const ReportCardTab = ({ school }: { school: ISchool }) => {
                   setSearchText(text);
                   setCurrentPage(1);
                 }}
-                className="border-[#D5D5D5] h-10 w-60 md:w-80 ml-auto"
+                className="border-[#D5D5D5] h-10 w-60 md:w-80"
                 placeholder="Search by student name or class"
               />
             </div>
@@ -218,54 +218,63 @@ const ReportCardTab = ({ school }: { school: ISchool }) => {
           </div>
 
           {/*Report Cards & Academics Table */}
-          <div className="shadow-md shadow-[#0000001A] rounded-[15px] mx-4 md:mx-6 pt-2 overflow-x-auto hide-scrollbar">
-            <table className="w-full border-collapse">
-              <thead className="sticky top-0 z-10 text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] text-nowrap">
-                <tr>
-                  {[
-                    "Name",
-                    "Generated On",
-                    "Average Grade",
-                    "Status",
-                    "Actions",
-                  ].map((col, index, arr) => (
-                    <th
-                      key={col}
-                      className={`py-3 px-4 text-center font-bold bg-[#E6F7F0]
+          <div className="shadow-md shadow-[#0000001A] rounded-[15px] mx-4 md:mx-6 pt-2">
+            <div className="rounded-t-[15px] overflow-x-auto hide-scrollbar">
+              <table className="w-full min-w-[700px] border-collapse table-fixed">
+                <colgroup>
+                  <col style={{ width: "28%" }} />
+                  <col style={{ width: "18%" }} />
+                  <col style={{ width: "18%" }} />
+                  <col style={{ width: "22%" }} />
+                  <col style={{ width: "14%" }} />
+                </colgroup>
+                <thead className="sticky top-0 z-10 text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] text-nowrap">
+                  <tr>
+                    {[
+                      "Name",
+                      "Generated On",
+                      "Average Grade",
+                      "Status",
+                      "Actions",
+                    ].map((col, index, arr) => (
+                      <th
+                        key={col}
+                        className={`py-3 px-4 text-center font-bold bg-[#E6F7F0]
                       ${index === 0 ? "rounded-tl-[15px] text-start" : ""}
                       ${index === 1 ? "lg:px-8" : ""}
                       ${index === 2 ? "lg:px-8" : ""}
                       ${index === arr.length - 1 ? "rounded-tr-[15px] " : ""}
                     `}
-                    >
-                      {col}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-
-              <tbody>
-                {paginatedData.length > 0 ? (
-                  paginatedData.map((reportCard) => (
-                    <TableRow
-                      key={reportCard.reportCardId}
-                      reportCard={reportCard}
-                      studentMap={studentMap}
-                      onViewReportCard={setSelectedReportCardId}
-                    />
-                  ))
-                ) : (
-                  <tr>
-                    <td
-                      colSpan={5}
-                      className="py-10 text-center text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)]"
-                    >
-                      No Report Card found.
-                    </td>
+                      >
+                        {col}
+                      </th>
+                    ))}
                   </tr>
-                )}
-              </tbody>
-            </table>
+                </thead>
+
+                <tbody>
+                  {paginatedData.length > 0 ? (
+                    paginatedData.map((reportCard) => (
+                      <TableRow
+                        key={reportCard.reportCardId}
+                        reportCard={reportCard}
+                        studentMap={studentMap}
+                        onViewReportCard={setSelectedReportCardId}
+                      />
+                    ))
+                  ) : (
+                    <tr>
+                      <td
+                        colSpan={5}
+                        className="py-10 text-center text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)]"
+                      >
+                        No Report Card found.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
             <div className="py-5">
               <TablePagination
                 currentPage={currentPage}
@@ -283,52 +292,54 @@ const ReportCardTab = ({ school }: { school: ISchool }) => {
               Grading System
             </h2>
             <div className="-mx-3 md:-mx-6 ml:-mx-14 lg:-mx-20 -my-3">
-              <table className="w-full border-separate border-spacing-x-3 md:border-spacing-x-6 ml:border-spacing-x-14 lg:border-spacing-x-20 border-spacing-y-3">
-                <thead className="sticky top-0 z-10 text-[clamp(14px,1.8vw,20px)] text-[#4E4E4E]">
-                  <tr className="">
-                    {[
-                      "Grade",
-                      "Minimum Score",
-                      "Maximum Score",
-                      "Remarks",
-                      "GPA (5.0 Scale)",
-                    ].map((col) => (
-                      <th
-                        key={col}
-                        className={`py-3 px-2 md:px-4 text-center font-semibold bg-[#E6F7F0]
+              <div className="overflow-x-auto hide-scrollbar">
+                <table className="w-full min-w-[600px] border-separate border-spacing-x-3 md:border-spacing-x-6 ml:border-spacing-x-14 lg:border-spacing-x-20 border-spacing-y-3">
+                  <thead className="sticky top-0 z-10 text-[clamp(14px,1.8vw,20px)] text-[#4E4E4E]">
+                    <tr className="">
+                      {[
+                        "Grade",
+                        "Minimum Score",
+                        "Maximum Score",
+                        "Remarks",
+                        "GPA (5.0 Scale)",
+                      ].map((col) => (
+                        <th
+                          key={col}
+                          className={`py-3 px-2 md:px-4 text-center font-semibold bg-[#E6F7F0]
                     border-2 border-[#545454]`}
-                      >
-                        {col}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {GRADING_SYSTEM.map((grade, index) => (
-                    <tr
-                      key={index}
-                      className="text-[clamp(16px,1.9vw,20px)] text-[#4E4E4E] font-semibold "
-                    >
-                      <td className="py-4 px-2 md:px-4 text-center border-2 border-[#545454]">
-                        {grade.grade}
-                      </td>
-                      <td className="py-4 px-2 md:px-4 text-center border-2 border-[#545454]">
-                        {grade.minScore}
-                      </td>
-                      <td className="py-4 px-2 md:px-4 text-center border-2 border-[#545454]">
-                        {grade.maxScore}
-                      </td>
-                      <td className="py-4 px-2 md:px-4 text-center border-2 border-[#545454]">
-                        {grade.remark}
-                      </td>
-                      <td className="py-4 px-2 md:px-4 text-center border-2 border-[#545454]">
-                        {grade.gpaScale}
-                      </td>
+                        >
+                          {col}
+                        </th>
+                      ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+
+                  <tbody>
+                    {GRADING_SYSTEM.map((grade, index) => (
+                      <tr
+                        key={index}
+                        className="text-[clamp(16px,1.9vw,20px)] text-[#4E4E4E] font-semibold "
+                      >
+                        <td className="py-4 px-2 md:px-4 text-center border-2 border-[#545454]">
+                          {grade.grade}
+                        </td>
+                        <td className="py-4 px-2 md:px-4 text-center border-2 border-[#545454]">
+                          {grade.minScore}
+                        </td>
+                        <td className="py-4 px-2 md:px-4 text-center border-2 border-[#545454]">
+                          {grade.maxScore}
+                        </td>
+                        <td className="py-4 px-2 md:px-4 text-center border-2 border-[#545454]">
+                          {grade.remark}
+                        </td>
+                        <td className="py-4 px-2 md:px-4 text-center border-2 border-[#545454]">
+                          {grade.gpaScale}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -365,14 +376,14 @@ const ReportCardTab = ({ school }: { school: ISchool }) => {
                       )}
                     </h4>
 
-                    <ul className="grid grid-cols-2 ml:grid-cols-3 gap-2 gap-x-6 ml:gap-x-10 mt-2">
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 ml:grid-cols-3 gap-2 gap-x-6 ml:gap-x-10 mt-2">
                       {section.coreSubjects.map((subject, i) => (
                         <li key={i}>{subject}</li>
                       ))}
                     </ul>
                   </div>
                   <div
-                    className={`grid ${section.NAPPSSchemeofWorkSubjects.length > 0 ? "grid-cols-[1fr_2fr] gap-5 ml:gap-10 " : ""}`}
+                    className={`grid ${section.NAPPSSchemeofWorkSubjects.length > 0 ? "grid-cols-1 sm:grid-cols-[1fr_2fr] gap-5 ml:gap-10 " : ""}`}
                   >
                     {/* NAPPS */}
                     {section.NAPPSSchemeofWorkSubjects.length > 0 && (
@@ -394,15 +405,17 @@ const ReportCardTab = ({ school }: { school: ISchool }) => {
                     {section.optionalEnrichmentSubjects.length > 0 && (
                       <div>
                         <h4 className="font-semibold text-[#3D3D3F] text-[clamp(15px,1.6vw,18px)]">
-                          Optional Subjects
+                          Optional / Enrichment Subjects
                         </h4>
-                        <ul className="grid grid-cols-2 gap-2 gap-x-6 ml:gap-x-10 mt-2">
-                          {section.optionalEnrichmentSubjects.map(
-                            (subject, i) => (
-                              <li key={i}>{subject}</li>
-                            ),
-                          )}
-                        </ul>
+                        <div className="grid grid-cols-[1fr_1fr_auto] ml:grid-cols-[1fr_1fr_1fr] gap-5 ml:gap-10">
+                          <ul className="col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-2 gap-x-6 ml:gap-x-10 mt-2">
+                            {section.optionalEnrichmentSubjects.map(
+                              (subject, i) => (
+                                <li key={i}>{subject}</li>
+                              ),
+                            )}
+                          </ul>
+                        </div>
                       </div>
                     )}
                   </div>

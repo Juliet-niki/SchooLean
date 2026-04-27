@@ -15,15 +15,17 @@ const TableRow = ({ teacher }: { teacher: ITeacher }) => {
     <tr className="text-[clamp(12px,1.4vw,16px)] text-[#373737] font-medium border-b last:border-none border-[#EBEBEB]">
       <td className="py-3 px-4">
         <div className="flex items-center gap-3">
-          {teacher.profilePic ? (
-            <img
-              src={teacher.profilePic}
-              alt={teacher.name}
-              className="w-10 h-10 rounded-full object-cover"
-            />
-          ) : (
-            <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-[#D9D9D9]" />
-          )}
+          <div>
+            {teacher.profilePic ? (
+              <img
+                src={teacher.profilePic}
+                alt={teacher.name}
+                className="w-10 h-10 rounded-full object-cover"
+              />
+            ) : (
+              <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-[#D9D9D9]" />
+            )}
+          </div>
           <div>
             <p className="font-bold mb-1">{teacher.name}</p>
             <p className="text-[clamp(11px,1.1vw,13px)] font-semibold">
@@ -101,48 +103,57 @@ const TeacherStaffTab = ({ school }: { school: ISchool }) => {
       <h2 className="text-[#4E4E4E] text-[clamp(15px,1.8vw,20px)] font-bold leading-tight px-4 ml:px-6 pb-2 ml:pb-4">
         Teachers & Staff
       </h2>
-      <div className="mx-4 ml:mx-6 border border-[#F3F3F3] shadow-md shadow-[#0000001A] rounded-[15px] space-y-5 pb-5 overflow-x-auto hide-scrollbar">
-        <table className="w-full border-collapse">
-          <thead className="sticky top-0 z-10 text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] text-nowrap">
-            <tr>
-              {[
-                "Name & Email",
-                "Assigned Subjects",
-                "Assigned Classes",
-                "Status",
-                "Actions",
-              ].map((col, index, arr) => (
-                <th
-                  key={col}
-                  className={`py-3 px-4 text-center font-bold bg-[#E6F7F0]
+      <div className="mx-4 ml:mx-6 border border-[#F3F3F3] shadow-md shadow-[#0000001A] rounded-[15px] space-y-5 pb-5">
+        <div className="rounded-t-[15px] overflow-x-auto hide-scrollbar">
+          <table className="w-full min-w-[800px] border-collapse table-fixed">
+            <colgroup>
+              <col style={{ width: "33%" }} />
+              <col style={{ width: "19%" }} />
+              <col style={{ width: "19%" }} />
+              <col style={{ width: "16%" }} />
+              <col style={{ width: "13%" }} />
+            </colgroup>
+            <thead className="sticky top-0 z-10 text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] text-nowrap">
+              <tr>
+                {[
+                  "Name & Email",
+                  "Assigned Subjects",
+                  "Assigned Classes",
+                  "Status",
+                  "Actions",
+                ].map((col, index, arr) => (
+                  <th
+                    key={col}
+                    className={`py-3 px-4 text-center font-bold bg-[#E6F7F0]
                     ${index === 0 ? "rounded-tl-[15px] text-start" : ""}
                     ${index === 1 ? "text-start" : ""}
                     ${index === arr.length - 1 ? "rounded-tr-[15px]" : ""}
                   `}
-                >
-                  {col}
-                </th>
-              ))}
-            </tr>
-          </thead>
-
-          <tbody>
-            {paginatedData.length > 0 ? (
-              paginatedData.map((teacher) => (
-                <TableRow key={teacher.teacherId} teacher={teacher} />
-              ))
-            ) : (
-              <tr>
-                <td
-                  colSpan={5}
-                  className="py-10 text-center text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)]"
-                >
-                  No teachers found.
-                </td>
+                  >
+                    {col}
+                  </th>
+                ))}
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {paginatedData.length > 0 ? (
+                paginatedData.map((teacher) => (
+                  <TableRow key={teacher.teacherId} teacher={teacher} />
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan={5}
+                    className="py-10 text-center text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)]"
+                  >
+                    No teachers found.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
         <div>
           <TablePagination
             currentPage={currentPage}

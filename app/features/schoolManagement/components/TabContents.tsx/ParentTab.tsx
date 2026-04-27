@@ -15,42 +15,41 @@ const TableRow = ({ parent, school }: { parent: IParent; school: ISchool }) => {
     <tr className="text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] font-medium border-b border-[#EBEBEB]">
       <td className="py-3 px-4">
         <div className="flex items-center gap-3">
-          {parent.profilePic ? (
-            <img
-              src={parent.profilePic}
-              alt={parent.name}
-              className="w-10 h-10 rounded-full object-cover"
-            />
-          ) : (
-            <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-[#D9D9D9]" />
-          )}
-
-          <p className="font-bold w-32 md:w-36 lg:w-44">{parent.name}</p>
+          <div>
+            {parent.profilePic ? (
+              <img
+                src={parent.profilePic}
+                alt={parent.name}
+                className="w-10 h-10 rounded-full object-cover"
+              />
+            ) : (
+              <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-[#D9D9D9]" />
+            )}
+          </div>
+          <p className="font-bold">{parent.name}</p>
         </div>
       </td>
       <td className="py-3 px-4 lg:px-8 border-x border-[#EBEBEB]">
-        <div className="w-44 md:w-full">
-          <div className="flex flex-col gap-2 w-full md:w-[90%] xl:w-[80%] ">
-            {parent.linkedChildren.map((child) => {
-              const student = school.students.find(
-                (s) => s.studentId === child.studentId,
-              );
+        <div className="flex flex-col gap-2 w-full">
+          {parent.linkedChildren.map((child) => {
+            const student = school.students.find(
+              (s) => s.studentId === child.studentId,
+            );
 
-              if (!student) return null;
+            if (!student) return null;
 
-              return (
-                <div
-                  key={student.studentId}
-                  className="grid grid-cols-[2.2fr_1fr] gap-4 items-center"
-                >
-                  <p>{student.name}</p>
-                  <p>
-                    {student.class} {student.classArm}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
+            return (
+              <div
+                key={student.studentId}
+                className="grid grid-cols-[2.2fr_1fr] md:grid-cols-[2.4fr_0.8fr] gap-4 items-center"
+              >
+                <p>{student.name}</p>
+                <p>
+                  {student.class} {student.classArm}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </td>
       <td className="py-3 px-4 lg:px-8 border-x border-[#EBEBEB]">
@@ -155,7 +154,13 @@ const ParentTab = ({ school }: { school: ISchool }) => {
       </div>
       <div className="px-4">
         <div className="shadow-md shadow-[#0000001A] rounded-[15px] overflow-x-auto hide-scrollbar">
-          <table className="w-full border-collapse">
+          <table className="w-full min-w-[700px] border-collapse table-fixed ">
+            <colgroup>
+              <col style={{ width: "33%" }} />
+              <col style={{ width: "33%" }} />
+              <col style={{ width: "22%" }} />
+              <col style={{ width: "12%" }} />
+            </colgroup>
             <thead className="sticky top-0 z-10 text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] text-nowrap">
               <tr>
                 {["Name", "Linked Children", "Login Activity", "Actions"].map(

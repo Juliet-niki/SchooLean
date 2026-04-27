@@ -30,7 +30,8 @@ const TableRow = ({ item }: { item: ISchool }) => {
       </td>
       <td className="py-3 px-4 border-y border-[#D5D5D5]">{item.schoolId}</td>
       <td className="py-3 px-4 w-36 md:w-44 border-y border-[#D5D5D5] text-wrap">
-        {item.location.city} {item.location.state} {item.location.country}
+        {item.location.city}, {item.location.state} state,{" "}
+        {item.location.country}
       </td>
       <td className="py-2 px-3 border-y border-[#D5D5D5]">
         <div className="w-24">
@@ -40,7 +41,7 @@ const TableRow = ({ item }: { item: ISchool }) => {
             status={
               item.plan === "PREMIUM"
                 ? "Premium"
-                : item.plan === "FREE TRIAL"
+                : item.plan === "FREE_TRIAL"
                   ? "Free Trial"
                   : "Standard"
             }
@@ -233,50 +234,54 @@ const SchoolTable = ({
   );
 
   return (
-    <div>
-      <table className="w-full border-separate border-spacing-y-3">
-        <thead className="sticky top-0 z-10 rounded-[15px] bg-[#0B653E] border border-[#D5D5D5] text-[clamp(12px,1.2vw,14px)] text-white text-nowrap">
-          <tr>
-            {[
-              "School Name",
-              "School ID",
-              "Location",
-              "Plan",
-              "Status",
-              "Total Stu.",
-              "Total Stf.",
-              "Total Parents",
-              "Date Joined",
-              "Last Activity",
-              "Action",
-            ].map((item, index, arr) => (
-              <th
-                key={index}
-                className={`py-3 px-4 font-normal text-start bg-[#0B653E]
+    <div className="overflow-x-auto hide-scrollbar">
+      <div className="w-max">
+        <table className="w-full border-separate border-spacing-y-3">
+          <thead className="sticky top-0 z-10 rounded-[15px] bg-[#0B653E] border border-[#D5D5D5] text-[clamp(12px,1.2vw,14px)] text-white text-nowrap">
+            <tr>
+              {[
+                "School Name",
+                "School ID",
+                "Location",
+                "Plan",
+                "Status",
+                "Total Stu.",
+                "Total Stf.",
+                "Total Parents",
+                "Date Joined",
+                "Last Activity",
+                "Action",
+              ].map((item, index, arr) => (
+                <th
+                  key={index}
+                  className={`py-3 px-4 font-normal text-start bg-[#0B653E]
             ${index === 0 ? "rounded-l-[15px]" : ""}
             ${index === arr.length - 1 ? "rounded-r-[15px]" : ""}
           `}
-              >
-                {item}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedData.length > 0 ? (
-            paginatedData.map((item) => <TableRow key={item.id} item={item} />)
-          ) : (
-            <tr>
-              <td
-                colSpan={11}
-                className="py-10 text-center text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)]"
-              >
-                No schools match the selected filters.
-              </td>
+                >
+                  {item}
+                </th>
+              ))}
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {paginatedData.length > 0 ? (
+              paginatedData.map((item) => (
+                <TableRow key={item.id} item={item} />
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan={11}
+                  className="py-10 text-center text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)]"
+                >
+                  No schools match the selected filters.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
       <TablePagination
         currentPage={currentPage}
         totalPages={totalPages}

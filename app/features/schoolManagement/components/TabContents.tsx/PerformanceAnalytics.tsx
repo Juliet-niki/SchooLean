@@ -120,7 +120,7 @@ const PerformanceAnalytics = ({
       </h2>
 
       {/* Stats Row */}
-      <div className="border border-[#E9E9E9] shadow-md shadow-[#0000001A] rounded-[13px] flex items-stretch md:justify-center flex-wrap gap-5 lg:gap-10 px-4 py-4">
+      <div className="border border-[#E9E9E9] shadow-md shadow-[#0000001A] rounded-[13px] grid grid-cols-1 sm:flex items-stretch sm:justify-center flex-wrap gap-3 sm:gap-5 lg:gap-10 px-4 py-4">
         {[
           {
             icon: TrendIcon,
@@ -154,7 +154,7 @@ const PerformanceAnalytics = ({
         ].map((stat, index) => (
           <div
             key={index}
-            className="flex flex-col items-center justify-center gap-1 py-1 px-2 lg:px-4 text-[#4E4E4E] font-semibold border border-[#CFCFCF] rounded-[7px]"
+            className="flex flex-col items-center justify-center gap-1 py-2 px-2 lg:px-4 text-[#4E4E4E] font-semibold border border-[#CFCFCF] rounded-[7px]"
           >
             <div className="flex items-center gap-1.5 lg:gap-2 text-[clamp(12px,1.3vw,15px)]">
               <stat.icon className="w-4 h-4" />
@@ -274,7 +274,7 @@ const PerformanceAnalytics = ({
                     label={item.subject}
                     value={item.average}
                     color={getBarColor(item.average)}
-                    labelClassName="w-28"
+                    labelClassName="w-24 sm:w-28"
                   />
                 ))}
               </div>

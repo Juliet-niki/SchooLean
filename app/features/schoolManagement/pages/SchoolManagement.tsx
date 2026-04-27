@@ -23,7 +23,7 @@ const SchoolManagement = () => {
         </p>
       </div>
       <div className="w-full overflow-x-auto hide-scrollbar pb-2 px-1">
-        <div className="border border-[#D5D5D5] shadow-md shadow-[#00000040] rounded-[15px] px-2.5 md:px-4 lg:px-6 py-2 md:py-3 lg::py-4 mt-8 w-fit ml-auto">
+        <div className="border border-[#D5D5D5] shadow-md shadow-[#00000040] rounded-[15px] px-2.5 md:px-4 lg:px-6 py-2 md:py-3 lg:py-4 mt-8 w-fit ml-auto">
           <FilterBar
             filters={filters}
             onFilterChange={handleFilterChange}
@@ -41,20 +41,18 @@ const SchoolManagement = () => {
             setSearchText(text);
             setCurrentPage(1);
           }}
-          className="border-[#D5D5D5] shadow-sm shadow-[#00000040] h-10 w-110"
+          className="border-[#D5D5D5] shadow-sm shadow-[#00000040] h-10 w-60 md:w-80 lg:w-110"
           placeholder="Search school name, code, admin email, phone no"
         />
       </div>
-      <div className="w-full overflow-x-auto hide-scrollbar pb-2 px-1">
-        <div className="border border-[#D5D5D5] shadow-md shadow-[#0000001A] rounded-4xl px-5 py-2 w-max  mt-5">
-          <SchoolTable
-            filters={filters}
-            searchText={searchText}
-            joinedDate={joinedDate}
-            currentPage={currentPage}
-            onPageChange={setCurrentPage}
-          />
-        </div>
+      <div className="pb-2 border border-[#D5D5D5] shadow-md shadow-[#0000001A] rounded-4xl px-5 py-2 mt-5">
+        <SchoolTable
+          filters={filters}
+          searchText={searchText}
+          joinedDate={joinedDate}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

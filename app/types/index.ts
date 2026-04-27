@@ -98,7 +98,7 @@ export interface ISubject {
 }
 
 export type PaymentStatus = "COMPLETED" | "PENDING" | "FAILED";
-export type PlanType = "PREMIUM" | "FREE TRIAL" | "STANDARD";
+export type PlanType = "PREMIUM" | "FREE_TRIAL" | "STANDARD";
 
 export interface ISubscriptionPlan {
   planName: PlanType;
@@ -212,7 +212,7 @@ export interface ISchool {
     state: string;
     country: string;
   };
-  status: "ACTIVE" | "INACTIVE" | "AT-RISK";
+  status: "ACTIVE" | "INACTIVE" | "AT_RISK";
   plan: PlanType;
   totalStudents: number;
   totalStaff: number;

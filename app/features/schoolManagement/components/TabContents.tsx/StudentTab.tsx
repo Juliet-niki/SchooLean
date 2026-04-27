@@ -28,17 +28,19 @@ const TableRow = ({ student }: { student: IStudent }) => {
     <tr className="text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] font-medium border-b border-[#EBEBEB]">
       <td className="py-3 px-4">
         <div className="flex items-center gap-3">
-          {student.profilePic ? (
-            <img
-              src={student.profilePic}
-              alt={student.name}
-              className="w-10 h-10 rounded-full object-cover"
-            />
-          ) : (
-            <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-[#D9D9D9]" />
-          )}
+          <div>
+            {student.profilePic ? (
+              <img
+                src={student.profilePic}
+                alt={student.name}
+                className="w-10 h-10 rounded-full object-cover"
+              />
+            ) : (
+              <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-[#D9D9D9]" />
+            )}
+          </div>
 
-          <p className="font-bold w-32 md:w-36 lg:w-44">{student.name}</p>
+          <p className="font-bold">{student.name}</p>
         </div>
       </td>
       <td className="py-3 px-4 text-center">
@@ -47,7 +49,7 @@ const TableRow = ({ student }: { student: IStudent }) => {
       <td className="py-3 px-4 text-center">
         {student.gender}, {student.age}
       </td>
-      <td className="py-3 px-4 ">
+      <td className="py-3 px-4">
         <div className="flex items-center gap-2 font-bold">
           <Progress value={planProgress} max={100} className="h-3" />
           {student.attendanceRate}%
@@ -162,10 +164,10 @@ const StudentTab = ({ school }: { school: ISchool }) => {
 
   return (
     <div>
-      <div className="grid lg:grid-cols-[2.1fr_1fr] gap-4 pb-3">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 sm:gap-4  mx-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[2.1fr_1fr] gap-4 pb-3">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mx-4">
           <div>
-            <h2 className="text-[#4E4E4E] text-[clamp(15px,1.8vw,20px)] font-bold leading-tight pb-4 ml:pb-6">
+            <h2 className="text-[#4E4E4E] text-[clamp(15px,1.8vw,20px)] font-bold leading-tight pb-3 ml:pb-6">
               Students
             </h2>
             <SearchInput
@@ -173,7 +175,7 @@ const StudentTab = ({ school }: { school: ISchool }) => {
                 setSearchText(text);
                 setCurrentPage(1);
               }}
-              className="border-[#D5D5D5] h-10 w-60 md:w-80 ml-auto"
+              className="border-[#D5D5D5] h-10 w-60 md:w-80"
               placeholder="Search for name of student "
             />
           </div>
@@ -206,10 +208,17 @@ const StudentTab = ({ school }: { school: ISchool }) => {
           </div>
         </div>
       </div>
-      <div className="grid lg:grid-cols-[1.9fr_1fr] xl:grid-cols-[2.1fr_1fr] gap-4 border-t border-[#DCDADA] text-[#4E4E4E]">
-        <div className="flex flex-col gap-5 overflow-x-auto hide-scrollbar">
-          <div className="pt-2 lg:border-r border-[#DCDADA]">
-            <table className="w-full border-collapse">
+      <div className="grid grid-cols-1 lg:grid-cols-[1.9fr_1fr] xl:grid-cols-[2.1fr_1fr] gap-4 border-t border-[#DCDADA] text-[#4E4E4E]">
+        <div className="flex flex-col gap-5">
+          <div className="pt-2 lg:border-r border-[#DCDADA] overflow-x-auto hide-scrollbar">
+            <table className="w-full min-w-[700px] border-collapse table-fixed ">
+              <colgroup>
+                <col style={{ width: "27%" }} />
+                <col style={{ width: "18%" }} />
+                <col style={{ width: "18%" }} />
+                <col style={{ width: "24%" }} />
+                <col style={{ width: "13%" }} />
+              </colgroup>
               <thead>
                 <tr>
                   {[
@@ -256,7 +265,7 @@ const StudentTab = ({ school }: { school: ISchool }) => {
             />
           </div>
         </div>
-        <div className="flex flex-col md:flex-row lg:flex-col gap-4 mx-4 md:mx-6 lg:mx-0 lg:mr-2 pt-2 text-[clamp(12px,1.4vw,16px)] font-medium">
+        <div className="grid md:grid-cols-2 lg:grid-cols-1 gap-4 md:gap-6 mx-4 md:mx-6 lg:mx-0 lg:mr-2 pt-2 text-[clamp(12px,1.4vw,16px)] font-medium">
           <div className="border border-[#B7B7B7] shadow-md shadow-[#00000040] rounded-[10px] divide-y divide-[#E4E4E4]">
             <div className="px-5 py-6 flex flex-col gap-6">
               <h2 className="font-bold">Attendance Summary</h2>

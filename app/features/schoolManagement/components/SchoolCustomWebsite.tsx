@@ -193,7 +193,14 @@ const SchoolCustomWebsite = ({ school }: { school: ISchool }) => {
               Website Pages
             </h2>
             <div className="rounded-[7px] overflow-x-auto hide-scrollbar  border border-[#CFCFCF]">
-              <table className="w-full border-collapse">
+              <table className="w-full min-w-[700px] border-collapse table-fixed">
+                <colgroup>
+                  <col style={{ width: "26%" }} />
+                  <col style={{ width: "20%" }} />
+                  <col style={{ width: "20%" }} />
+                  <col style={{ width: "20%" }} />
+                  <col style={{ width: "14%" }} />
+                </colgroup>
                 <TableHead
                   columns={[
                     "Page Name",

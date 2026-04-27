@@ -65,7 +65,7 @@ const SchoolPaymentHistoryTableRow = ({
 }) => {
   return (
     <tr className="text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] font-semibold border-b  border-[#EBEBEB]">
-      <td className="py-3 px-4 text-center font-medium text-nowrap">
+      <td className="py-3 px-4 text-center font-medium">
         {formatDate(payment.date)}
       </td>
       <td className="py-3 px-4 text-center border-l border-[#E4E4E4]">
@@ -105,7 +105,7 @@ const SchoolFailedTransactionsTableRow = ({
 }) => {
   return (
     <tr className="text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] font-semibold border-b  border-[#EBEBEB]">
-      <td className="py-3 px-4 text-center font-medium text-nowrap">
+      <td className="py-3 px-4 text-center font-medium">
         {formatDate(transaction.date)}
       </td>
       <td className="py-3 px-4 text-center border-l border-[#E4E4E4]">
@@ -146,10 +146,10 @@ const ParentFeesPaymentTableRow = ({
 
   return (
     <tr className="text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] font-semibold border-b  border-[#EBEBEB]">
-      <td className="py-3 px-4 text-center font-medium text-nowrap">
+      <td className="py-3 px-4 text-center font-medium">
         {formatDate(payment.date)}
       </td>
-      <td className="py-3 px-4 text-center border-l border-[#E4E4E4] text-nowrap">
+      <td className="py-3 px-4 text-center border-l border-[#E4E4E4]">
         {parent.name}
       </td>
       <td className="py-3 px-4 text-center border-x border-[#E4E4E4]">
@@ -318,32 +318,47 @@ const FeesPaymentTab = ({ school }: { school: ISchool }) => {
         <h2 className="text-[clamp(15px,1.8vw,20px)] leading-tight px-4 ml:px-6">
           Payment History
         </h2>
-        <div className="mx-4 ml:mx-6 shadow-md shadow-[#0000001A] rounded-t-[7px] rounded-b-[15px] space-y-5 pb-5 overflow-x-auto hide-scrollbar">
-          <table className="w-full border-collapse">
-            <TableHead
-              columns={["Date", "Reference ID", "Amount", "Status", "Receipt"]}
-            />
+        <div className="mx-4 ml:mx-6 shadow-md shadow-[#0000001A] rounded-t-[7px] rounded-b-[15px] space-y-5 pb-5">
+          <div className="rounded-t-[7px] overflow-x-auto hide-scrollbar">
+            <table className="w-full min-w-[700px] border-collapse table-fixed">
+              <colgroup>
+                <col style={{ width: "16%" }} />
+                <col style={{ width: "24%" }} />
+                <col style={{ width: "20%" }} />
+                <col style={{ width: "20%" }} />
+                <col style={{ width: "20%" }} />
+              </colgroup>
+              <TableHead
+                columns={[
+                  "Date",
+                  "Reference ID",
+                  "Amount",
+                  "Status",
+                  "Receipt",
+                ]}
+              />
 
-            <tbody>
-              {schoolPaymentHistory.paginatedData.length > 0 ? (
-                schoolPaymentHistory.paginatedData.map((payment) => (
-                  <SchoolPaymentHistoryTableRow
-                    key={payment.paymentId}
-                    payment={payment}
-                  />
-                ))
-              ) : (
-                <tr>
-                  <td
-                    colSpan={5}
-                    className="py-10 text-center text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)]"
-                  >
-                    No payments history found.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+              <tbody>
+                {schoolPaymentHistory.paginatedData.length > 0 ? (
+                  schoolPaymentHistory.paginatedData.map((payment) => (
+                    <SchoolPaymentHistoryTableRow
+                      key={payment.paymentId}
+                      payment={payment}
+                    />
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan={5}
+                      className="py-10 text-center text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)]"
+                    >
+                      No payments history found.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
           <div>
             <TablePagination
               currentPage={schoolPaymentHistoryPage}
@@ -359,32 +374,47 @@ const FeesPaymentTab = ({ school }: { school: ISchool }) => {
         <h2 className="text-[clamp(15px,1.8vw,20px)] leading-tight px-4 ml:px-6">
           Failed Transactions
         </h2>
-        <div className="mx-4 ml:mx-6 shadow-md shadow-[#0000001A] rounded-t-[7px] rounded-b-[15px] space-y-5 pb-5  overflow-x-auto hide-scrollbar">
-          <table className="w-full border-collapse">
-            <TableHead
-              columns={["Date", "Reference ID", "Amount", "Receipt", "Action"]}
-            />
+        <div className="mx-4 ml:mx-6 shadow-md shadow-[#0000001A] rounded-t-[7px] rounded-b-[15px] space-y-5 pb-5">
+          <div className="rounded-t-[7px] overflow-x-auto hide-scrollbar">
+            <table className="w-full min-w-[800px] border-collapse table-fixed">
+              <colgroup>
+                <col style={{ width: "16%" }} />
+                <col style={{ width: "24%" }} />
+                <col style={{ width: "18%" }} />
+                <col style={{ width: "22%" }} />
+                <col style={{ width: "20%" }} />
+              </colgroup>
+              <TableHead
+                columns={[
+                  "Date",
+                  "Reference ID",
+                  "Amount",
+                  "Receipt",
+                  "Action",
+                ]}
+              />
 
-            <tbody>
-              {schoolFailedTransactions.paginatedData.length > 0 ? (
-                schoolFailedTransactions.paginatedData.map((transaction) => (
-                  <SchoolFailedTransactionsTableRow
-                    key={transaction.transactionId}
-                    transaction={transaction}
-                  />
-                ))
-              ) : (
-                <tr>
-                  <td
-                    colSpan={5}
-                    className="py-10 text-center text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)]"
-                  >
-                    No failed transactions found.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+              <tbody>
+                {schoolFailedTransactions.paginatedData.length > 0 ? (
+                  schoolFailedTransactions.paginatedData.map((transaction) => (
+                    <SchoolFailedTransactionsTableRow
+                      key={transaction.transactionId}
+                      transaction={transaction}
+                    />
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan={5}
+                      className="py-10 text-center text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)]"
+                    >
+                      No failed transactions found.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
           <div>
             <TablePagination
               currentPage={schoolFailedTransactionPage}
@@ -402,16 +432,20 @@ const FeesPaymentTab = ({ school }: { school: ISchool }) => {
             Fees & Payments{" "}
             <span className="font-medium">(Parents - School)</span>
           </h2>
-          <div className="border border-[#E9E9E9] shadow-md shadow-[#0000001A] rounded-[13px] flex justify-center gap-2 md:gap-4 lg:gap-8 py-4 px-4 flex-wrap">
+          <div className="border border-[#E9E9E9] shadow-md shadow-[#0000001A] rounded-[13px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4 lg:gap-8 py-4 px-4 md:px-8 ml:px-12 lg:px-16">
             {[
               {
-                icon: <FeesIcon className="w-5 h-5 md:w-7 md:h-7" />,
+                icon: (
+                  <FeesIcon className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" />
+                ),
                 label: "Total Fees Collected",
                 value: formatNaira(school.feesPayment.parentTotalFeesCollected),
                 textColor: "#4E4E4E",
               },
               {
-                icon: <PendingPaymentIcon className="w-5 h-5 md:w-7 md:h-7" />,
+                icon: (
+                  <PendingPaymentIcon className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" />
+                ),
                 label: "Pending Payments",
                 value: formatNaira(school.feesPayment.parentPendingPayments),
                 textColor: "#F7B801",
@@ -419,7 +453,7 @@ const FeesPaymentTab = ({ school }: { school: ISchool }) => {
               {
                 icon: (
                   <TriangleAlertIcon
-                    className="w-5 h-5 md:w-7 md:h-7"
+                    className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7"
                     color="#E81E1E"
                   />
                 ),
@@ -430,11 +464,11 @@ const FeesPaymentTab = ({ school }: { school: ISchool }) => {
             ].map((item) => (
               <div
                 key={item.label}
-                className="border border-[#CFCFCF] rounded-[7px] sm:w-44 md:w-56 ml:w-65 lg:w-72 px-2.5 ml:px-5 py-3.5 flex items-start gap-1.5 font-semibold"
+                className="border border-[#CFCFCF] rounded-[7px] px-2.5 ml:px-5 py-3.5 flex items-start gap-1.5 font-semibold"
               >
                 {item.icon}
                 <div>
-                  <p className="text-[clamp(12px,1.6vw,18px)]">{item.label}</p>
+                  <p className="text-[clamp(10px,1.6vw,18px)]">{item.label}</p>
                   <p
                     className="text-[clamp(14px,1.8vw,20px)] text-nowrap"
                     style={{ color: item.textColor }}
@@ -451,33 +485,42 @@ const FeesPaymentTab = ({ school }: { school: ISchool }) => {
           <h2 className="text-[clamp(15px,1.8vw,20px)] font-bold leading-tight">
             Fees
           </h2>
-          <div className="shadow-sm shadow-[#0000001A] rounded-t-[7px] overflow-x-auto hide-scrollbar space-y-5 pb-5">
-            <table className="w-full border-collapse">
-              <TableHead
-                columns={["Date", "Parent", "Amount", "Status", "Actions"]}
-              />
+          <div className="shadow-sm shadow-[#0000001A] rounded-t-[7px] space-y-5 pb-5">
+            <div className="rounded-t-[7px] overflow-x-auto hide-scrollbar">
+              <table className="w-full min-w-[700px] border-collapse table-fixed">
+                <colgroup>
+                  <col style={{ width: "16%" }} />
+                  <col style={{ width: "28%" }} />
+                  <col style={{ width: "20%" }} />
+                  <col style={{ width: "22%" }} />
+                  <col style={{ width: "14%" }} />
+                </colgroup>
+                <TableHead
+                  columns={["Date", "Parent", "Amount", "Status", "Actions"]}
+                />
 
-              <tbody>
-                {parentFeesPayment.paginatedData.length > 0 ? (
-                  parentFeesPayment.paginatedData.map((payment) => (
-                    <ParentFeesPaymentTableRow
-                      key={payment.feeId}
-                      payment={payment}
-                      parentMap={parentMap}
-                    />
-                  ))
-                ) : (
-                  <tr>
-                    <td
-                      colSpan={5}
-                      className="py-10 text-center text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)]"
-                    >
-                      No payments history found.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                <tbody>
+                  {parentFeesPayment.paginatedData.length > 0 ? (
+                    parentFeesPayment.paginatedData.map((payment) => (
+                      <ParentFeesPaymentTableRow
+                        key={payment.feeId}
+                        payment={payment}
+                        parentMap={parentMap}
+                      />
+                    ))
+                  ) : (
+                    <tr>
+                      <td
+                        colSpan={5}
+                        className="py-10 text-center text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)]"
+                      >
+                        No payments history found.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
             <div>
               <TablePagination
                 currentPage={parentFeesPaymentPage}

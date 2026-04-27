@@ -36,19 +36,14 @@ import ActivityLogTab from "../components/TabContents.tsx/ActivityLogTab";
 import AdminToolsTab from "../components/TabContents.tsx/AdminToolsTab";
 import SchoolCustomWebsite from "../components/SchoolCustomWebsite";
 
-interface SectionDispaly {
-  schoolCustomWebsite: boolean;
-  schoolDetailsTab: boolean;
-}
+type ActiveSection = "schoolDetailsTab" | "schoolCustomWebsite";
 
 const SchoolDetails = () => {
   const [school, setSchool] = useState<ISchool | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isSuspend, setIsSuspend] = useState<"ACTIVE" | "SUSPENDED">("ACTIVE");
-  const [sectionDisplay, setSectionDisplay] = useState<SectionDispaly>({
-    schoolCustomWebsite: false,
-    schoolDetailsTab: true,
-  });
+  const [activeSection, setActiveSection] =
+    useState<ActiveSection>("schoolDetailsTab");
 
   const modalActionLabel = useRef<
     "activate this school" | "suspend this school"
@@ -113,54 +108,54 @@ const SchoolDetails = () => {
       <Button
         variant="ghost"
         size="icon"
-        className="hover:bg-transparent ml-14 mb-6"
+        className="hover:bg-transparent ml-4 md:ml-10 lg:ml-14 mb-4 md:mb-6"
         onClick={goBack}
       >
-        <LeftIcon className="w-7 h-7" />
+        <LeftIcon className="w-6 h-6 md:w-7 md:h-7" />
       </Button>
-      <div className="bg-[#0B653E] flex items-start lg:items-center justify-between gap-5 px-5 py-2.5">
-        <div className="flex items-center flex-wrap gap-2 lg:gap-4">
-          {[
-            {
-              icon: NoFillPersonIcon,
-              text: "Impersonate School Admin",
-              onClick: () => {},
-            },
-            {
-              icon: SupportTikcetIcon,
-              text: "Create support Ticket",
-              onClick: () => {},
-            },
-            {
-              icon: MegaPhone2Icon,
-              text: "Send Announcement",
-              onClick: () => {},
-            },
-            {
-              icon: DashedMenuIcon,
-              text: "View Audit Logs",
-              onClick: () => {},
-            },
-          ].map((item, index) => (
-            <div
-              className="flex items-center gap-1 lg:gap-2 cursor-pointer  bg-[#0B9E5E] rounded-[6px] lg:rounded-[10px] px-3 py-2"
-              onClick={item.onClick}
-              key={index}
-            >
-              <item.icon className="w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5" />
-              <p className="text-white text-[clamp(10px,1.2vw,14px)]">
-                {item.text}
-              </p>
-            </div>
-          ))}
+      <div className="bg-[#0B653E] flex items-start lg:items-center justify-between gap-5 px-3 md:px-5 py-2.5">
+        <div className="overflow-x-auto hide-scrollbar flex-1">
+          <div className="flex items-center gap-2 lg:gap-4 min-w-max lg:min-w-0 lg:w-full px-2 md:px-4">
+            {[
+              {
+                icon: NoFillPersonIcon,
+                text: "Impersonate School Admin",
+                onClick: () => {},
+              },
+              {
+                icon: SupportTikcetIcon,
+                text: "Create support Ticket",
+                onClick: () => {},
+              },
+              {
+                icon: MegaPhone2Icon,
+                text: "Send Announcement",
+                onClick: () => {},
+              },
+              {
+                icon: DashedMenuIcon,
+                text: "View Audit Logs",
+                onClick: () => {},
+              },
+            ].map((item, index) => (
+              <div
+                className="flex items-center gap-1 lg:gap-2 cursor-pointer  bg-[#0B9E5E] rounded-[6px] lg:rounded-[10px] px-3 py-2"
+                onClick={item.onClick}
+                key={index}
+              >
+                <item.icon className="w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5" />
+                <p className="text-white text-[clamp(12px,1.4vw,15px)] whitespace-nowrap">
+                  {item.text}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
         <div>
           <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTrigger asChild>
-              <Button variant="destructive" onClick={handleOpenModal}>
-                {isSuspend === "SUSPENDED" ? "Activate" : "Suspend"}
-              </Button>
-            </DialogTrigger>
+            <Button variant="destructive" onClick={handleOpenModal}>
+              {isSuspend === "SUSPENDED" ? "Activate" : "Suspend"}
+            </Button>
             <DialogContent className="p-10">
               <div className="flex flex-col gap-20">
                 <h2 className="text-[#4E4E4E] text-[clamp(14px,1.8vw,20px)] font-semibold">
@@ -305,56 +300,50 @@ const SchoolDetails = () => {
             </div>
           ))}
         </div>
-        <div className="flex flex-wrap items-center lg:justify-between gap-2 lg:gap-4 px-6 md:px-10 lg:px-20 py-5">
-          {[
-            {
-              text: "Edit School Details",
-              onClick: () =>
-                setSectionDisplay((prev) => ({
-                  ...prev,
-                  schoolCustomWebsite: false,
-                  schoolDetailsTab: true,
-                })),
-            },
-            {
-              text: "View Custom Website",
-              onClick: () =>
-                setSectionDisplay((prev) => ({
-                  ...prev,
-                  schoolDetailsTab: false,
-                  schoolCustomWebsite: true,
-                })),
-            },
-            {
-              text: "View Active Subjects",
-              onClick: () => {},
-            },
-            {
-              text: "Reset School Setting",
-              onClick: () => {},
-            },
-            {
-              text: "Send Email to Admin",
-              onClick: () => {},
-            },
-            {
-              text: "Change School Admin",
-              onClick: () => {},
-            },
-          ].map((item, index) => (
-            <div
-              className={`flex items-center gap-2 cursor-pointer rounded-[6px] lg:rounded-[10px] px-2 md:px-3 py-2 ${item.text === "View Custom Website" && sectionDisplay.schoolCustomWebsite ? "bg-[#0EB26B]" : "bg-[#0B653E]"}`}
-              onClick={item.onClick}
-              key={index}
-            >
-              <p className="text-white text-[clamp(10px,1.2vw,14px)]">
-                {item.text}
-              </p>
+        <div className="w-full px-3 md:px-6">
+          <div className="overflow-x-auto hide-scrollbar">
+            <div className="flex items-center gap-4 py-5 px-2 md:px-4 min-w-max lg:min-w-0 lg:w-full lg:justify-between">
+              {[
+                {
+                  text: "Edit School Details",
+                  onClick: () => setActiveSection("schoolDetailsTab"),
+                },
+                {
+                  text: "View Custom Website",
+                  onClick: () => setActiveSection("schoolCustomWebsite"),
+                },
+                {
+                  text: "View Active Subjects",
+                  onClick: () => {},
+                },
+                {
+                  text: "Reset School Setting",
+                  onClick: () => {},
+                },
+                {
+                  text: "Send Email to Admin",
+                  onClick: () => {},
+                },
+                {
+                  text: "Change School Admin",
+                  onClick: () => {},
+                },
+              ].map((item, index) => (
+                <div
+                  className={`flex items-center gap-2 cursor-pointer rounded-[10px] px-2 md:px-3 py-2 ${item.text === "View Custom Website" && activeSection === "schoolCustomWebsite" ? "bg-[#0EB26B]" : "bg-[#0B653E]"}`}
+                  onClick={item.onClick}
+                  key={index}
+                >
+                  <p className="text-white text-[clamp(12px,1.4vw,15px)] whitespace-nowrap">
+                    {item.text}
+                  </p>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
-      {sectionDisplay.schoolDetailsTab && (
+      {activeSection === "schoolDetailsTab" && (
         <div className="mx-4 md:mx-6 mt-5 ">
           <Tabs defaultValue="schoolAdmin" className="gap-0">
             <div className="w-full overflow-x-auto hide-scrollbar pb-2 pt-1 px-1">
@@ -455,7 +444,7 @@ const SchoolDetails = () => {
           </Tabs>
         </div>
       )}
-      {sectionDisplay.schoolCustomWebsite && (
+      {activeSection === "schoolCustomWebsite" && (
         <div className="mx-4 md:mx-6 mt-5 py-8 bg-white rounded-t-[13px]">
           <SchoolCustomWebsite school={school} />
         </div>
