@@ -69,6 +69,6 @@ export default [
       "school-management/:schoolId",
       "features/schoolManagement/pages/SchoolDetails.tsx",
     ),
-    route("storybook", "StoryBook.tsx"),
+    route("storybook", "components/StoryBook.tsx"),
   ]),
 ] satisfies RouteConfig;

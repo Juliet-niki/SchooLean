@@ -1,8 +1,8 @@
 "use client";
 
-import * as icons from "./assets/icons";
-import { Button } from "./components/ui/button";
-import { Input } from "./components/ui/input";
+import * as icons from "../assets/icons";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 export default function StoryBook() {
   const sections = [
@@ -106,7 +106,7 @@ export default function StoryBook() {
           ))}
         </ul>
       </div>
-      {/* <div className="lg:ml-[344px] py-10"> */}
+
       <div className="py-10">
         {sections.map((section) => (
           <section
@@ -121,9 +121,6 @@ export default function StoryBook() {
           </section>
         ))}
       </div>
-      {/* <div>
-        <PageTitle pageTitle="Edit Profile" icon />
-      </div> */}
     </div>
   );
 }
