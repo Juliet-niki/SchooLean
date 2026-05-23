@@ -36,12 +36,7 @@ export default function StoryBook() {
           <Button variant="secondary">Secondary</Button>
           <Button variant="ghost">Ghost</Button>
           <Button variant="outline">Outline</Button>
-          <Button
-            variant="default"
-            //   loading
-          >
-            Default with loader
-          </Button>
+          <Button variant="default">Default with loader</Button>
         </div>
       ),
     },
