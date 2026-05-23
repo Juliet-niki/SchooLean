@@ -11,7 +11,9 @@ import type { Route } from "./+types/root";
 import "./style/global.css";
 import { Toaster } from "./components/ui/toaster";
 
-export const links: Route.LinksFunction = () => [];
+export const links: Route.LinksFunction = () => [
+  { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+];
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
