@@ -10,7 +10,7 @@ import {
   SchoolManagementIcon,
   SubscriptionIcon,
   SystemSecurityIcon,
-} from "~/assets/icons";
+} from "~/assets/Icons";
 
 const Sidebar = () => {
   const menuItems = [

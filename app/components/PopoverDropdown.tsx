@@ -5,7 +5,7 @@ import {
   PopoverTrigger,
 } from "~/components/ui/popover";
 import { cn } from "~/lib/utils";
-import { DownIcon, SearchIcon } from "~/assets/icons";
+import { DownIcon, SearchIcon } from "~/assets/Icons";
 import SearchInput from "./SearchInput";
 
 interface DropdownOption {

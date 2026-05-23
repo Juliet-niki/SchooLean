@@ -1,4 +1,4 @@
-import { CalendarIcon, FilledDownIcon, TrendUpIcon } from "~/assets/icons";
+import { CalendarIcon, FilledDownIcon, TrendUpIcon } from "~/assets/Icons";
 import PopoverDropdown from "../../../components/PopoverDropdown";
 import { useMemo, useState } from "react";
 import {

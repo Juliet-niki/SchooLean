@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MoreIcon } from "~/assets/icons";
+import { MoreIcon } from "~/assets/Icons";
 import StatusView from "~/components/StatusView";
 import TablePagination from "~/components/TablePagination";
 import {

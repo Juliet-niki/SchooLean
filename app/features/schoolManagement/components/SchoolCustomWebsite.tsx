@@ -1,4 +1,4 @@
-import { DomainIcon, MoreIcon, PageIcon, PersonsIcon } from "~/assets/icons";
+import { DomainIcon, MoreIcon, PageIcon, PersonsIcon } from "~/assets/Icons";
 import StatusView from "~/components/StatusView";
 import {
   DropdownMenu,

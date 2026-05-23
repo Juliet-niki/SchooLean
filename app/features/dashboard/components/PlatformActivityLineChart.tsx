@@ -1,4 +1,4 @@
-import { FilledDownIcon } from "~/assets/icons";
+import { FilledDownIcon } from "~/assets/Icons";
 import PopoverDropdown from "../../../components/PopoverDropdown";
 import { useMemo, useState } from "react";
 import { PLATFORM_ACTIVITY_DATA } from "~/data/schoolData";

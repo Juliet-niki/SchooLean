@@ -1,5 +1,5 @@
 import { useMediaQuery } from "react-responsive";
-import { AdminIcon, MoreIcon } from "~/assets/icons";
+import { AdminIcon, MoreIcon } from "~/assets/Icons";
 import { Button } from "~/components/ui/button";
 import {
   Popover,

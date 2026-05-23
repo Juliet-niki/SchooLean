@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { MoreIcon } from "~/assets/icons";
+import { MoreIcon } from "~/assets/Icons";
 import SearchInput from "~/components/SearchInput";
 import StatusView from "~/components/StatusView";
 import TablePagination from "~/components/TablePagination";

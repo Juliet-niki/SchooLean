@@ -1,4 +1,4 @@
-import { DownIcon } from "~/assets/icons";
+import { DownIcon } from "~/assets/Icons";
 import {
   DropdownMenu,
   DropdownMenuContent,

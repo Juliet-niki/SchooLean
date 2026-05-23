@@ -1,4 +1,4 @@
-import { Calendar2Icon } from "~/assets/icons";
+import { Calendar2Icon } from "~/assets/Icons";
 import PopoverDropdown from "~/components/PopoverDropdown";
 import { Button } from "~/components/ui/button";
 import { Calendar } from "~/components/ui/calendar";

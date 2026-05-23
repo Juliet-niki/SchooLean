@@ -1,6 +1,6 @@
 "use client";
 
-import * as icons from "../assets/icons";
+import * as icons from "../assets/Icons";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 

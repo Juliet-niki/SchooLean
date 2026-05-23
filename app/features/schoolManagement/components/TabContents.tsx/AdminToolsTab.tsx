@@ -8,7 +8,7 @@ import {
   PersonsIcon,
   RestoreIcon,
   TabListIcon,
-} from "~/assets/icons";
+} from "~/assets/Icons";
 import TablePagination from "~/components/TablePagination";
 import { Button } from "~/components/ui/button";
 import { Dialog, DialogContent } from "~/components/ui/dialog";

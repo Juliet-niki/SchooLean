@@ -5,7 +5,7 @@ import {
   PendingPaymentIcon,
   ReceiptIcon,
   TriangleAlertIcon,
-} from "~/assets/icons";
+} from "~/assets/Icons";
 import StatusView from "~/components/StatusView";
 import TablePagination from "~/components/TablePagination";
 import { Button } from "~/components/ui/button";

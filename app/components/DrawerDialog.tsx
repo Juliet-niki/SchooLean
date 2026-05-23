@@ -1,4 +1,4 @@
-import { CloseIcon } from "~/assets/icons";
+import { CloseIcon } from "~/assets/Icons";
 import { useMediaQuery } from "react-responsive";
 import { cn } from "~/lib/utils";
 import {

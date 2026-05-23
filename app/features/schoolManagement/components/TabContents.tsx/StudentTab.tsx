@@ -6,7 +6,7 @@ import {
   DownIcon,
   MoreIcon,
   WaterDropletIcon,
-} from "~/assets/icons";
+} from "~/assets/Icons";
 import PopoverDropdown from "~/components/PopoverDropdown";
 import SearchInput from "~/components/SearchInput";
 import TablePagination from "~/components/TablePagination";

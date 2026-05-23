@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent } from "react";
-import { SearchIcon } from "~/assets/icons";
+import { SearchIcon } from "~/assets/Icons";
 import debounce from "~/utils/debounce";
 import { Input } from "./ui/input";
 import { cn } from "~/lib/utils";

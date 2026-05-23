@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useState, forwardRef } from "react";
-import { HideEyeIcon, ShowEyeIcon } from "~/assets/icons";
+import { HideEyeIcon, ShowEyeIcon } from "~/assets/Icons";
 import { cn } from "~/lib/utils";
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {

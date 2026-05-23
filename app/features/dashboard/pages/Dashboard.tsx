@@ -5,7 +5,7 @@ import {
   SchoolIcon,
   StaffIcon,
   StudentIcon,
-} from "~/assets/icons";
+} from "~/assets/Icons";
 import SearchInput from "~/components/SearchInput";
 
 import PopoverDropdown from "../../../components/PopoverDropdown";

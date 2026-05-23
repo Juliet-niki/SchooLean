@@ -14,7 +14,7 @@ import {
   TriangleAlertIcon,
   StarIcon,
   FileTextIcon,
-} from "~/assets/icons";
+} from "~/assets/Icons";
 import { cn } from "~/lib/utils";
 import type { IPerformanceAnalytics } from "~/types";
 import { CapitalizeFirstLetter } from "~/utils/formatText";

@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { z } from "zod";
-import { ErrorIcon } from "~/assets/icons";
+import { ErrorIcon } from "~/assets/Icons";
 import { Button } from "~/components/ui/button";
 import { Form, FormField, FormLabel } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
