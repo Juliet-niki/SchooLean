@@ -1,6 +1,7 @@
 "use client";
+
 import * as React from "react";
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import { HideEyeIcon, ShowEyeIcon } from "~/assets/icons";
 import { cn } from "~/lib/utils";
 
@@ -13,10 +14,9 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   externalClickAction?: () => void;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
-  inputClass?: string;
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
       className,
@@ -29,83 +29,105 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       clickAbleRightIcon,
       setShowState,
       externalClickAction,
+      disabled,
       ...props
     },
     ref,
   ) => {
-    const [show, setShow] = useState(false);
-    const getRightIcon = () => {
-      if (clickAbleRightIcon) {
+    const [showPassword, setShowPassword] = useState(false);
+
+    const isPassword = type === "password";
+
+    const togglePassword = () => {
+      setShowPassword((prev) => {
+        const next = !prev;
+
         if (setShowState) {
-          setShowState(show);
+          setShowState(next);
         }
-        const handleRightIconClick = () => {
-          setShow(!show);
-          if (externalClickAction) {
-            externalClickAction();
-          }
-        };
+
+        return next;
+      });
+
+      if (externalClickAction) {
+        externalClickAction();
+      }
+    };
+
+    const renderRightIcon = () => {
+      if (clickAbleRightIcon) {
         return (
-          <button onClick={handleRightIconClick} type="button">
+          <button type="button" onClick={togglePassword} className="shrink-0">
             {rightIcon}
           </button>
         );
       }
 
-      if (type === "password") {
+      if (isPassword) {
         return (
-          <button onClick={() => setShow(!show)} type="button">
-            {show ? (
+          <button
+            type="button"
+            onClick={togglePassword}
+            className="shrink-0"
+            aria-label="toggle password visibility"
+          >
+            {showPassword ? (
               <ShowEyeIcon className="w-4 h-4 md:w-5 md:h-5" />
             ) : (
               <HideEyeIcon className="w-4 h-4 md:w-5 md:h-5" />
             )}
           </button>
         );
-      } else {
-        return rightIcon;
       }
+
+      return rightIcon;
     };
 
     return (
       <div className="w-full">
         <div
           className={cn(
-            "flex items-center border-[1.8px] bg-white px-3 h-12 rounded-[10px] has-focus:ring-2 has-placeholder-shown:text-[#ACACAC]",
+            "flex items-center border-[1.8px] bg-white px-3 h-12 rounded-[10px] transition focus-within:ring-2",
             hasError
-              ? "border-[#E93F3F] has-focus:ring-red-500"
-              : "border-[#CDCDCD] has-focus:ring-[#0EB26B]",
-            props.disabled && "bg-[#f0f0f0]",
+              ? "border-[#E93F3F] focus-within:ring-red-500"
+              : "border-[#CDCDCD] focus-within:ring-[#0EB26B]",
+            disabled && "bg-[#f0f0f0] opacity-60",
             className,
           )}
         >
           {leftIcon}
+
           <input
-            type={type === "password" ? (show ? "text" : "password") : type}
+            ref={ref}
+            disabled={disabled}
+            type={isPassword ? (showPassword ? "text" : "password") : type}
             className={cn(
-              "flex h-full w-full text-[#2B2B2B] placeholder-shown:text-[#ACACAC] file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[#ACACAC] placeholder:font-light focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 text-[clamp(14px,1.4vw,15px)] font-poppins",
-              rightIcon ? "pr-3" : "",
-              leftIcon ? "pl-3" : "",
+              "flex h-full w-full text-[#2B2B2B] placeholder:text-[#ACACAC] bg-transparent focus-visible:outline-none disabled:cursor-not-allowed text-[clamp(14px,1.4vw,15px)] font-poppins",
+              leftIcon && "pl-3",
+              (rightIcon || isPassword) && "pr-3",
               inputClassName,
             )}
-            ref={ref}
             {...props}
           />
-          {getRightIcon()}
+
+          {renderRightIcon()}
         </div>
+
         {(hasError || subtext) && (
           <small
-            className={
-              hasError ? "text-sm text-[#E93F3F]" : "text-sm text-[#ACACAC]"
-            }
+            className={cn(
+              "text-sm mt-1 block",
+              hasError ? "text-[#E93F3F]" : "text-[#ACACAC]",
+            )}
           >
-            {subtext ?? (hasError ? "An error ocurred" : "")}
+            {subtext ?? (hasError ? "An error occurred" : null)}
           </small>
         )}
       </div>
     );
   },
 );
+
 Input.displayName = "Input";
 
 export { Input };

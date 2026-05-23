@@ -1,4 +1,3 @@
-import React from "react";
 import { Calendar2Icon } from "~/assets/icons";
 import PopoverDropdown from "~/components/PopoverDropdown";
 import { Button } from "~/components/ui/button";

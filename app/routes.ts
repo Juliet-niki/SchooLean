@@ -64,7 +64,7 @@ export default [
   ]),
 
   //Fullscreen routes
-  layout("components/layouts/FullscreenLayout.tsx", [
+  layout("components/layouts/FullScreenLayout.tsx", [
     route(
       "school-management/:schoolId",
       "features/schoolManagement/pages/SchoolDetails.tsx",

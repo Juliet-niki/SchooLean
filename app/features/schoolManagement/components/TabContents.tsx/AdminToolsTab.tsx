@@ -92,8 +92,8 @@ const TableRow = ({ log }: { log: IAdminActivityLog }) => {
   const ActionIcon = log.actionIcon ? ICON_MAP[log.actionIcon] : null;
 
   return (
-    <tr className="text-[clamp(12px,1.4vw,16px)] text-[#373737] font-medium border-b border-[#EBEBEB]">
-      <td className="py-3 px-4 ">
+    <tr className="text-[clamp(12px,1.4vw,16px)] text-[#373737] font-medium first:border-t border-b border-[#EBEBEB]">
+      <td className="py-3 px-4">
         <div className="flex items-center gap-3">
           {ActionIcon && (
             <ActionIcon className="w-4 h-4 lg:w-6 lg:h-6 shrink-0" />
@@ -149,7 +149,7 @@ const AdminActivityLog = ({ activity }: { activity: IAdminActivityLog[] }) => {
               <col style={{ width: "24%" }} />
               <col style={{ width: "12%" }} />
             </colgroup>
-            <thead className="sticky top-0 z-10 text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] text-nowrap">
+            <thead className="sticky top-0 z-10 text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] text-nowrap ">
               <tr>
                 {[
                   "Action performed",
@@ -160,7 +160,7 @@ const AdminActivityLog = ({ activity }: { activity: IAdminActivityLog[] }) => {
                 ].map((col) => (
                   <th key={col} className="">
                     <div className="inline-flex items-center">
-                      <div className="bg-[#E6F7F0] border border-[#CCCCCC] rounded-[7px] py-2 px-4 text-center font-semibold w-fit">
+                      <div className="bg-[#E6F7F0] border border-[#CCCCCC] rounded-[7px] py-2 px-4 text-center font-semibold w-fit mb-2">
                         {col}
                       </div>
                     </div>

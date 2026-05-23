@@ -6,7 +6,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "~/components/ui/popover";
-import { CalendarRange } from "~/components/ui/caladerRange";
+import { CalendarRange } from "~/components/ui/calendarRange";
 import type { DateRange } from "react-day-picker";
 import { addDays, format } from "date-fns";
 import { SCHOOL_ANALYTICS_DATA } from "~/data/schoolData";

@@ -1,4 +1,3 @@
-import React from "react";
 import { DomainIcon, MoreIcon, PageIcon, PersonsIcon } from "~/assets/icons";
 import StatusView from "~/components/StatusView";
 import {
