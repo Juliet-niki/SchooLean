@@ -17,15 +17,12 @@ const parseDate = (dateStr: string): Date => {
 };
 
 const TableRow = ({ item }: { item: ISchool }) => {
-  const [isEnabled, setIsEnabled] = useState<"enable" | "disable" | null>(null);
-  const navigate = useNavigate();
+  // const [isEnabled, setIsEnabled] = useState<"enable" | "disable" | null>(null);
+  // const navigate = useNavigate();
 
   return (
     <tr className="text-[clamp(11px,1.2vw,14px)] text-[#373737] font-medium">
-      <td
-        onClick={() => navigate(`/school-management/${item.schoolId}`)}
-        className="py-3 px-4 w-44 md:w-52 border-y border-l border-[#D5D5D5] rounded-l-[15px] text-[#067890] text-[clamp(13px,1.4vw,16px)] cursor-pointer"
-      >
+      <td className="py-3 px-4 w-44 md:w-52 border-y border-l border-[#D5D5D5] rounded-l-[15px] text-[#067890] text-[clamp(13px,1.4vw,16px)]">
         {item.name}
       </td>
       <td className="py-3 px-4 border-y border-[#D5D5D5]">{item.schoolId}</td>
@@ -94,7 +91,13 @@ const TableRow = ({ item }: { item: ISchool }) => {
             className="w-fit py-1 px-2 border-[1.5px] border-[#92929280] shadow-md shadow-[#00000026]  rounded-[5px] mr-20  text-[13px] font-medium"
             sideOffset={6}
           >
-            <div className="flex items-center gap-1 mb-2">
+            <Link
+              to={`/school-management/${item.schoolId}`}
+              className="text-[#373737] cursor-pointer"
+            >
+              View School
+            </Link>
+            {/* <div className="flex items-center gap-1 mb-2">
               <RightIcon className="h-3.5 w-3.5 " />
               <p className="text-[clamp(11px,1.2vw,14px)] font-medium text-[#373737]">
                 Custom website
@@ -123,7 +126,7 @@ const TableRow = ({ item }: { item: ISchool }) => {
                   {option.label}
                 </p>
               ))}
-            </div>
+            </div> */}
           </PopoverContent>
         </Popover>
       </td>
