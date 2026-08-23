@@ -33,7 +33,7 @@ export function DrawerDialog({
   className,
   noTitleMargin = true,
   closeIcon = (
-    <div className="border border-[#0000001A] h-8 w-8 flex items-center justify-center rounded-full">
+    <div className="h-8 w-8 flex items-center justify-center">
       <CloseIcon />
     </div>
   ),
@@ -145,13 +145,20 @@ export function DrawerDialog({
                 </DialogDescription>
               </DialogHeader>
             )}
-            <ScrollArea
-              className={`overflow-y-auto hide-scrollbar ${
-                title || subTitle ? "" : !noTitleMargin && "sm:mt-7.5 "
-              }`}
+            <div
+              className={cn(
+                "overflow-y-auto hide-scrollbar max-h-[70vh] pb-5",
+                scrollAreaClassName,
+              )}
             >
-              {children}
-            </ScrollArea>
+              <ScrollArea
+                className={` ${
+                  title || subTitle ? "" : !noTitleMargin && "sm:mt-7.5 "
+                }`}
+              >
+                {children}
+              </ScrollArea>
+            </div>
           </DialogContent>
         </Dialog>
       )}
