@@ -70,6 +70,10 @@ export default [
       "features/schoolManagement/pages/SchoolDetails.tsx",
     ),
     route("notifications", "features/notifications/pages/Notifications.tsx"),
+    route(
+      "notifications/:id",
+      "features/notifications/pages/NotificationDetails.tsx",
+    ),
     route("storybook", "components/StoryBook.tsx"),
   ]),
 ] satisfies RouteConfig;

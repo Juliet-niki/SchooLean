@@ -1,9 +1,12 @@
+import type { ReactNode } from "react";
+
 export type VerifyPageState = {
   identifier: string;
   type: "email" | "phone";
   context: "register" | "forgot-password";
 };
 
+// SCHOOL MANAGEMENT
 export interface IAdmin {
   adminId: number;
   name: string;
@@ -249,4 +252,171 @@ export interface IAdminActivityLog {
   timestamp: string;
   reason: string;
   ipAddress: string;
+}
+
+// NOTIFICATION
+
+export type FinanceType = "SUBSCRIPTION" | "SCHOOL_FEES" | "DISPUTE" | "REFUND";
+export type NotificationStatus = "IN_PROGRESS" | "NEW" | "ASSIGNED";
+export type PriorityType = "LOW" | "MEDIUM" | "HIGH";
+export type SchoolStatus = "ACTIVE" | "INACTIVE" | "AT_RISK";
+export type ProgressStatus = "COMPLETED" | "PENDING";
+export type GeoRisk = "HIGH" | "MEDIUM" | "LOW";
+export type SubscriptionStatus = "ACTIVE" | "PAYMENT_FAILED";
+export type UserAccountStatus = "ACTIVE" | "INACTIVE";
+export type SystemStatus = "ACTIVE" | "INACTIVE";
+
+export interface NotificationType {
+  key: string;
+  icon: ReactNode;
+  iconBg: string;
+  title: string;
+  description: string;
+  textColor: string;
+}
+
+export interface RelatedSchool {
+  schoolId: string;
+  schoolName: string;
+  schoolStatus: SchoolStatus;
+  schoolCode: string;
+  contactPerson: string;
+  phoneNumber: string;
+  emailAddress: string;
+  state?: string;
+  country?: string;
+  dateStarted?: string;
+  subscriptionplan?: PlanType;
+  subscriptionStatus?: SubscriptionStatus;
+  nextBillingDate?: string;
+}
+
+export interface OnboardingProgress {
+  schoolInformation: ProgressStatus;
+  adminAccountSetup: ProgressStatus;
+  schoolProfileSetup: ProgressStatus;
+  subscriptionPlan: ProgressStatus;
+  paymentMethod: ProgressStatus;
+  inviteStaff: ProgressStatus;
+}
+
+export interface ActionHistory {
+  userId: string;
+  userName: string;
+  profilePic: string;
+  actionTaken: string;
+  TimeStamp: string;
+  isCurrentUser: boolean;
+}
+
+export interface PaymentInformation {
+  amount: number;
+  paymentReference: string;
+  paymentMethod: string;
+  attemptedOn: string;
+  failureReason: string;
+}
+
+export interface CurrentAssignee {
+  userId: string;
+  userName: string;
+  profilePic: string;
+  isCurrentUser: boolean;
+}
+
+export interface ticketInformation {
+  currentAssignee: CurrentAssignee;
+  slaResponseTime: string;
+  firstResponseTime: string;
+  firstResponseDue: string;
+  resolutionDue: string;
+  slaStatus: string;
+}
+
+export interface UserDetails {
+  userId: string;
+  userEmail: string;
+  userName: string;
+  fullName: string;
+  role: string;
+  lastSuccessfulLogin: string;
+  userAccountStatus: UserAccountStatus;
+}
+
+export interface SecurityEventDetails {
+  ipAddress: string;
+  device: string;
+  failedAttempts: string;
+  firstAttempt: string;
+  lastAttempt: string;
+  threatType: string;
+  riskScore: string;
+  geoRisk: GeoRisk;
+}
+
+export interface AffectedSystem {
+  systemName: string;
+  systemStatus: SystemStatus;
+  environment: string;
+  lastSuccessfulDelivery: string;
+  endpointUrl: string;
+  failureCount: string;
+  nextRetry: string;
+  region: string;
+}
+
+export interface TechnicalDetails {
+  transactionReference: string;
+  httpStatusCode: string;
+  errorMessage: string;
+  payloadSize: string;
+  webhookAttempt: string;
+  responseTime: string;
+  webhookRequestId: string;
+  occurredAt: string;
+}
+
+export interface NotificationLifecycle {
+  stage: string;
+  TimeStamp: string;
+}
+
+export interface INotification {
+  notificationId: string;
+  type: string;
+  subject: string;
+  summary: string;
+  financeType?: FinanceType;
+  amount?: number;
+  relatedSchool?: RelatedSchool;
+  receivedAt: string;
+  detectedAt?: string;
+  priority: PriorityType;
+  isRead: boolean;
+  isArchived: boolean;
+  assignedToMe: boolean;
+  assignedMember?: {
+    userId: string | null;
+    userName: string | null;
+    profilePic: string | null;
+  };
+  notificationStatus: NotificationStatus;
+  category: string;
+  description: string;
+  onboardingProgress?: OnboardingProgress;
+  actionHistory: ActionHistory[];
+  notificationLifecycle: NotificationLifecycle[];
+  paymentInformation?: PaymentInformation;
+  ticketInformation?: ticketInformation;
+  customerMessage?: {
+    message: string;
+    messageDate: string;
+  };
+  userDetails?: UserDetails;
+  securityEventDetails?: SecurityEventDetails;
+  relatedComponent?: string;
+  systemType?: string;
+  SystemService?: string;
+  affectedSystem?: AffectedSystem;
+  technicalDetails?: TechnicalDetails;
 }

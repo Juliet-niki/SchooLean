@@ -10,6 +10,7 @@ import {
 import type { Route } from "./+types/root";
 import "./style/global.css";
 import { Toaster } from "./components/ui/toaster";
+import { NotificationsProvider } from "./context/NotificationsContext";
 
 export const links: Route.LinksFunction = () => [
   { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
@@ -35,7 +36,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <NotificationsProvider>
+      <Outlet />
+    </NotificationsProvider>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

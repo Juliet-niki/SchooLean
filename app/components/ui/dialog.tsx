@@ -115,7 +115,7 @@ function DialogHeader({
         <DialogPrimitive.Close
           data-slot="dialog-close"
           className={cn(
-            "ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground rounded-xs opacity-100 transition-opacity hover:opacity-70  disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-2.5",
+            "ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground rounded-xs opacity-100 transition-opacity hover:opacity-90  disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
             closeButtonClassName,
           )}
         >

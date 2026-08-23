@@ -17,11 +17,17 @@ import FullScreenModal from "~/components/FullScreenModal";
 import InactiveSchools from "../components/InactiveSchools";
 import { Button } from "~/components/ui/button";
 import { useNavigate } from "react-router";
+import { useNotifications } from "~/context/NotificationsContext";
 
 const Dashboard = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  // const  = () => navigate(`/dashboard`);
+
+  const { notifications } = useNotifications();
+
+  const unreadCount = notifications.filter(
+    (n) => !n.isRead && !n.isArchived,
+  ).length;
   return (
     <div className="px-4 ml:px-6 py-4 ml:py-8 bg-[#EDEDED]">
       <div className="w-full flex flex-col gap-10 mb-15">
@@ -39,9 +45,11 @@ const Dashboard = () => {
             }}
           >
             <NotificationBellIcon className="w-5 h-5 lg:w-8 lg:h-8" />
-            <span className="rounded-full w-4 h-4 lg:w-5 lg:h-5 bg-[#E93F3F] flex items-center justify-center p-1 absolute -bottom-1 -right-2 text-xs text-white">
-              2
-            </span>
+            {unreadCount > 0 && (
+              <span className="rounded-full w-4 h-4 lg:w-5 lg:h-5 bg-[#E93F3F] flex items-center justify-center p-1 absolute -bottom-1 -right-2 text-xs text-white">
+                {unreadCount}
+              </span>
+            )}
           </Button>
         </div>
 
