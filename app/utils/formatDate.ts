@@ -33,7 +33,11 @@ export function formatReceivedAt(iso: string) {
 export const formatDateTime = (date: Date | string | undefined): string => {
   if (!date) return "N/A";
 
-  const d = typeof date === "string" ? new Date(date) : date;
+  const d = typeof date === "string" ? new Date(date.trim()) : date;
+
+  if (isNaN(d.getTime())) {
+    return "N/A";
+  }
 
   const formattedDate = d.toLocaleDateString("en-US", {
     timeZone: "Africa/Lagos",

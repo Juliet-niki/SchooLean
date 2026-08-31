@@ -49,7 +49,7 @@ const TableRow = ({
       <td className="py-4 px-4 lg:px-8 border-x border-[#EBEBEB]">
         <StatusView
           styleOption={true}
-          classStyleName="text-[clamp(13px,1.3vw,15px)] py-1 px-3 rounded-[7px] w-fit text-center mx-auto"
+          classStyleName="text-[clamp(13px,1.3vw,15px)] py-1 px-3 rounded-[7px] w-fit text-center mx-auto text-white"
           status={reportCard.status === "COMPLETED" ? "Completed" : "Pending"}
           green="Completed"
           yellow="Pending"

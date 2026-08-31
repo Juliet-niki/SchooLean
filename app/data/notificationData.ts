@@ -7,15 +7,15 @@ export const NOTIFICATIONS: INotification[] = [
     type: "customerSuccess",
     subject: "Onboarding Abandoned",
     summary:
-      "Royal Crest Academy started onboarding 7 days ago but has not completed. Please follow up to help them complete onboarding.",
+      "Greenwood International Schools started onboarding 7 days ago but has not completed. Please follow up to help them complete onboarding.",
     relatedSchool: {
-      schoolId: "SCH2461",
-      schoolName: "Royal Crest Academy",
+      schoolId: "SCH1350",
+      schoolName: "Greenwood International Schools",
       schoolStatus: "ACTIVE",
-      schoolCode: "RCA-0054",
+      schoolCode: "GRNFD-0054",
       contactPerson: "Mr. Samuel Okafor",
       phoneNumber: "+234 903 345 3456",
-      emailAddress: "admin@royalcrest.edu.ng",
+      emailAddress: "admin@greenwood.edu.ng",
       state: "Lagos",
       country: "Nigeria",
       dateStarted: "May 17, 2026",
@@ -28,7 +28,7 @@ export const NOTIFICATIONS: INotification[] = [
     category: "Onboarding",
     notificationStatus: "IN_PROGRESS",
     description:
-      "Royal Crest Academy started onboarding on May 17, 2026 but has not completed the required setup steps. Please follow up to help them complete onboarding.",
+      "Greenwood International Schools started onboarding on May 17, 2026 but has not completed the required setup steps. Please follow up to help them complete onboarding.",
     onboardingProgress: {
       schoolInformation: "COMPLETED",
       adminAccountSetup: "COMPLETED",
@@ -39,22 +39,16 @@ export const NOTIFICATIONS: INotification[] = [
     },
     actionHistory: [
       {
-        userId: "USR123",
-        userName: "Emily Amadi",
-        profilePic: "/images/teamMember1.jpg",
+        userId: "USR001",
         actionTaken:
           "Sent email reminder to the school admin to complete onboarding.",
         TimeStamp: "2026-08-14T06:50:00Z",
-        isCurrentUser: true,
       },
       {
-        userId: "USR455",
-        userName: "John Akandu",
-        profilePic: "/images/teamMember2.jpg",
+        userId: "USR002",
         actionTaken:
           "Checked onboarding status. Waiting for payment method to be added.",
         TimeStamp: "2026-07-14T06:50:00Z",
-        isCurrentUser: false,
       },
     ],
     notificationLifecycle: [
@@ -85,13 +79,13 @@ export const NOTIFICATIONS: INotification[] = [
     summary: "payment of NGN 250,00 for Standard annual Plan ",
     financeType: "DISPUTE",
     relatedSchool: {
-      schoolId: "SCH5461",
-      schoolName: "Greenfield Int. School",
+      schoolId: "SCH2461",
+      schoolName: "Royal Crest Academy",
       schoolStatus: "ACTIVE",
-      schoolCode: "GRNFD-0054",
+      schoolCode: "RCA-0054",
       contactPerson: "Mr. Samuel Okafor",
       phoneNumber: "+234 803 123 4567",
-      emailAddress: "admin@greenfield.edu.ng",
+      emailAddress: "admin@royalcrest.edu.ng",
       subscriptionplan: "STANDARD",
       subscriptionStatus: "PAYMENT_FAILED",
       nextBillingDate: "Jun 24, 2026",
@@ -103,9 +97,7 @@ export const NOTIFICATIONS: INotification[] = [
     isArchived: false,
     assignedToMe: false,
     assignedMember: {
-      userId: "USR653",
-      userName: "Emily Amadi",
-      profilePic: "/images/teamMember3.jpg",
+      userId: "USR003",
     },
     category: "Finance",
     notificationStatus: "NEW",
@@ -114,37 +106,33 @@ export const NOTIFICATIONS: INotification[] = [
     paymentInformation: {
       amount: 250000,
       paymentReference: "PSK_98230123_ABCD",
-      paymentMethod: "VISA ****4242",
+      paymentMethod: "CARD",
+      cardType: "MASTERCARD",
+      cardNumber: "1234567890123456",
+      // paymentMethod: "BANK_TRANSFER",
+      // bankName: "Access Bank",
+      // accountNumber: "1234567890",
       attemptedOn: "2026-08-24T10:25:00Z",
       failureReason: "Insufficient balance in the card",
     },
     actionHistory: [
       {
-        userId: "USR123",
-        userName: "Emily Amadi",
-        profilePic: "/images/teamMember1.jpg",
+        userId: "USR003",
         actionTaken:
           "Sent email reminder to the school admin to complete onboarding.",
         TimeStamp: "2026-08-14T06:50:00Z",
-        isCurrentUser: false,
       },
       {
-        userId: "USR455",
-        userName: "John Akandu",
-        profilePic: "/images/teamMember2.jpg",
+        userId: "USR004",
         actionTaken:
           "Checked onboarding status. Waiting for payment method to be added.",
         TimeStamp: "2026-07-14T06:50:00Z",
-        isCurrentUser: true,
       },
       {
-        userId: "USR396",
-        userName: "Mercy Ekenna",
-        profilePic: "/images/teamMember3.jpg",
+        userId: "USR005",
         actionTaken:
           "Sent email reminder to the school admin to complete onboarding.",
         TimeStamp: "2026-03-18T06:50:00Z",
-        isCurrentUser: false,
       },
     ],
     notificationLifecycle: [
@@ -174,13 +162,13 @@ export const NOTIFICATIONS: INotification[] = [
     subject: "Payment gateway not working",
     summary: "Our parents are unable to make payments online.",
     relatedSchool: {
-      schoolId: "SCH5461",
-      schoolName: "Future Leaders School",
+      schoolId: "SCH6699",
+      schoolName: "Excel Scholars Academy",
       schoolStatus: "ACTIVE",
-      schoolCode: "FLS-0054",
+      schoolCode: "ESA-0054",
       contactPerson: "Mr John Adeyemi",
       phoneNumber: "+234 803 123 4567",
-      emailAddress: "admin@futureleaders.edu.ng",
+      emailAddress: "admin@excelscholars.edu.ng",
       subscriptionplan: "STANDARD",
       subscriptionStatus: "PAYMENT_FAILED",
       nextBillingDate: "Jun 24, 2026",
@@ -192,49 +180,53 @@ export const NOTIFICATIONS: INotification[] = [
     isArchived: false,
     assignedToMe: false,
     assignedMember: {
-      userId: "USR852",
-      userName: "Sarah Obi",
-      profilePic: "/images/teamMember2.jpg",
+      userId: "USR006",
     },
     category: "Escalated Ticket",
     description:
       "Our parents are unable to make payments. After entering card details and clicking pay, it shows an error. This has been reported by multiple parents.",
     ticketInformation: {
-      slaResponseTime: "Socus",
+      slaResponseTime: "6 hours",
       firstResponseTime: "4 hours",
       firstResponseDue: "2026-05-24T12:15:00Z",
-      resolutionDue: " 2026-05-24T04:15:00Z",
+      resolutionDue: "2026-05-24T04:15:00Z",
       slaStatus: "1h 30m Overdue",
       currentAssignee: {
-        userId: "USR164",
-        userName: " Emily Amadi",
-        profilePic: "/images/teamMember2.jpg",
-        isCurrentUser: false,
+        userId: "USR006",
       },
     },
     customerMessage: {
       message:
         "Our parents are unable to make payments. After entering card details and clicking pay, it shows an error. This has been reported by multiple parents.",
-      messageDate: "2026-05-24T12:15:00Z",
+      attachments: [
+        {
+          id: "ATT-001",
+          fileName: "Screenshot_2026-08-24_14-32.png",
+          fileType: "PNG",
+          fileSizeBytes: 2_097_152, // 2 MB in bytes
+          url: "/images/customerScreenShot.png",
+        },
+        {
+          id: "ATT-002",
+          fileName: "Error_log.txt",
+          fileType: "TXT",
+          fileSizeBytes: 8_600, // 8.4 KB in bytes
+          url: "/files/error_log_cs-2026-00112.txt",
+        },
+      ],
     },
     actionHistory: [
       {
-        userId: "USR7430",
-        userName: "Emily Amadi",
-        profilePic: "/images/teamMember1.jpg",
+        userId: "USR7006",
         actionTaken:
           "Sent email reminder to the school admin to complete onboarding.",
         TimeStamp: "2026-08-14T06:50:00Z",
-        isCurrentUser: false,
       },
       {
-        userId: "USR455",
-        userName: "John Akandu",
-        profilePic: "/images/teamMember2.jpg",
+        userId: "USR001",
         actionTaken:
           "Checked onboarding status. Waiting for payment method to be added.",
         TimeStamp: "2026-07-14T06:50:00Z",
-        isCurrentUser: false,
       },
     ],
     notificationLifecycle: [
@@ -305,22 +297,16 @@ export const NOTIFICATIONS: INotification[] = [
     },
     actionHistory: [
       {
-        userId: "USR342",
-        userName: "Emily Amadi",
-        profilePic: "/images/teamMember1.jpg",
+        userId: "USR007",
         actionTaken:
           "Sent email reminder to the school admin to complete onboarding.",
         TimeStamp: "2026-08-14T06:50:00Z",
-        isCurrentUser: false,
       },
       {
-        userId: "USR455",
-        userName: "John Akandu",
-        profilePic: "/images/teamMember2.jpg",
+        userId: "USR008",
         actionTaken:
           "Checked onboarding status. Waiting for payment method to be added.",
         TimeStamp: "2026-07-14T06:50:00Z",
-        isCurrentUser: true,
       },
     ],
     notificationLifecycle: [
@@ -378,27 +364,21 @@ export const NOTIFICATIONS: INotification[] = [
       payloadSize: "2.48 KB",
       webhookAttempt: "5 of 8",
       responseTime: "245 ms",
-      webhookRequestId: "req_9f8a2d7e1c4b2",
+      requestId: "req_9f8a2d7e1c4b2",
       occurredAt: "2026-06-10T09:10:00Z",
     },
     actionHistory: [
       {
-        userId: "USR123",
-        userName: "Emily Amadi",
-        profilePic: "/images/teamMember1.jpg",
+        userId: "USR009",
         actionTaken:
           "Sent email reminder to the school admin to complete onboarding.",
         TimeStamp: "2026-08-14T06:50:00Z",
-        isCurrentUser: true,
       },
       {
-        userId: "USR455",
-        userName: "John Akandu",
-        profilePic: "/images/teamMember2.jpg",
+        userId: "USR001",
         actionTaken:
           "Checked onboarding status. Waiting for payment method to be added.",
         TimeStamp: "2026-07-14T06:50:00Z",
-        isCurrentUser: false,
       },
     ],
     notificationLifecycle: [

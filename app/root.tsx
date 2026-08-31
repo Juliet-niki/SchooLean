@@ -11,6 +11,7 @@ import type { Route } from "./+types/root";
 import "./style/global.css";
 import { Toaster } from "./components/ui/toaster";
 import { NotificationsProvider } from "./context/NotificationsContext";
+import { AuthProvider } from "./context/AuthContext";
 
 export const links: Route.LinksFunction = () => [
   { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
@@ -26,8 +27,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
-        <Toaster position="top-center" richColors />
+        <AuthProvider>
+          <NotificationsProvider>
+            {children}
+            <Toaster position="top-center" richColors />
+          </NotificationsProvider>
+        </AuthProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -36,11 +41,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return (
-    <NotificationsProvider>
-      <Outlet />
-    </NotificationsProvider>
-  );
+  return <Outlet />;
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

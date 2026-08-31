@@ -34,7 +34,7 @@ const TableRow = ({ item }: { item: ISchool }) => {
         <div className="w-24">
           <StatusView
             styleOption={true}
-            classStyleName="text-[clamp(13px,1.3vw,15px)] py-1 rounded-[7px] w-full text-center"
+            classStyleName="text-[clamp(13px,1.3vw,15px)] py-1 rounded-[7px] w-full text-center text-white"
             status={
               item.plan === "PREMIUM"
                 ? "Premium"
@@ -52,7 +52,7 @@ const TableRow = ({ item }: { item: ISchool }) => {
         <div className="w-24">
           <StatusView
             styleOption={true}
-            classStyleName="text-[clamp(13px,1.3vw,15px)] py-1 rounded-[7px] w-full text-center"
+            classStyleName="text-[clamp(13px,1.3vw,15px)] py-1 rounded-[7px] w-full text-center text-white"
             status={
               item.status === "ACTIVE"
                 ? "Active"

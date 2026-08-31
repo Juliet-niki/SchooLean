@@ -1,5 +1,24 @@
 import type { ReactNode } from "react";
 
+export interface IUserData {
+  userId: string;
+  userFirstName: string;
+  userMiddleName: string;
+  userLastName: string;
+  profilePicture: string;
+  email: string;
+  phoneNumber: string;
+  country: string;
+  state: string;
+  city: string;
+  isLoggedIn: boolean;
+  isVerified: boolean;
+  accessCode: string;
+  password: string;
+  role: string;
+  totalOpenTickets: number;
+}
+
 export type VerifyPageState = {
   identifier: string;
   type: "email" | "phone";
@@ -255,7 +274,6 @@ export interface IAdminActivityLog {
 }
 
 // NOTIFICATION
-
 export type FinanceType = "SUBSCRIPTION" | "SCHOOL_FEES" | "DISPUTE" | "REFUND";
 export type NotificationStatus = "IN_PROGRESS" | "NEW" | "ASSIGNED";
 export type PriorityType = "LOW" | "MEDIUM" | "HIGH";
@@ -265,6 +283,8 @@ export type GeoRisk = "HIGH" | "MEDIUM" | "LOW";
 export type SubscriptionStatus = "ACTIVE" | "PAYMENT_FAILED";
 export type UserAccountStatus = "ACTIVE" | "INACTIVE";
 export type SystemStatus = "ACTIVE" | "INACTIVE";
+export type PaymentMethod = "BANK_TRANSFER" | "CARD";
+export type CardType = "VISA" | "MASTERCARD" | "VERVE";
 
 export interface NotificationType {
   key: string;
@@ -300,32 +320,34 @@ export interface OnboardingProgress {
   inviteStaff: ProgressStatus;
 }
 
+export interface ITeamMember {
+  userId: string;
+  name: string;
+  profilePicture: string;
+  role: string;
+  totalOpenTickets: number;
+}
+
 export interface ActionHistory {
   userId: string;
-  userName: string;
-  profilePic: string;
   actionTaken: string;
   TimeStamp: string;
-  isCurrentUser: boolean;
 }
 
 export interface PaymentInformation {
   amount: number;
   paymentReference: string;
-  paymentMethod: string;
+  paymentMethod: PaymentMethod;
+  bankName?: string;
+  accountNumber?: string;
+  cardType?: CardType;
+  cardNumber?: string;
   attemptedOn: string;
   failureReason: string;
 }
 
-export interface CurrentAssignee {
-  userId: string;
-  userName: string;
-  profilePic: string;
-  isCurrentUser: boolean;
-}
-
 export interface ticketInformation {
-  currentAssignee: CurrentAssignee;
+  currentAssignee?: AssignedMember;
   slaResponseTime: string;
   firstResponseTime: string;
   firstResponseDue: string;
@@ -372,13 +394,31 @@ export interface TechnicalDetails {
   payloadSize: string;
   webhookAttempt: string;
   responseTime: string;
-  webhookRequestId: string;
+  requestId: string;
   occurredAt: string;
 }
 
 export interface NotificationLifecycle {
   stage: string;
   TimeStamp: string;
+}
+
+export interface AssignedMember {
+  userId: string;
+}
+
+export interface Attachment {
+  id: string;
+  fileName: string;
+  fileType: string; // e.g. "PNG", "TXT", "PDF" — or a MIME type like "image/png"
+  fileSizeBytes: number;
+  url: string; // where to fetch/download/preview it
+  thumbnailUrl?: string; // optional — for images, a smaller preview; falls back to url if absent
+}
+
+export interface CustomerMessage {
+  message: string;
+  attachments: Attachment[];
 }
 
 export interface INotification {
@@ -395,11 +435,7 @@ export interface INotification {
   isRead: boolean;
   isArchived: boolean;
   assignedToMe: boolean;
-  assignedMember?: {
-    userId: string | null;
-    userName: string | null;
-    profilePic: string | null;
-  };
+  assignedMember?: AssignedMember;
   notificationStatus: NotificationStatus;
   category: string;
   description: string;
@@ -408,10 +444,7 @@ export interface INotification {
   notificationLifecycle: NotificationLifecycle[];
   paymentInformation?: PaymentInformation;
   ticketInformation?: ticketInformation;
-  customerMessage?: {
-    message: string;
-    messageDate: string;
-  };
+  customerMessage?: CustomerMessage;
   userDetails?: UserDetails;
   securityEventDetails?: SecurityEventDetails;
   relatedComponent?: string;

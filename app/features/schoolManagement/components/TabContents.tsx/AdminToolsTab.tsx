@@ -336,15 +336,17 @@ const AdminToolsTab = () => {
             <div className="grid grid-cols-[1fr_2fr] items-center gap-y-6">
               <p>Admin :</p>
               <div className="flex items-center gap-3">
-                {currentAdmin.profilePicture ? (
-                  <img
-                    src={currentAdmin.profilePicture}
-                    alt={adminName}
-                    className="w-10 h-10 lg:w-12 lg:h-12 rounded-full object-cover"
-                  />
-                ) : (
-                  <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-[#D9D9D9]" />
-                )}
+                <div>
+                  {currentAdmin.profilePicture ? (
+                    <img
+                      src={currentAdmin.profilePicture}
+                      alt={adminName}
+                      className="w-10 h-10 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-[#D9D9D9]" />
+                  )}
+                </div>
                 <p className="font-bold text-[clamp(14px,1.4vw,16px)]">
                   {adminName}
                 </p>

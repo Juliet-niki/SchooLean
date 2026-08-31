@@ -15,12 +15,14 @@ import { Checkbox } from "~/components/ui/checkbox";
 import { cn } from "~/lib/utils";
 import type { NotificationType } from "~/types";
 import { useNotifications } from "~/context/NotificationsContext";
+import { useAuth } from "~/context/AuthContext";
 import TablePagination from "~/components/TablePagination";
 import { DrawerDialog } from "~/components/DrawerDialog";
 import AssignTicket from "../components/AssignTicket";
 import { formatReceivedAt } from "~/utils/formatDate";
-import { useMediaQuery } from "react-responsive";
 import StatusView from "~/components/StatusView";
+import { useIsMobile } from "~/hooks/useIsMobile";
+import { getTeamMember } from "~/data/teamMembersData";
 
 const NOTIFICATION_TYPES: NotificationType[] = [
   {
@@ -89,7 +91,7 @@ function getColumnsForType(
     {
       key: "notification",
       header: "Notification",
-      width: isMobile ? "25%" : "35%",
+      width: isMobile ? "25%" : "32%",
     },
   ];
 
@@ -98,7 +100,7 @@ function getColumnsForType(
   }
 
   if (activeType === "customerSupport") {
-    columns.push({ key: "assignedTo", header: "Assigned To", width: "15%" });
+    columns.push({ key: "assignedTo", header: "Assigned To", width: "17%" });
   }
 
   if (activeType === "system") {
@@ -112,7 +114,7 @@ function getColumnsForType(
       key: "relatedSchool",
       header:
         activeType === "security" ? "Related School/User" : "Related School",
-      width: "16%",
+      width: "18%",
     });
   }
 
@@ -133,15 +135,15 @@ function getColumnsForType(
 }
 
 const Notifications = () => {
-  const { notifications, setNotifications } = useNotifications();
+  const { notifications, markAsRead, archive, unarchive, assignToMember } =
+    useNotifications();
+  const { currentUser } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isOpenAssign, setIsOpenAssign] = useState(false);
 
-  const isMobile = useMediaQuery({
-    query: "(max-width: 768px)",
-  });
+  const isMobile = useIsMobile();
 
   const activeType = searchParams.get("type") ?? "customerSuccess";
   const activeTab = (searchParams.get("tab") ?? "all") as TabKey;
@@ -170,19 +172,22 @@ const Notifications = () => {
       all: visible.length,
       unread: visible.filter((n) => !n.isRead).length,
       archived: typeNotifications.filter((n) => n.isArchived).length,
-      assigned: visible.filter((n) => n.assignedToMe).length,
+      assigned: visible.filter(
+        (n) => n.assignedMember?.userId === currentUser?.userId,
+      ).length,
     };
-  }, [typeNotifications]);
+  }, [typeNotifications, currentUser]);
 
   const filteredNotifications = useMemo(() => {
     return typeNotifications.filter((n) => {
       if (activeTab === "archived") return n.isArchived;
       if (n.isArchived) return false;
       if (activeTab === "unread") return !n.isRead;
-      if (activeTab === "assigned") return n.assignedToMe;
+      if (activeTab === "assigned")
+        return n.assignedMember?.userId === currentUser?.userId;
       return true;
     });
-  }, [typeNotifications, activeTab]);
+  }, [typeNotifications, activeTab, currentUser]);
 
   const allSelected =
     filteredNotifications.length > 0 &&
@@ -247,44 +252,29 @@ const Notifications = () => {
     filteredNotifications.length,
   );
 
-  const handleMarkAsRead = () => {
-    setNotifications((prev) =>
-      prev.map((n) =>
-        selectedIds.includes(n.notificationId) ? { ...n, isRead: true } : n,
-      ),
-    );
+  const handleMarkAsRead = async () => {
+    await markAsRead(selectedIds);
     setSelectedIds([]);
   };
 
-  const handleArchive = () => {
-    setNotifications((prev) =>
-      prev.map((n) =>
-        selectedIds.includes(n.notificationId) ? { ...n, isArchived: true } : n,
-      ),
-    );
+  const handleArchive = async () => {
+    await archive(selectedIds);
     setSelectedIds([]);
   };
 
-  const handleUnArchive = () => {
-    setNotifications((prev) =>
-      prev.map((n) =>
-        selectedIds.includes(n.notificationId)
-          ? { ...n, isArchived: false }
-          : n,
-      ),
-    );
+  const handleUnArchive = async () => {
+    await unarchive(selectedIds);
     setSelectedIds([]);
   };
 
-  const handleAssignTicket = (memberIds: number[]) => {
-    // console.log(
-    //   "Assigning notifications",
-    //   selectedIds,
-    //   "to members",
-    //   memberIds,
-    // );
-
-    setIsOpenAssign(false);
+  const handleAssignTicket = async (memberId: string) => {
+    try {
+      await assignToMember(selectedIds, memberId);
+      setSelectedIds([]);
+      setIsOpenAssign(false);
+    } catch {
+      // modal stays open on failure
+    }
   };
 
   const navigate = useNavigate();
@@ -408,6 +398,7 @@ const Notifications = () => {
                     <Checkbox
                       checked={allSelected}
                       onCheckedChange={toggleSelectAll}
+                      className="cursor-pointer"
                     />
                     <p>Select All</p>
                   </div>
@@ -477,140 +468,144 @@ const Notifications = () => {
                   </thead>
                   <tbody>
                     {paginatedData.length > 0 ? (
-                      paginatedData.map((n) => (
-                        <tr
-                          key={n.notificationId}
-                          className={cn(
-                            "text-[clamp(12px,1.3vw,14px)] border-t first:border-t-0 border-[#CACACA]",
-                            n.isRead === true
-                              ? "bg-[#DCDCDC]"
-                              : "bg-[#0EB26B08]",
-                          )}
-                        >
-                          <td className="px-4 py-3">
-                            <Checkbox
-                              checked={selectedIds.includes(n.notificationId)}
-                              onCheckedChange={() =>
-                                toggleSelectOne(n.notificationId)
-                              }
-                            />
-                          </td>
-                          <td
-                            className="px-4 py-3 cursor-pointer"
-                            onClick={() =>
-                              navigate(
-                                `/notifications/${n.notificationId}?${searchParams.toString()}`,
-                              )
-                            }
+                      paginatedData.map((n) => {
+                        const assignee = getTeamMember(
+                          n.assignedMember?.userId,
+                        );
+
+                        return (
+                          <tr
+                            key={n.notificationId}
+                            className={cn(
+                              "text-[clamp(12px,1.3vw,14px)] border-t first:border-t-0 border-[#CACACA]",
+                              n.isRead === true
+                                ? "bg-[#DCDCDC]"
+                                : "bg-[#0EB26B08]",
+                            )}
                           >
-                            <p className="truncate font-semibold text-[clamp(14px,1.6vw,18px)]">
-                              {n.subject}
-                            </p>
-                            <p className="truncate text-[clamp(11px,1.2vw,15px)] font-medium">
-                              {n.summary}
-                            </p>
-                          </td>
-
-                          {activeType === "finance" ? (
                             <td className="px-4 py-3">
-                              <StatusView
-                                variant="soft"
-                                styleOption={true}
-                                status={
-                                  n.financeType === "SUBSCRIPTION"
-                                    ? "Subscription"
-                                    : n.financeType === "SCHOOL_FEES"
-                                      ? "School Fees"
-                                      : n.financeType === "DISPUTE"
-                                        ? "Dispute"
-                                        : "Refund"
+                              <Checkbox
+                                checked={selectedIds.includes(n.notificationId)}
+                                onCheckedChange={() =>
+                                  toggleSelectOne(n.notificationId)
                                 }
-                                green="Refund"
-                                yellow="Subscription"
-                                blue="School Fees"
-                                purple="Dispute"
+                                className="cursor-pointer"
                               />
                             </td>
-                          ) : null}
-
-                          {activeType === "customerSupport" ? (
-                            <td className="px-4 py-3">
-                              <div className="flex items-center gap-3">
-                                <img
-                                  src={
-                                    n.assignedMember?.profilePic ??
-                                    "/avatars/noProfilePic.svg"
-                                  }
-                                  alt={
-                                    n.assignedMember?.userName ??
-                                    "No Profile Pic"
-                                  }
-                                  className="w-8 h-8 rounded-full object-cover"
-                                />
-
-                                <p className="text-[clamp(14px,1.6vw,18px)] font-semibold">
-                                  {n.assignedMember?.userName ?? "Unassigned"}
-                                </p>
-                              </div>
-                            </td>
-                          ) : null}
-
-                          {activeType === "system" ? (
-                            <td className="px-4 py-3 text-[clamp(11px,1.2vw,15px)] font-medium">
-                              {n.relatedComponent}
-                            </td>
-                          ) : (
-                            <td className="px-4 py-3 text-[clamp(11px,1.2vw,15px)] font-medium">
-                              {n.relatedSchool?.schoolName}
-                            </td>
-                          )}
-
-                          {activeType === "customerSupport" ? (
-                            <td className="px-4 py-3">
-                              <StatusView
-                                variant="soft"
-                                styleOption={true}
-                                status={
-                                  n.notificationStatus === "IN_PROGRESS"
-                                    ? "In Progress"
-                                    : n.notificationStatus === "NEW"
-                                      ? "New"
-                                      : "Assigned"
-                                }
-                                yellow="In Progress"
-                                green="New"
-                                blue="Assigned"
-                              />
-                            </td>
-                          ) : null}
-
-                          {activeType === "finance" ? (
-                            <td className="px-4 py-3 text-[clamp(10px,1.1vw,13px)] font-medium">
-                              NGN {n.amount?.toLocaleString("en-US")}
-                            </td>
-                          ) : null}
-
-                          <td className="px-4 py-3 text-[clamp(10px,1.1vw,13px)] font-medium">
-                            {formatReceivedAt(n.receivedAt)}
-                          </td>
-                          <td className="px-4 py-3">
-                            <StatusView
-                              variant="soft"
-                              styleOption={true}
-                              status={
-                                n.priority === "LOW"
-                                  ? "Low"
-                                  : n.priority === "MEDIUM"
-                                    ? "Medium"
-                                    : "High"
+                            <td
+                              className="px-4 py-3 cursor-pointer"
+                              onClick={() =>
+                                navigate(
+                                  `/notifications/${n.notificationId}?${searchParams.toString()}`,
+                                )
                               }
-                              green="Low"
-                              red="High"
-                              yellow="Medium"
-                            />
-                          </td>
-                        </tr>
-                      ))
+                            >
+                              <p className="truncate font-semibold text-[clamp(14px,1.6vw,18px)]">
+                                {n.subject}
+                              </p>
+                              <p className="truncate text-[clamp(11px,1.2vw,15px)] font-medium">
+                                {n.summary}
+                              </p>
+                            </td>
+
+                            {activeType === "finance" ? (
+                              <td className="px-4 py-3">
+                                <StatusView
+                                  variant="soft"
+                                  styleOption={true}
+                                  status={
+                                    n.financeType === "SUBSCRIPTION"
+                                      ? "Subscription"
+                                      : n.financeType === "SCHOOL_FEES"
+                                        ? "School Fees"
+                                        : n.financeType === "DISPUTE"
+                                          ? "Dispute"
+                                          : "Refund"
+                                  }
+                                  green="Refund"
+                                  yellow="Subscription"
+                                  blue="School Fees"
+                                  purple="Dispute"
+                                />
+                              </td>
+                            ) : null}
+
+                            {activeType === "customerSupport" ? (
+                              <td className="px-4 py-3">
+                                <div className="flex items-center gap-3">
+                                  <img
+                                    src={
+                                      assignee?.profilePicture ??
+                                      "/avatars/noProfilePic.svg"
+                                    }
+                                    alt={assignee?.name ?? "No Profile Pic"}
+                                    className="w-8 h-8 rounded-full object-cover"
+                                  />
+
+                                  <p className="text-[clamp(14px,1.6vw,18px)] font-semibold">
+                                    {assignee?.name ?? "Unassigned"}
+                                  </p>
+                                </div>
+                              </td>
+                            ) : null}
+
+                            {activeType === "system" ? (
+                              <td className="px-4 py-3 text-[clamp(11px,1.2vw,15px)] font-medium">
+                                {n.relatedComponent}
+                              </td>
+                            ) : (
+                              <td className="px-4 py-3 text-[clamp(11px,1.2vw,15px)] font-medium">
+                                {n.relatedSchool?.schoolName}
+                              </td>
+                            )}
+
+                            {activeType === "customerSupport" ? (
+                              <td className="px-4 py-3">
+                                <StatusView
+                                  variant="soft"
+                                  styleOption={true}
+                                  status={
+                                    n.notificationStatus === "IN_PROGRESS"
+                                      ? "In Progress"
+                                      : n.notificationStatus === "NEW"
+                                        ? "New"
+                                        : "Assigned"
+                                  }
+                                  yellow="In Progress"
+                                  green="New"
+                                  blue="Assigned"
+                                />
+                              </td>
+                            ) : null}
+
+                            {activeType === "finance" ? (
+                              <td className="px-4 py-3 text-[clamp(10px,1.1vw,13px)] font-medium">
+                                NGN {n.amount?.toLocaleString("en-US")}
+                              </td>
+                            ) : null}
+
+                            <td className="px-4 py-3 text-[clamp(10px,1.1vw,13px)] font-medium">
+                              {formatReceivedAt(n.receivedAt)}
+                            </td>
+                            <td className="px-4 py-3">
+                              <StatusView
+                                variant="soft"
+                                styleOption={true}
+                                status={
+                                  n.priority === "LOW"
+                                    ? "Low"
+                                    : n.priority === "MEDIUM"
+                                      ? "Medium"
+                                      : "High"
+                                }
+                                green="Low"
+                                red="High"
+                                yellow="Medium"
+                              />
+                            </td>
+                          </tr>
+                        );
+                      })
                     ) : (
                       <tr>
                         <td

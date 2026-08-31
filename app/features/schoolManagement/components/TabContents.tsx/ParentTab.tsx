@@ -58,7 +58,7 @@ const TableRow = ({ parent, school }: { parent: IParent; school: ISchool }) => {
 
           <StatusView
             styleOption={true}
-            classStyleName="text-[clamp(13px,1.3vw,15px)] py-1 px-3 rounded-[7px] w-fit text-center"
+            classStyleName="text-[clamp(13px,1.3vw,15px)] py-1 px-3 rounded-[7px] w-fit text-center text-white"
             status={parent.status === "ACTIVE" ? "Active" : "Inactive"}
             green="Active"
             red="Inactive"

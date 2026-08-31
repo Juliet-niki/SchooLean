@@ -1,4 +1,3 @@
-import { useMediaQuery } from "react-responsive";
 import { AdminIcon, MoreIcon } from "~/assets/Icons";
 import { Button } from "~/components/ui/button";
 import {
@@ -6,12 +5,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "~/components/ui/popover";
+import { useIsMobile } from "~/hooks/useIsMobile";
 import type { ISchool } from "~/types";
 
 const SchoolAdminTab = ({ school }: { school: ISchool }) => {
-  const isMobile = useMediaQuery({
-    query: "(max-width: 768px)",
-  });
+  const isMobile = useIsMobile();
 
   return (
     <div className="flex flex-col gap-4 ml:gap-6 divide-y divide-[#E4E4E4]">

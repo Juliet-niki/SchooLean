@@ -1,5 +1,4 @@
 import { CloseIcon } from "~/assets/Icons";
-import { useMediaQuery } from "react-responsive";
 import { cn } from "~/lib/utils";
 import {
   Drawer,
@@ -18,6 +17,7 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import { ScrollArea } from "./ui/scroll-area";
+import { useIsMobile } from "~/hooks/useIsMobile";
 
 export function DrawerDialog({
   children,
@@ -68,9 +68,7 @@ export function DrawerDialog({
   headerClassName?: string;
   scrollAreaClassName?: string;
 }) {
-  const isMobile = useMediaQuery({
-    query: "(max-width: 768px)",
-  });
+  const isMobile = useIsMobile();
   const handleOutsideInteraction = (e: Event) => {
     if (preventCloseOnOutsideClick) e.preventDefault();
   };
