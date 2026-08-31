@@ -8,6 +8,7 @@ import { Form, FormField, FormLabel } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { Spinner } from "~/components/ui/spinner";
 import type { VerifyPageState } from "~/types";
+import { useAuth } from "~/context/AuthContext";
 
 const RegisterFormSchema = z
   .object({
@@ -29,10 +30,10 @@ const RegisterFormSchema = z
       .nonempty({ message: "Enter your password" })
       .refine(
         (val) =>
-          /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[?!@&*%:.,#$^()\-_+=]).{6,}$/.test(val),
+          /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[?!@&*%:.,#$^()\-_+=]).{8,}$/.test(val),
         {
           message:
-            "Min. 6 characters, 1 letter, 1 number and 1 special character",
+            "Min. 8 characters, 1 letter, 1 number and 1 special character",
         },
       ),
     confirmPassword: z
@@ -55,6 +56,7 @@ type TypeRegisterFormSchema = z.infer<typeof RegisterFormSchema>;
 
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const { register } = useAuth();
 
   const form = useForm<TypeRegisterFormSchema>({
     resolver: zodResolver(RegisterFormSchema),
@@ -80,7 +82,23 @@ const RegisterForm = () => {
 
   const onSubmit = async (data: TypeRegisterFormSchema) => {
     await new Promise((resolve) => setTimeout(resolve, 800));
-    console.log(data);
+
+    const result = await register({
+      firstName: data.firstName,
+      middleName: data.middleName,
+      lastName: data.lastName,
+      email: data.email,
+      phoneNumber: data.phoneNumber,
+      password: data.password,
+      accessCode: data.accessCode,
+    });
+
+    if (!result.success) {
+      form.setError("accessCode", {
+        message: result.error ?? "Invalid access code",
+      });
+      return;
+    }
 
     form.reset();
 

@@ -1,9 +1,11 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import {
   AdminManagementIcon,
   AnalyticsIcon,
   ConfigurationIcon,
   ContentIcon,
+  Logout2Icon,
+  MegaPhone2Icon,
   MegaPhoneIcon,
   MenuIcon,
   QuestionMarkIcon,
@@ -11,8 +13,17 @@ import {
   SubscriptionIcon,
   SystemSecurityIcon,
 } from "~/assets/Icons";
+import { useAuth } from "~/context/AuthContext";
 
 const Sidebar = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
+  };
+
   const menuItems = [
     {
       id: 1,
@@ -92,6 +103,12 @@ const Sidebar = () => {
       route: "/system-health-status",
       icon: QuestionMarkIcon,
     },
+    {
+      id: 14,
+      name: "ANNOUNCEMENTS",
+      route: "/announcements",
+      icon: MegaPhone2Icon,
+    },
   ];
 
   return (
@@ -115,13 +132,26 @@ const Sidebar = () => {
             }
           >
             <div className="bg-white rounded-[7px] lg:rounded-[10px] p-1.25 lg:p-2">
-              <item.icon className="w-4 h-4 lg:w-5 lg:h-5" />
+              <item.icon className="w-4 h-4 lg:w-5 lg:h-5" fill="#2E2E2E" />
             </div>
             <p className="text-[clamp(10px,1vw,14px)] font-medium ml:font-semibold">
               {item.name}
             </p>
           </NavLink>
         ))}
+
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="flex items-center gap-3 py-2 lg:py-3 px-2 lg:px-4 text-[#F1F0F0] rounded-[10px] transition-colors hover:bg-[#159D62]/40 cursor-pointer text-left"
+        >
+          <div className="bg-white rounded-[7px] lg:rounded-[10px] p-1.25 lg:p-2">
+            <Logout2Icon className="w-4 h-4 lg:w-5 lg:h-5" fill="#2E2E2E" />
+          </div>
+          <p className="text-[clamp(10px,1vw,14px)] font-medium ml:font-semibold">
+            LOGOUT
+          </p>
+        </button>
       </div>
     </div>
   );

@@ -12,6 +12,7 @@ import { useState } from "react";
 import { Spinner } from "~/components/ui/spinner";
 import { DrawerDialog } from "~/components/DrawerDialog";
 import type { VerifyPageState } from "~/types";
+import { useAuth } from "~/context/AuthContext";
 
 const forgotPasswordSchema = z.object({
   identifier: z
@@ -40,6 +41,7 @@ const ForgotPasswordForm = () => {
     "idle" | "success" | "error"
   >("idle");
   const navigate = useNavigate();
+  const { requestPasswordReset } = useAuth();
 
   const form = useForm<TForgotPasswordSchema>({
     resolver: zodResolver(forgotPasswordSchema),
@@ -57,13 +59,17 @@ const ForgotPasswordForm = () => {
   const identifierType = getIdentifierType(watch("identifier"));
 
   const onSubmit = async (data: TForgotPasswordSchema) => {
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      console.log("Sending code via:", identifierType, data.identifier);
-      setSubmitStatus("success");
-    } catch {
-      setSubmitStatus("error");
+    const result = await requestPasswordReset(data.identifier);
+
+    if (!result.success) {
+      form.setError("identifier", {
+        message: result.error ?? "Something went wrong",
+      });
+      return;
     }
+
+    await new Promise((resolve) => setTimeout(resolve, 800)); // keep the existing perceived delay
+    setSubmitStatus("success");
   };
 
   const handleContinueAfterSuccess = () => {

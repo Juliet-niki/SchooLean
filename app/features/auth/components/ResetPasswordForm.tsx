@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { z } from "zod";
 import { CancelIcon, CheckIcon, ErrorIcon } from "~/assets/Icons";
 import PopUtility from "~/components/PopUtility";
@@ -8,9 +8,10 @@ import { Button } from "~/components/ui/button";
 import { Dialog } from "~/components/ui/dialog";
 import { Form, FormField, FormLabel } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Spinner } from "~/components/ui/spinner";
 import { DrawerDialog } from "~/components/DrawerDialog";
+import { useAuth } from "~/context/AuthContext";
 
 const resetPasswordSchema = z
   .object({
@@ -40,6 +41,18 @@ const ResetPasswordForm = () => {
     "idle" | "success" | "error"
   >("idle");
   const navigate = useNavigate();
+  const location = useLocation();
+  const { resetPassword } = useAuth();
+  const identifier = (location.state as { identifier?: string } | null)
+    ?.identifier;
+
+  useEffect(() => {
+    if (!identifier) {
+      navigate("/forgot-password", { replace: true });
+    }
+  }, [identifier, navigate]);
+
+  if (!identifier) return null;
 
   const passwordRequirements = [
     {
@@ -79,13 +92,15 @@ const ResetPasswordForm = () => {
   const passwordValue = watch("password");
 
   const onSubmit = async (data: TResetPasswordSchema) => {
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      console.log(data);
-      setSubmitStatus("success");
-    } catch {
+    const result = await resetPassword(identifier, data.password);
+
+    if (!result.success) {
       setSubmitStatus("error");
+      return;
     }
+
+    await new Promise((resolve) => setTimeout(resolve, 800));
+    setSubmitStatus("success");
   };
 
   const handleContinueAfterSuccess = () => {

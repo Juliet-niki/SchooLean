@@ -6,6 +6,7 @@ import type { VerifyPageState } from "~/types";
 import { DrawerDialog } from "~/components/DrawerDialog";
 import PopUtility from "~/components/PopUtility";
 import { toast } from "sonner";
+import { useAuth } from "~/context/AuthContext";
 
 const Verification = () => {
   const [loading, setLoading] = useState(false);
@@ -13,6 +14,7 @@ const Verification = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as VerifyPageState | null;
+  const { verify, identifierExists } = useAuth();
 
   useEffect(() => {
     if (!state?.identifier) {
@@ -26,18 +28,30 @@ const Verification = () => {
     setLoading(true);
 
     try {
-      // TODO: replace with actual API call
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       if (state.context === "forgot-password") {
+        if (!identifierExists(state.identifier)) {
+          toast.error("Verification failed.", { id: "verification-error" });
+          return;
+        }
+
         navigate("/reset-password", {
-          state: {
-            identifier: state.identifier,
-          },
+          state: { identifier: state.identifier },
         });
-      } else {
-        setSubmitStatus("success");
+        return;
       }
+
+      const result = await verify(state.identifier);
+
+      if (!result.success) {
+        toast.error(result.error ?? "Verification failed. Please try again.", {
+          id: "verification-error",
+        });
+        return;
+      }
+
+      setSubmitStatus("success");
     } catch (error) {
       toast.error("Invalid or expired code. Please try again.", {
         id: "verification-error",
