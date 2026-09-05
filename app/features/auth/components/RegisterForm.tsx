@@ -112,271 +112,267 @@ const RegisterForm = () => {
   };
 
   return (
-    <div>
-      <>
-        <Form {...form}>
-          <form
-            className="flex flex-col gap-4 px-1 text-[clamp(14px,1.4vw,16px)] font-medium w-full"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <div className="flex flex-col gap-6">
-              <FormField
-                control={form.control}
-                name="firstName"
-                render={({ field, fieldState }) => (
-                  <div className="flex flex-col gap-1">
-                    <FormLabel>First Name</FormLabel>
-                    <Input
-                      hasError={fieldState.invalid}
-                      subtext={
-                        fieldState.error ? (
-                          <span className="flex items-center gap-1 pt-1 text-[#E93F3F] text-xs font-normal">
-                            <ErrorIcon className="w-4 h-4" />
-                            {fieldState.error.message}
-                          </span>
-                        ) : null
+    <>
+      <Form {...form}>
+        <form
+          className="flex flex-col gap-4 px-1 text-[clamp(14px,1.4vw,16px)] font-medium w-full"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div className="flex flex-col gap-6">
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field, fieldState }) => (
+                <div className="flex flex-col gap-1">
+                  <FormLabel>First Name</FormLabel>
+                  <Input
+                    hasError={fieldState.invalid}
+                    subtext={
+                      fieldState.error ? (
+                        <span className="flex items-center gap-1 pt-1 text-[#E93F3F] text-xs font-normal">
+                          <ErrorIcon className="w-4 h-4" />
+                          {fieldState.error.message}
+                        </span>
+                      ) : null
+                    }
+                    {...field}
+                    placeholder="Enter your first name"
+                    type="text"
+                  />
+                </div>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="middleName"
+              render={({ field, fieldState }) => (
+                <div className="flex flex-col gap-1">
+                  <FormLabel>Middle Name</FormLabel>
+                  <Input
+                    hasError={fieldState.invalid}
+                    subtext={
+                      fieldState.error ? (
+                        <span className="flex items-center gap-1 pt-1 text-[#E93F3F] text-xs font-normal">
+                          <ErrorIcon className="w-4 h-4" />
+                          {fieldState.error.message}
+                        </span>
+                      ) : null
+                    }
+                    {...field}
+                    placeholder="Enter your middle name"
+                    type="text"
+                  />
+                </div>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field, fieldState }) => (
+                <div className="flex flex-col gap-1">
+                  <FormLabel>Last Name</FormLabel>
+                  <Input
+                    hasError={fieldState.invalid}
+                    subtext={
+                      fieldState.error ? (
+                        <span className="flex items-center gap-1 pt-1 text-[#E93F3F] text-xs font-normal">
+                          <ErrorIcon className="w-4 h-4" />
+                          {fieldState.error.message}
+                        </span>
+                      ) : null
+                    }
+                    {...field}
+                    placeholder="Enter your last name"
+                    type="text"
+                  />
+                </div>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="phoneNumber"
+              render={({ field, fieldState }) => (
+                <div className="flex flex-col gap-1">
+                  <FormLabel>Phone Number</FormLabel>
+                  <Input
+                    hasError={fieldState.invalid}
+                    subtext={
+                      fieldState.error ? (
+                        <span className="flex items-center gap-1 pt-1 text-[#E93F3F] text-xs font-normal">
+                          <ErrorIcon className="w-4 h-4" />
+                          {fieldState.error.message}
+                        </span>
+                      ) : null
+                    }
+                    {...field}
+                    placeholder="Enter your phone number"
+                    type="text"
+                    maxLength={11}
+                  />
+                </div>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field, fieldState }) => (
+                <div className="flex flex-col gap-1">
+                  <FormLabel>Email</FormLabel>
+                  <Input
+                    hasError={fieldState.invalid}
+                    subtext={
+                      fieldState.error ? (
+                        <span className="flex items-center gap-1 pt-1 text-[#E93F3F] text-xs font-normal">
+                          <ErrorIcon className="w-4 h-4" />
+                          {fieldState.error.message}
+                        </span>
+                      ) : null
+                    }
+                    {...field}
+                    placeholder="schoolean@info.com"
+                    type="email"
+                  />
+                </div>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="confirmEmail"
+              render={({ field, fieldState }) => (
+                <div className="flex flex-col gap-1">
+                  <FormLabel>Confirm Email</FormLabel>
+                  <Input
+                    hasError={fieldState.invalid}
+                    subtext={
+                      fieldState.error ? (
+                        <span className="flex items-center gap-1 pt-1 text-[#E93F3F] text-xs font-normal">
+                          <ErrorIcon className="w-4 h-4" />
+                          {fieldState.error.message}
+                        </span>
+                      ) : null
+                    }
+                    {...field}
+                    placeholder="schoolean@info.com"
+                    type="email"
+                  />
+                </div>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field, fieldState }) => (
+                <div className="flex flex-col gap-1">
+                  <FormLabel>Password</FormLabel>
+                  <Input
+                    hasError={fieldState.invalid}
+                    subtext={
+                      fieldState.error ? (
+                        <span className="flex items-center gap-1 pt-1 text-[#E93F3F] text-xs font-normal">
+                          <ErrorIcon className="w-4 h-4" />
+                          {fieldState.error.message}
+                        </span>
+                      ) : null
+                    }
+                    {...field}
+                    placeholder="Enter A password"
+                    type="password"
+                  />
+                </div>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field, fieldState }) => (
+                <div className="flex flex-col gap-1">
+                  <FormLabel>Confirm Password</FormLabel>
+                  <Input
+                    hasError={fieldState.invalid}
+                    subtext={
+                      fieldState.error ? (
+                        <span className="flex items-center gap-1 pt-1 text-[#E93F3F] text-xs font-normal">
+                          <ErrorIcon className="w-4 h-4" />
+                          {fieldState.error.message}
+                        </span>
+                      ) : null
+                    }
+                    {...field}
+                    placeholder="Re-enter password"
+                    type="password"
+                  />
+                </div>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="accessCode"
+              render={({ field, fieldState }) => (
+                <div className="flex flex-col gap-1">
+                  <FormLabel>Access Code</FormLabel>
+                  <Input
+                    hasError={fieldState.invalid}
+                    subtext={
+                      fieldState.error ? (
+                        <span className="flex items-center gap-1 pt-1 text-[#E93F3F] text-xs font-normal">
+                          <ErrorIcon className="w-4 h-4" />
+                          {fieldState.error.message}
+                        </span>
+                      ) : null
+                    }
+                    {...field}
+                    placeholder="Enter your access code"
+                    type="text"
+                    maxLength={6}
+                    onKeyDown={(e) => {
+                      if (
+                        !/[\d]/.test(e.key) &&
+                        ![
+                          "Backspace",
+                          "Delete",
+                          "Tab",
+                          "ArrowLeft",
+                          "ArrowRight",
+                        ].includes(e.key)
+                      ) {
+                        e.preventDefault();
                       }
-                      {...field}
-                      placeholder="Enter your first name"
-                      type="text"
-                    />
-                  </div>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="middleName"
-                render={({ field, fieldState }) => (
-                  <div className="flex flex-col gap-1">
-                    <FormLabel>Middle Name</FormLabel>
-                    <Input
-                      hasError={fieldState.invalid}
-                      subtext={
-                        fieldState.error ? (
-                          <span className="flex items-center gap-1 pt-1 text-[#E93F3F] text-xs font-normal">
-                            <ErrorIcon className="w-4 h-4" />
-                            {fieldState.error.message}
-                          </span>
-                        ) : null
-                      }
-                      {...field}
-                      placeholder="Enter your middle name"
-                      type="text"
-                    />
-                  </div>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="lastName"
-                render={({ field, fieldState }) => (
-                  <div className="flex flex-col gap-1">
-                    <FormLabel>Last Name</FormLabel>
-                    <Input
-                      hasError={fieldState.invalid}
-                      subtext={
-                        fieldState.error ? (
-                          <span className="flex items-center gap-1 pt-1 text-[#E93F3F] text-xs font-normal">
-                            <ErrorIcon className="w-4 h-4" />
-                            {fieldState.error.message}
-                          </span>
-                        ) : null
-                      }
-                      {...field}
-                      placeholder="Enter your last name"
-                      type="text"
-                    />
-                  </div>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="phoneNumber"
-                render={({ field, fieldState }) => (
-                  <div className="flex flex-col gap-1">
-                    <FormLabel>Phone Number</FormLabel>
-                    <Input
-                      hasError={fieldState.invalid}
-                      subtext={
-                        fieldState.error ? (
-                          <span className="flex items-center gap-1 pt-1 text-[#E93F3F] text-xs font-normal">
-                            <ErrorIcon className="w-4 h-4" />
-                            {fieldState.error.message}
-                          </span>
-                        ) : null
-                      }
-                      {...field}
-                      placeholder="Enter your phone number"
-                      type="text"
-                      maxLength={11}
-                    />
-                  </div>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field, fieldState }) => (
-                  <div className="flex flex-col gap-1">
-                    <FormLabel>Email</FormLabel>
-                    <Input
-                      hasError={fieldState.invalid}
-                      subtext={
-                        fieldState.error ? (
-                          <span className="flex items-center gap-1 pt-1 text-[#E93F3F] text-xs font-normal">
-                            <ErrorIcon className="w-4 h-4" />
-                            {fieldState.error.message}
-                          </span>
-                        ) : null
-                      }
-                      {...field}
-                      placeholder="schoolean@info.com"
-                      type="email"
-                    />
-                  </div>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="confirmEmail"
-                render={({ field, fieldState }) => (
-                  <div className="flex flex-col gap-1">
-                    <FormLabel>Confirm Email</FormLabel>
-                    <Input
-                      hasError={fieldState.invalid}
-                      subtext={
-                        fieldState.error ? (
-                          <span className="flex items-center gap-1 pt-1 text-[#E93F3F] text-xs font-normal">
-                            <ErrorIcon className="w-4 h-4" />
-                            {fieldState.error.message}
-                          </span>
-                        ) : null
-                      }
-                      {...field}
-                      placeholder="schoolean@info.com"
-                      type="email"
-                    />
-                  </div>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field, fieldState }) => (
-                  <div className="flex flex-col gap-1">
-                    <FormLabel>Password</FormLabel>
-                    <Input
-                      hasError={fieldState.invalid}
-                      subtext={
-                        fieldState.error ? (
-                          <span className="flex items-center gap-1 pt-1 text-[#E93F3F] text-xs font-normal">
-                            <ErrorIcon className="w-4 h-4" />
-                            {fieldState.error.message}
-                          </span>
-                        ) : null
-                      }
-                      {...field}
-                      placeholder="Enter A password"
-                      type="password"
-                    />
-                  </div>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="confirmPassword"
-                render={({ field, fieldState }) => (
-                  <div className="flex flex-col gap-1">
-                    <FormLabel>Confirm Password</FormLabel>
-                    <Input
-                      hasError={fieldState.invalid}
-                      subtext={
-                        fieldState.error ? (
-                          <span className="flex items-center gap-1 pt-1 text-[#E93F3F] text-xs font-normal">
-                            <ErrorIcon className="w-4 h-4" />
-                            {fieldState.error.message}
-                          </span>
-                        ) : null
-                      }
-                      {...field}
-                      placeholder="Re-enter password"
-                      type="password"
-                    />
-                  </div>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="accessCode"
-                render={({ field, fieldState }) => (
-                  <div className="flex flex-col gap-1">
-                    <FormLabel>Access Code</FormLabel>
-                    <Input
-                      hasError={fieldState.invalid}
-                      subtext={
-                        fieldState.error ? (
-                          <span className="flex items-center gap-1 pt-1 text-[#E93F3F] text-xs font-normal">
-                            <ErrorIcon className="w-4 h-4" />
-                            {fieldState.error.message}
-                          </span>
-                        ) : null
-                      }
-                      {...field}
-                      placeholder="Enter your access code"
-                      type="text"
-                      maxLength={6}
-                      onKeyDown={(e) => {
-                        if (
-                          !/[\d]/.test(e.key) &&
-                          ![
-                            "Backspace",
-                            "Delete",
-                            "Tab",
-                            "ArrowLeft",
-                            "ArrowRight",
-                          ].includes(e.key)
-                        ) {
-                          e.preventDefault();
-                        }
-                      }}
-                    />
-                  </div>
-                )}
-              />
-            </div>
-            <div className="flex flex-col gap-10 w-full">
-              <Button
-                type="submit"
-                variant="default"
-                size="lg"
-                className="w-full"
-                disabled={!isValid || isSubmitting}
+                    }}
+                  />
+                </div>
+              )}
+            />
+          </div>
+          <div className="flex flex-col gap-10 w-full">
+            <Button
+              type="submit"
+              variant="default"
+              size="lg"
+              className="w-full"
+              disabled={!isValid || isSubmitting}
+            >
+              {isSubmitting ? (
+                <div className="flex items-center gap-2">
+                  <Spinner className="h-5 w-5" />
+                  <p>Register</p>
+                </div>
+              ) : (
+                "Register"
+              )}
+            </Button>
+            <div className="text-center">
+              <span className="text-[#818181]">Already have an account? </span>
+              <Link
+                to="/login"
+                className="text-[#159D62] hover:text-[#159D62]/90"
               >
-                {isSubmitting ? (
-                  <div className="flex items-center gap-2">
-                    <Spinner className="h-5 w-5" />
-                    <p>Register</p>
-                  </div>
-                ) : (
-                  "Register"
-                )}
-              </Button>
-              <div className="text-center">
-                <span className="text-[#818181]">
-                  Already have an account?{" "}
-                </span>
-                <Link
-                  to="/login"
-                  className="text-[#159D62] hover:text-[#159D62]/90"
-                >
-                  Login
-                </Link>
-              </div>
+                Login
+              </Link>
             </div>
-          </form>
-        </Form>
-      </>
-    </div>
+          </div>
+        </form>
+      </Form>
+    </>
   );
 };
 

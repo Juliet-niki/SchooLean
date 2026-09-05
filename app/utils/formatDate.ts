@@ -55,3 +55,13 @@ export const formatDateTime = (date: Date | string | undefined): string => {
 
   return `${formattedDate} at ${formattedTime}`;
 };
+
+export const formatTime = (date: Date | string | undefined): string => {
+  if (!date) return "N/A";
+  const d = typeof date === "string" ? new Date(date) : date;
+  return d.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+};
