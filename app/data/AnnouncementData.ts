@@ -83,6 +83,22 @@ export const ANNOUNCEMENTS: IAnnouncement[] = [
       status: "SCHEDULED",
     },
   },
+  {
+    id: "ANCMT-0011",
+    status: "SCHEDULED",
+    title: "Scheduled System Maintenance",
+    deliveryChannels: ["IN_APP", "EMAIL"],
+    audience: "ALL_USERS",
+    createdBy: {
+      id: "USR002",
+      name: "Emily Amadi",
+    },
+    createdAt: "2026-08-14T06:50:00Z",
+    schedule: {
+      scheduledFor: "2026-08-16T06:50:00Z",
+      status: "SCHEDULED",
+    },
+  },
 
   // SENT ANNOUNCEMENTS
   {
@@ -202,6 +218,29 @@ export const ANNOUNCEMENTS: IAnnouncement[] = [
       totalFailed: 24,
       totalRead: 1875,
       readRate: 78.4,
+    },
+  },
+  {
+    id: "ANCMT-0012",
+    status: "SENT",
+    title: "Scheduled System Maintenance",
+    deliveryChannels: ["IN_APP", "EMAIL"],
+    audience: "ALL_USERS",
+    createdBy: {
+      id: "USR002",
+      name: "Emily Amadi",
+    },
+    createdAt: "2026-08-14T06:50:00Z",
+    delivery: {
+      sentAt: "2026-08-14T08:50:00Z",
+      status: "DELIVERED",
+    },
+    analytics: {
+      totalRecipients: 2458,
+      totalDelivered: 2398,
+      totalFailed: 60,
+      totalRead: 1870,
+      readRate: 78.2,
     },
   },
 ];
