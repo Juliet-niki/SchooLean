@@ -10,10 +10,10 @@ import { FormSelect } from "~/components/ui/formSelect";
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
 import { cn } from "~/lib/utils";
-import { DeliveryChannelsCard } from "./formCards/deliveryChannelsCard";
 import { DeliveryScheduleCard } from "./formCards/DeliveryScheduleCard";
 import { AnnouncementPreviewCard } from "./formCards/AnnouncementPreviewCard";
 import { FormActionButtons } from "./formCards/formActionButtons";
+import { DeliveryChannelsCard } from "./formCards/DeliveryChannelsCard";
 
 const FormSchema = z
   .object({
