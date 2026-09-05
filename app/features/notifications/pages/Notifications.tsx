@@ -161,25 +161,25 @@ const Notifications = () => {
     [activeType, isMobile],
   );
 
-  const typeNotifications = useMemo(
+  const activeTypeNotifications = useMemo(
     () => notifications.filter((n) => n.type === activeType),
     [notifications, activeType],
   );
 
   const tabCounts = useMemo(() => {
-    const visible = typeNotifications.filter((n) => !n.isArchived);
+    const visible = activeTypeNotifications.filter((n) => !n.isArchived);
     return {
       all: visible.length,
       unread: visible.filter((n) => !n.isRead).length,
-      archived: typeNotifications.filter((n) => n.isArchived).length,
+      archived: activeTypeNotifications.filter((n) => n.isArchived).length,
       assigned: visible.filter(
         (n) => n.assignedMember?.userId === currentUser?.userId,
       ).length,
     };
-  }, [typeNotifications, currentUser]);
+  }, [activeTypeNotifications, currentUser]);
 
   const filteredNotifications = useMemo(() => {
-    return typeNotifications.filter((n) => {
+    return activeTypeNotifications.filter((n) => {
       if (activeTab === "archived") return n.isArchived;
       if (n.isArchived) return false;
       if (activeTab === "unread") return !n.isRead;
@@ -187,7 +187,7 @@ const Notifications = () => {
         return n.assignedMember?.userId === currentUser?.userId;
       return true;
     });
-  }, [typeNotifications, activeTab, currentUser]);
+  }, [activeTypeNotifications, activeTab, currentUser]);
 
   const allSelected =
     filteredNotifications.length > 0 &&

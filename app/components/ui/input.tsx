@@ -102,7 +102,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             disabled={disabled}
             type={isPassword ? (showPassword ? "text" : "password") : type}
             className={cn(
-              "flex h-full w-full text-[#2B2B2B] placeholder:text-[#ACACAC] bg-transparent focus-visible:outline-none disabled:cursor-not-allowed text-[clamp(14px,1.4vw,15px)] font-poppins",
+              "flex h-full w-full text-[#2B2B2B] placeholder:text-[#868686B2] bg-transparent focus-visible:outline-none disabled:cursor-not-allowed text-[clamp(14px,1.4vw,15px)] font-poppins",
               leftIcon && "pl-3",
               (rightIcon || isPassword) && "pr-3",
               inputClassName,
@@ -117,7 +117,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           <small
             className={cn(
               "text-sm mt-1 block",
-              hasError ? "text-[#E93F3F]" : "text-[#ACACAC]",
+              hasError ? "text-[#E93F3F]" : "text-[#868686B2]",
             )}
           >
             {subtext ?? (hasError ? "An error occurred" : null)}

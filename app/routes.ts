@@ -64,6 +64,7 @@ export default [
         "system-health-status",
         "features/systemHealthStatus/pages/SystemHealthStatus.tsx",
       ),
+      route("announcements", "features/announcements/pages/Announcements.tsx"),
     ]),
 
     layout("components/layouts/FullScreenLayout.tsx", [
