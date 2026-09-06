@@ -46,8 +46,12 @@ const Dashboard = () => {
           >
             <NotificationBellIcon className="w-5 h-5 lg:w-8 lg:h-8" />
             {unreadCount > 0 && (
-              <span className="rounded-full w-4 h-4 lg:w-5 lg:h-5 bg-[#E93F3F] flex items-center justify-center p-1 absolute -bottom-1 -right-2 text-xs text-white">
-                {unreadCount}
+              <span
+                className={`rounded-full h-4 lg:h-5 ${
+                  unreadCount > 99 ? "w-6 lg:w-7" : "w-4 lg:w-5"
+                } bg-[#E93F3F] flex items-center justify-center p-1 absolute -bottom-1 -right-2 font-sans text-[clamp(8px,0.8vw,11px)] text-white`}
+              >
+                {unreadCount > 99 ? "99+" : unreadCount}
               </span>
             )}
           </Button>
