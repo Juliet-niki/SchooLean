@@ -6,7 +6,7 @@ export const USER_DATA: IUserData = {
   userMiddleName: "Ebuka",
   userLastName: "Okafor",
   profilePicture: "/images/currentUser.jpg",
-  email: "samuelEbuka@gmail.com",
+  email: "schoolean@gmail.com",
   phoneNumber: "07012345678",
   country: "Nigeria",
   state: "Lagos",
