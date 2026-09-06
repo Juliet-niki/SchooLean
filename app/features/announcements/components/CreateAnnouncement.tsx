@@ -530,14 +530,14 @@ const SCHOOLS = [
     name: "Excel Scholars Academy",
   },
   { schoolId: "SCH2964", name: "Brightway Academy" },
-  { schoolId: "SCH29644", name: "Brightway Academy" },
+  { schoolId: "SCH29644", name: "Wright Excel Academy" },
   { schoolId: "SCH13560", name: "Greenwood International Schools" },
   { schoolId: "SCH24613", name: "Royal Crest Academy" },
   {
     schoolId: "SCH669339",
     name: "Excel Scholars Academy",
   },
-  { schoolId: "SCH29684", name: "Brightway Academy" },
+  { schoolId: "SCH29684", name: "Topline Nursery and Primary School" },
   { schoolId: "SCH296424", name: "Brightway Academy" },
 ];
 

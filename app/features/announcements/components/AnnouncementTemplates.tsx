@@ -16,7 +16,7 @@ import {
 import {
   ANNOUNCEMENT_TEMPLATES,
   type IAnnouncementTemplate,
-} from "~/data/AnnouncementData";
+} from "~/data/announcementData";
 import { cn } from "~/lib/utils";
 import { formatDate } from "~/utils/formatDate";
 import { formatDisplayText } from "~/utils/formatText";
@@ -47,16 +47,16 @@ const TableRow = ({
 
   return (
     <tr className="text-[clamp(11px,1.4vw,15px)] text-[#4E4E4E] font-medium border-b border-[#BCBCBC] bg-[#0EB26B08]">
-      <td className="py-3 pr-4 pl-6 text-start font-semibold text-[clamp(12px,1.4vw,16px)] ">
+      <td className="py-5 pr-4 pl-6 text-start font-semibold text-[clamp(12px,1.4vw,16px)] ">
         {t.name}
       </td>
-      <td className="py-3 px-4 text-start text-[clamp(12px,1.4vw,16px)] ">
+      <td className="py-5 px-4 text-start text-[clamp(12px,1.4vw,16px)] ">
         {formatDisplayText(t.category)}
       </td>
-      <td className="py-3 px-4 text-start">{formatDisplayText(t.audience)}</td>
-      <td className="py-3 px-4 text-start">{t.createdBy.name}</td>
-      <td className="py-3 px-4 text-start">{formatDate(t.createdAt)}</td>
-      <td className="py-3 pl-4 pr-6 text-center">
+      <td className="py-5 px-4 text-start">{formatDisplayText(t.audience)}</td>
+      <td className="py-5 px-4 text-start">{t.createdBy.name}</td>
+      <td className="py-5 px-4 text-start">{formatDate(t.createdAt)}</td>
+      <td className="py-5 pl-4 pr-6 text-center">
         <Popover>
           <PopoverTrigger asChild>
             <button type="button" className="cursor-pointer">

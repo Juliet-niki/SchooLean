@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import SearchInput from "~/components/SearchInput";
 import TablePagination from "~/components/TablePagination";
-import { ANNOUNCEMENTS, type IAnnouncement } from "~/data/AnnouncementData";
+import { ANNOUNCEMENTS, type IAnnouncement } from "~/data/announcementData";
 import { cn } from "~/lib/utils";
 import { formatDate, formatTime } from "~/utils/formatDate";
 import { formatDisplayText } from "~/utils/formatText";
@@ -139,7 +139,7 @@ const SentAnnouncements = () => {
           <div className="flex items-center justify-between text-[#868686] text-[clamp(11px,1.2vw,13px)]">
             <span>
               Showing {startIndex} to {endIndex} of{" "}
-              {filteredAnnouncement.length} notifications
+              {filteredAnnouncement.length} announcements
             </span>
           </div>
           <div>

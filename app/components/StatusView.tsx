@@ -141,6 +141,7 @@ type StatusProps = {
   blue?: string;
   green?: string;
   purple?: string;
+  pink?: string;
 };
 
 // Existing solid+white treatment — unchanged, still used by every current call site
@@ -152,6 +153,7 @@ const solidColors = {
   blue: "bg-[#175AB5]",
   green: "bg-[#0EB26B]",
   purple: "bg-[#8A38F51A]",
+  pink: "bg-[#E4199D]",
 };
 
 // New soft/tinted treatment — bg + matching text color, no white
@@ -163,6 +165,7 @@ const softColors = {
   green: "bg-[#0EB26B21] text-[#0EB26B]",
   purple: "bg-[#881CBE21] text-[#881CBE]",
   orange: "bg-[#E4B3041A] text-[#E4B304]",
+  pink: "bg-[#E4199D21 text-[#E4199D]",
 };
 
 const StatusView = ({
@@ -176,6 +179,7 @@ const StatusView = ({
   blue,
   green,
   purple,
+  pink,
   styleOption = false,
   disable = false,
   variant = "solid", // defaults to old behavior — nothing breaks
@@ -205,6 +209,9 @@ const StatusView = ({
       break;
     case purple:
       colorString = colors.purple;
+      break;
+    case pink:
+      colorString = colors.pink;
       break;
     default:
       colorString = "";

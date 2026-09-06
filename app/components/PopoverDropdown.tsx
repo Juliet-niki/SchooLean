@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect, useMemo } from "react";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "~/components/ui/popover";
 import { cn } from "~/lib/utils";
 import { DownIcon, SearchIcon } from "~/assets/Icons";
 import SearchInput from "./SearchInput";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 interface DropdownOption {
   label: string;
@@ -92,14 +92,14 @@ const PopoverDropdown = ({
   }, [isOpen]);
 
   return (
-    <Popover
+    <DropdownMenu
       open={isOpen}
       onOpenChange={(open) => {
         setIsOpen(open);
         if (!open) setSearchText("");
       }}
     >
-      <PopoverTrigger asChild>
+      <DropdownMenuTrigger asChild>
         <button
           className={cn(
             "flex items-center gap-1.5 text-[clamp(12px,1.2vw,14px)] font-medium text-[#404040] outline-none text-nowrap",
@@ -119,8 +119,8 @@ const PopoverDropdown = ({
             />
           )}
         </button>
-      </PopoverTrigger>
-      <PopoverContent
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
         className="w-fit py-1 px-0 border-[1.5px] border-[#92929280] rounded-[5px] flex flex-col gap-2 max-h-[65vh]"
         sideOffset={6}
         onKeyDown={handleKeyDown}
@@ -163,8 +163,8 @@ const PopoverDropdown = ({
             </p>
           )}
         </div>
-      </PopoverContent>
-    </Popover>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 

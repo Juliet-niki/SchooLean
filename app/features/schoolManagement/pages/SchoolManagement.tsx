@@ -14,6 +14,7 @@ const SchoolManagement = () => {
     setFilters(newFilters);
     setCurrentPage(1);
   };
+
   return (
     <div className="px-4 ml:px-6 py-4 ml:py-8 bg-white flex flex-col">
       <div className="flex items-center gap-2 cursor-pointer  bg-[#0A9157] rounded-[10px] px-3 py-2 ml-auto">

@@ -119,7 +119,7 @@ function getColumnsForType(
   }
 
   if (activeType === "customerSupport") {
-    columns.push({ key: "status", header: "Status", width: "10%" });
+    columns.push({ key: "status", header: "Status", width: "12%" });
   }
 
   if (activeType === "finance") {
@@ -500,6 +500,11 @@ const Notifications = () => {
                                 )
                               }
                             >
+                              {activeType === "customerSupport" && (
+                                <p className="text-[clamp(11px,1.2vw,15px)] font-medium">
+                                  {n.notificationId}
+                                </p>
+                              )}
                               <p className="truncate font-semibold text-[clamp(14px,1.6vw,18px)]">
                                 {n.subject}
                               </p>

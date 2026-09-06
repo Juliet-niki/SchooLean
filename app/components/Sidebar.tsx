@@ -39,8 +39,8 @@ const Sidebar = () => {
     },
     {
       id: 3,
-      name: "USER & ADMIN MANAGEMENT",
-      route: "/user-admin-management",
+      name: "SCHOOLEAN USERS",
+      route: "/schoolean-users",
       icon: AdminManagementIcon,
     },
     {

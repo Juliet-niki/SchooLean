@@ -24,8 +24,8 @@ export default [
         "features/schoolManagement/pages/SchoolManagement.tsx",
       ),
       route(
-        "user-admin-management",
-        "features/userAdminManagement/pages/UserAdminManagement.tsx",
+        "schoolean-users",
+        "features/schooleanUsers/pages/SchooleanUsers.tsx",
       ),
       route(
         "subscriptions-payments-tracking",
@@ -76,6 +76,10 @@ export default [
       route(
         "notifications/:id",
         "features/notifications/pages/NotificationDetails.tsx",
+      ),
+      route(
+        "schoolean-users/:userID/:schoolID",
+        "features/schooleanUsers/pages/SchooleanUserDetails.tsx",
       ),
       route("storybook", "components/StoryBook.tsx"),
     ]),
