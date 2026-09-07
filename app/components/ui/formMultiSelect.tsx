@@ -1,12 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { FormLabel } from "./form";
 import { Button } from "./button";
-import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Drawer, DrawerContent, DrawerTrigger } from "./drawer";
 import { cn } from "~/lib/utils";
 import { CheckIcon, CloseIcon, SearchIcon, DownIcon } from "~/assets/Icons";
 import { useIsMobile } from "~/hooks/useIsMobile";
 import SearchInput from "~/components/SearchInput";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "./dropdown-menu";
 
 interface FormMultiSelectOption {
   id: string;
@@ -87,7 +91,7 @@ export function FormMultiSelect({
   const listContent = (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-[#4E4E4E] text-[clamp(12px,1.4vw,16px)] font-semibold">
+        <h2 className="text-[#4E4E4E] text-[clamp(13px,1.4vw,16px)] font-semibold">
           {modalTitle}
         </h2>
         <button type="button" onClick={() => setIsOpen(false)}>
@@ -146,6 +150,7 @@ export function FormMultiSelect({
           type="button"
           variant="outline"
           className="flex-1"
+          size="sm"
           onClick={handleCancel}
         >
           Cancel
@@ -153,6 +158,7 @@ export function FormMultiSelect({
         <Button
           type="button"
           variant="secondary"
+          size="sm"
           className="flex-1 bg-[#0EB26B] hover:bg-[#0EB26B]/90 text-white"
           onClick={handleApply}
         >
@@ -181,7 +187,7 @@ export function FormMultiSelect({
             <button
               type="button"
               className={cn(
-                "w-full h-12 px-3 border rounded-sm bg-white flex items-center justify-between",
+                "w-full h-10 px-3 border rounded-sm bg-white flex items-center justify-between",
                 hasError ? "border-[#E93F3F]" : "border-[#CDCDCD]",
                 bgclassName,
               )}
@@ -201,12 +207,12 @@ export function FormMultiSelect({
           </DrawerContent>
         </Drawer>
       ) : (
-        <Popover open={isOpen} onOpenChange={setIsOpen}>
-          <PopoverTrigger asChild>
+        <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+          <DropdownMenuTrigger asChild>
             <button
               type="button"
               className={cn(
-                "w-full h-12 px-3 border rounded-sm bg-white flex items-center justify-between",
+                "w-full h-10 md:h-12 px-3 border rounded-sm bg-white flex items-center justify-between",
                 hasError ? "border-[#E93F3F]" : "border-[#CDCDCD]",
                 bgclassName,
               )}
@@ -220,15 +226,15 @@ export function FormMultiSelect({
               </span>
               <DownIcon className="w-3 h-3" />
             </button>
-          </PopoverTrigger>
-          <PopoverContent
-            className="w-[var(--radix-popover-trigger-width)] max-w-[280px] p-6 bg-white"
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            className="w-[var(--radix-popover-trigger-width)] max-w-[280px] p-6 bg-white hide-scrollbar"
             sideOffset={5}
             align="end"
           >
             {listContent}
-          </PopoverContent>
-        </Popover>
+          </DropdownMenuContent>
+        </DropdownMenu>
       )}
 
       {/* Selected chips — rendered BELOW the trigger, not inside it */}

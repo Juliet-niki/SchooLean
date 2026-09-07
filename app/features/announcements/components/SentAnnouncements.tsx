@@ -19,10 +19,18 @@ const TableRow = ({ a }: { a: IAnnouncement }) => {
           <span className="font-normal">{formatTime(a.delivery?.sentAt)}</span>
         </div>
       </td>
-      <td className="py-3 px-4 text-center">{a.analytics?.totalRecipients}</td>
-      <td className="py-3 px-4 text-center">{a.analytics?.totalDelivered}</td>
-      <td className="py-3 px-4 text-center">{a.analytics?.totalFailed}</td>
-      <td className="py-3 px-4 text-center">{a.analytics?.totalRead}</td>
+      <td className="py-3 px-4 text-center">
+        {a.analytics?.totalRecipients.toLocaleString()}
+      </td>
+      <td className="py-3 px-4 text-center">
+        {a.analytics?.totalDelivered.toLocaleString()}
+      </td>
+      <td className="py-3 px-4 text-center">
+        {a.analytics?.totalFailed.toLocaleString()}
+      </td>
+      <td className="py-3 px-4 text-center">
+        {a.analytics?.totalRead.toLocaleString()}
+      </td>
       <td className="py-3 pl-4 pr-6 text-center">{a.analytics?.readRate}%</td>
     </tr>
   );

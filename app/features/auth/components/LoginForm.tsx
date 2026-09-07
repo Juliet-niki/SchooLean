@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
+import { toast } from "sonner";
 import { z } from "zod";
 import { ErrorIcon } from "~/assets/Icons";
 import { Button } from "~/components/ui/button";
@@ -34,7 +35,7 @@ const LoginForm = () => {
       email: "",
       password: "",
     },
-    mode: "onChange",
+    mode: "onTouched",
     reValidateMode: "onChange",
   });
 
@@ -53,11 +54,8 @@ const LoginForm = () => {
         setUnverifiedEmail(data.email);
       } else {
         setUnverifiedEmail(null);
+        toast.error(result.error ?? "Failed to log in. Invalid credentials.");
       }
-
-      form.setError("password", {
-        message: result.error ?? "Incorrect email or password",
-      });
       return;
     }
 

@@ -187,7 +187,7 @@ const UserRows = ({
                     {
                       label: "View School",
                       onClick: () => {
-                        onViewSchool(user.userID);
+                        onViewSchool(school.schoolID);
                       },
                       icon: <EyeIcon className="w-4 h-4" stroke="#4E4E4E" />,
                     },
@@ -365,8 +365,8 @@ const SchooleanUsersTable = ({
     navigate(`/schoolean-users/${userID}/${schoolID}`);
   };
 
-  const handleViewSchool = (userID: string) => {
-    // Navigate to school details page
+  const handleViewSchool = (schoolId: string) => {
+    navigate(`/school-management/${schoolId}`);
   };
   const handleViewSecurityActivity = (userID: string) => {
     // Navigate to security activity page

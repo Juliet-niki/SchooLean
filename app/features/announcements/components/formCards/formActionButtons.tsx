@@ -27,7 +27,7 @@ export function FormActionButtons({
   const canSchedule = isScheduledMode && !!scheduledDate && !!scheduledTime;
 
   return (
-    <div className="flex flex-wrap items-center gap-5 w-full">
+    <div className="grid grid-cols-2 md:flex flex-wrap items-center gap-5 w-full">
       <Button
         type="button"
         variant="secondary"

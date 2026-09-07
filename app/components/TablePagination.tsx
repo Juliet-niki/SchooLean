@@ -25,7 +25,7 @@ const TablePagination = ({ currentPage, totalPages, onPageChange }: Props) => {
   return (
     <Pagination className="text-[#373737] font-medium text-[clamp(12px,1.2vw,14px)]">
       <PaginationContent>
-        <PaginationItem className="mr-7">
+        <PaginationItem className="mr-4 md:mr-7">
           <PaginationPrevious
             href="#"
             onClick={(e) => {
@@ -52,7 +52,7 @@ const TablePagination = ({ currentPage, totalPages, onPageChange }: Props) => {
                   e.preventDefault();
                   onPageChange(page);
                 }}
-                className="bg-[#E8ECEB] border border-[#989898] rounded-[5px] px-4 h-6"
+                className="bg-[#E8ECEB] border border-[#989898] rounded-[5px] px-3 md:px-4 h-5 md:h-6"
               >
                 {page}
               </PaginationLink>
@@ -60,7 +60,7 @@ const TablePagination = ({ currentPage, totalPages, onPageChange }: Props) => {
           ),
         )}
 
-        <PaginationItem className="ml-7">
+        <PaginationItem className="ml-4 md:ml-7">
           <PaginationNext
             href="#"
             onClick={(e) => {

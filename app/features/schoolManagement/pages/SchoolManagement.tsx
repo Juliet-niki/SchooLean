@@ -3,6 +3,7 @@ import FilterBar from "../components/FilterBar";
 import SearchInput from "~/components/SearchInput";
 import SchoolTable from "../components/SchoolTable";
 import { useState } from "react";
+import { Link } from "react-router";
 
 const SchoolManagement = () => {
   const [filters, setFilters] = useState<Record<string, string>>({});
@@ -17,12 +18,15 @@ const SchoolManagement = () => {
 
   return (
     <div className="px-4 ml:px-6 py-4 ml:py-8 bg-white flex flex-col">
-      <div className="flex items-center gap-2 cursor-pointer  bg-[#0A9157] rounded-[10px] px-3 py-2 ml-auto">
+      <Link
+        to="/announcements"
+        className="flex items-center gap-2 cursor-pointer  bg-[#0A9157] rounded-[10px] px-3 py-2 ml-auto"
+      >
         <MegaPhone2Icon className="w-4 h-4 lg:w-5 lg:h-5" />
         <p className="text-white font-semibold text-[clamp(12px,1.2vw,14px)]">
           Send Announcement
         </p>
-      </div>
+      </Link>
       <div className="w-full overflow-x-auto hide-scrollbar pb-2 px-1">
         <div className="border border-[#D5D5D5] shadow-md shadow-[#00000040] rounded-[15px] px-2.5 md:px-4 lg:px-6 py-2 md:py-3 lg:py-4 mt-8 w-fit ml-auto">
           <FilterBar

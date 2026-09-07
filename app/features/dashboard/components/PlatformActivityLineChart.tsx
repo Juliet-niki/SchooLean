@@ -1,8 +1,8 @@
 import { FilledDownIcon } from "~/assets/Icons";
 import PopoverDropdown from "../../../components/PopoverDropdown";
 import { useMemo, useState } from "react";
-import { PLATFORM_ACTIVITY_DATA } from "~/data/schoolData";
 import PlatformChart from "./PlatformChart";
+import { PLATFORM_ACTIVITY_DATA } from "~/data/platformData";
 
 export const usersMeta = [
   { key: "students", label: "Students", color: "#0EB26B" },

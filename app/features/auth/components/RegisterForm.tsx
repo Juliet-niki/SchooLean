@@ -71,7 +71,7 @@ const RegisterForm = () => {
       confirmPassword: "",
       accessCode: "",
     },
-    mode: "onChange",
+    mode: "onTouched",
     reValidateMode: "onChange",
   });
 

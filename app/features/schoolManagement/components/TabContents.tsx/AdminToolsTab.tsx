@@ -117,7 +117,9 @@ const TableRow = ({ log }: { log: IAdminActivityLog }) => {
           <p>{log.adminName}</p>
         </div>
       </td>
-      <td className="py-3 px-4 whitespace-nowrap">{log.timestamp}</td>
+      <td className="py-3 px-4 whitespace-nowrap text-center">
+        {log.timestamp}
+      </td>
       <td className="py-3 px-4 text-left wrap-break-word">{log.reason}</td>
       <td className="py-3 px-4 whitespace-nowrap">{log.ipAddress}</td>
     </tr>
@@ -143,9 +145,9 @@ const AdminActivityLog = ({ activity }: { activity: IAdminActivityLog[] }) => {
         <div className="overflow-x-auto hide-scrollbar">
           <table className="w-full min-w-[900px] border-collapse table-fixed">
             <colgroup>
-              <col style={{ width: "23%" }} />
+              <col style={{ width: "24%" }} />
               <col style={{ width: "20%" }} />
-              <col style={{ width: "21%" }} />
+              <col style={{ width: "20%" }} />
               <col style={{ width: "24%" }} />
               <col style={{ width: "12%" }} />
             </colgroup>
@@ -384,6 +386,3 @@ const AdminToolsTab = () => {
 };
 
 export default AdminToolsTab;
-
-// Commit message
-//  feat: build admin tools tab page #1

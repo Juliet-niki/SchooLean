@@ -9,8 +9,8 @@ import {
 import { CalendarRange } from "~/components/ui/calendarRange";
 import type { DateRange } from "react-day-picker";
 import { addDays, format } from "date-fns";
-import { SCHOOL_ANALYTICS_DATA } from "~/data/schoolData";
 import SchoolChart from "./SchoolChart";
+import { SCHOOL_ANALYTICS_DATA } from "~/data/platformData";
 
 // Trends
 const TRENDS = {

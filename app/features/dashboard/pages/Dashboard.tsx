@@ -19,8 +19,14 @@ import { Button } from "~/components/ui/button";
 import { useNavigate } from "react-router";
 import { useNotifications } from "~/context/NotificationsContext";
 
+const TOTAL_NEW_SCHOOLS: Record<string, number> = {
+  week: 1289,
+  month: 5432,
+};
+
 const Dashboard = () => {
   const [open, setOpen] = useState(false);
+  const [totalNewSchools, setTotalNewSchools] = useState("week");
   const navigate = useNavigate();
 
   const { notifications } = useNotifications();
@@ -28,6 +34,7 @@ const Dashboard = () => {
   const unreadCount = notifications.filter(
     (n) => !n.isRead && !n.isArchived,
   ).length;
+
   return (
     <div className="px-4 ml:px-6 py-4 ml:py-8 bg-[#EDEDED]">
       <div className="w-full flex flex-col gap-10 mb-15">
@@ -58,43 +65,53 @@ const Dashboard = () => {
         </div>
 
         <div className="grid grid-cols-2 ml:grid-cols-3 gap-3 lg:gap-5">
-          {dashboardData.map((item, index) => (
-            <div
-              key={index}
-              className={`flex justify-between px-3 lg:px-4 py-3 rounded-[15px] w-full ${item.title === "Inactive Schools" ? "bg-[#E13838] cursor-pointer" : "bg-white cursor-default"} ${item.title === "Total New Schools" ? "items-start" : "items-center"}`}
-              onClick={
-                item.title === "Inactive Schools"
-                  ? () => setOpen(true)
-                  : undefined
-              }
-            >
-              <div className="space-y-1 lg:space-y-2">
-                <p
-                  className={`font-medium text-[clamp(12px,1.2vw,14px)] ${item.title === "Inactive Schools" ? "text-white" : "text-[#373737]"}`}
-                >
-                  {item.title}
-                </p>
+          {dashboardData.map((item, index) => {
+            const displayDigit =
+              item.title === "Total New Schools"
+                ? (TOTAL_NEW_SCHOOLS[totalNewSchools] ?? item.digit)
+                : item.digit;
+            return (
+              <div
+                key={index}
+                className={`flex justify-between px-3 lg:px-4 py-3 rounded-[15px] w-full ${item.title === "Inactive Schools" ? "bg-[#E13838] cursor-pointer" : "bg-white cursor-default"} ${item.title === "Total New Schools" ? "items-start" : "items-center"}`}
+                onClick={
+                  item.title === "Inactive Schools"
+                    ? () => setOpen(true)
+                    : undefined
+                }
+              >
+                <div className="space-y-1 lg:space-y-2">
+                  <p
+                    className={`font-medium text-[clamp(12px,1.2vw,14px)] ${item.title === "Inactive Schools" ? "text-white" : "text-[#373737]"}`}
+                  >
+                    {item.title}
+                  </p>
 
-                <p
-                  className={`font-bold text-[clamp(14px,1.4vw,16px)] ${item.title === "Inactive Schools" ? "text-white" : "text-[#323333]"}`}
-                >
-                  {item.digit.toLocaleString()}
-                </p>
+                  <p
+                    className={`font-bold text-[clamp(14px,1.4vw,16px)] ${item.title === "Inactive Schools" ? "text-white" : "text-[#323333]"}`}
+                  >
+                    {displayDigit.toLocaleString()}
+                  </p>
+                </div>
+                <div>
+                  {item.icon && (
+                    <div className="bg-linear-to-t from-[#0EB26B] via-[#12A86A] to-[#2f9e8f] rounded-[10px] p-2 lg:p-3">
+                      <item.icon className="w-4 h-4 lg:w-5 lg:h-5" />
+                    </div>
+                  )}
+                  {item.title === "Total New Schools" && (
+                    <div>
+                      <PopoverDropdown
+                        BtnClassName="text-[#097043] text-[clamp(8px,1vw,12px)] text-nowrap"
+                        defaultSelected={totalNewSchools}
+                        onChange={(value) => setTotalNewSchools(value)}
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
-              <div>
-                {item.icon && (
-                  <div className="bg-linear-to-t from-[#0EB26B] via-[#12A86A] to-[#2f9e8f] rounded-[10px] p-2 lg:p-3">
-                    <item.icon className="w-4 h-4 lg:w-5 lg:h-5" />
-                  </div>
-                )}
-                {item.title === "Total New Schools" && (
-                  <div>
-                    <PopoverDropdown BtnClassName="text-[#097043] text-[clamp(8px,1vw,12px)] text-nowrap" />
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <SchoolGrowthLineChart />

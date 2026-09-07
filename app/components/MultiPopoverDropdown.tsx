@@ -80,7 +80,7 @@ const MultiPopoverDropdown = ({
     });
   };
 
-  const handleClear = () => setDraftValue([]);
+  const handleClear = () => setDraftValue(["all"]);
 
   const handleCancel = () => {
     setIsOpen(false);
@@ -162,6 +162,7 @@ const MultiPopoverDropdown = ({
           type="button"
           variant="outline"
           className="flex-1"
+          size="sm"
           onClick={handleCancel}
         >
           Cancel
@@ -169,6 +170,7 @@ const MultiPopoverDropdown = ({
         <Button
           type="button"
           variant="secondary"
+          size="sm"
           className="flex-1 bg-[#0EB26B] hover:bg-[#0EB26B]/90 text-white"
           onClick={handleApply}
         >
@@ -196,7 +198,7 @@ const MultiPopoverDropdown = ({
             <button
               type="button"
               className={cn(
-                "w-full h-12 px-3 border rounded-[5px] bg-white flex items-center justify-between border-[#CACACA] font-medium text-nowrap",
+                "w-full h-10 px-3 border rounded-[5px] bg-white flex items-center justify-between border-[#CACACA] font-medium text-nowrap",
                 bgclassName,
               )}
             >
@@ -220,7 +222,7 @@ const MultiPopoverDropdown = ({
             <button
               type="button"
               className={cn(
-                "w-full h-12 px-5 border rounded-[5px] bg-white inline-flex items-center gap-3 justify-between border-[#CACACA] font-medium text-nowrap shrink-0",
+                "w-full h-10 md:h-12 px-5 border rounded-[5px] bg-white inline-flex items-center gap-3 justify-between border-[#CACACA] font-medium text-nowrap shrink-0",
                 bgclassName,
               )}
             >

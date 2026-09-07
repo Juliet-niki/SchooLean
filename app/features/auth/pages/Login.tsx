@@ -14,6 +14,7 @@ const Login = () => {
       toast.success(message, { id: "auth-message" });
       navigate(".", { replace: true, state: {} });
     }
+    if (!message) toast.dismiss("auth-message");
   }, []);
 
   return <AuthPageWrapper content={<LoginForm />} />;

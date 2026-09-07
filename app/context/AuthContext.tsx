@@ -147,7 +147,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         stored.password === password;
 
       if (!isMatch) {
-        const message = "Incorrect email or password";
+        const message = "Failed to log in. Invalid credentials.";
         setError(message);
         return {
           success: false,

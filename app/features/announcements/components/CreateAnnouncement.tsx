@@ -267,7 +267,7 @@ const CreateAnnouncement = () => {
                   <FormLabel className="text-[#868686] text-[clamp(15px,1.4vw,16px)]">
                     User Type
                   </FormLabel>
-                  <div className="flex items-center gap-6 flex-wrap">
+                  <div className="flex items-center gap-4 md:gap-6 flex-wrap">
                     {[
                       { value: "all-users", label: "All Users" },
                       {
@@ -285,7 +285,7 @@ const CreateAnnouncement = () => {
                           onClick={() => field.onChange(item.value)}
                           role="button"
                           className={cn(
-                            "flex items-center px-8 h-7 md:h-10 border border-[#D9D9D9] rounded-[7px] cursor-pointer",
+                            "flex items-center px-8 h-8 md:h-10 border border-[#D9D9D9] rounded-[7px] cursor-pointer",
                             isSelected
                               ? "bg-[#0EB26B] text-white"
                               : "bg-transparent text-[#4E4E4E]",

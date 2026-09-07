@@ -113,11 +113,14 @@ const Sidebar = () => {
 
   return (
     <div className="bg-[#333232] border-2 border-[#159D6233] flex flex-col items-start gap-8 pb-24 pt-14 px-2 ml:px-4 lg:px-5 min-h-full">
-      <img
-        src="/images/schooleanLogo.png"
-        alt="Logo"
-        className="w-30 lg:w-37 pl-2 lg:pl-4"
-      />
+      <NavLink to="/">
+        <img
+          src="/images/schooleanLogo.png"
+          alt="Logo"
+          className="w-30 lg:w-37 pl-2 lg:pl-4"
+        />
+      </NavLink>
+
       <div className="flex flex-col gap-4">
         {menuItems.map((item) => (
           <NavLink

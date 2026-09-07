@@ -81,7 +81,7 @@ const SchooleanUsers = () => {
       </div>
 
       {/* Filters */}
-      <div className="overflow-x-auto px-1 mt-7 md:mt-9 mb-5 md:mb-8">
+      <div className="overflow-x-auto hide-scrollbar px-1 mt-7 md:mt-9 mb-5 md:mb-8">
         {/* <div className="w-fit"> */}
         <FilterList filters={filters} onFilterChange={handleFilterChange} />
         {/* </div> */}
