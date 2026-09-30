@@ -13,14 +13,14 @@ import {
   SubscriptionIcon,
   SystemSecurityIcon,
 } from "~/assets/Icons";
-import { useAuth } from "~/context/AuthContext";
+import { useLogoutMutation } from "~/queries/auth/mutations";
 
 const Sidebar = () => {
-  const { logout } = useAuth();
   const navigate = useNavigate();
+  const logoutMutation = useLogoutMutation();
 
   const handleLogout = async () => {
-    await logout();
+    await logoutMutation.mutateAsync();
     navigate("/login");
   };
 

@@ -2,7 +2,7 @@ import { Outlet } from "react-router";
 
 const FullScreenLayout = () => {
   return (
-    <div className="bg-[#EDEDED] h-screen overflow-y-auto">
+    <div className="bg-[#EDEDED] h-screen overflow-y-auto max-w-[1400px] mx-auto">
       <Outlet />
     </div>
   );

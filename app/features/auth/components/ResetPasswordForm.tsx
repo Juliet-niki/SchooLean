@@ -11,7 +11,7 @@ import { Input } from "~/components/ui/input";
 import { useEffect, useState } from "react";
 import { Spinner } from "~/components/ui/spinner";
 import { DrawerDialog } from "~/components/DrawerDialog";
-import { useAuth } from "~/context/AuthContext";
+import { useResetPasswordMutation } from "~/queries/auth/mutations";
 
 const resetPasswordSchema = z
   .object({
@@ -42,7 +42,7 @@ const ResetPasswordForm = () => {
   >("idle");
   const navigate = useNavigate();
   const location = useLocation();
-  const { resetPassword } = useAuth();
+  const resetPasswordMutation = useResetPasswordMutation();
   const identifier = (location.state as { identifier?: string } | null)
     ?.identifier;
 
@@ -92,7 +92,10 @@ const ResetPasswordForm = () => {
   const passwordValue = watch("password");
 
   const onSubmit = async (data: TResetPasswordSchema) => {
-    const result = await resetPassword(identifier, data.password);
+    const result = await resetPasswordMutation.mutateAsync({
+      identifier,
+      newPassword: data.password,
+    });
 
     if (!result.success) {
       setSubmitStatus("error");

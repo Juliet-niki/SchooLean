@@ -81,6 +81,10 @@ export default [
         "schoolean-users/:userID/:schoolID",
         "features/schooleanUsers/pages/SchooleanUserDetails.tsx",
       ),
+      route(
+        "student-profile",
+        "features/studentProfile/pages/StudentProfile.tsx",
+      ),
       route("storybook", "components/StoryBook.tsx"),
     ]),
   ]),

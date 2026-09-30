@@ -14,8 +14,14 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "~/components/ui/tabs";
 import { Checkbox } from "~/components/ui/checkbox";
 import { cn } from "~/lib/utils";
 import type { NotificationType } from "~/types";
-import { useNotifications } from "~/context/NotificationsContext";
-import { useAuth } from "~/context/AuthContext";
+import { useNotificationsQuery } from "~/queries/notifications/queries";
+import {
+  useMarkAsReadMutation,
+  useArchiveMutation,
+  useUnarchiveMutation,
+  useAssignToMemberMutation,
+} from "~/queries/notifications/mutations";
+import { useAppSelector } from "~/store";
 import TablePagination from "~/components/TablePagination";
 import { DrawerDialog } from "~/components/DrawerDialog";
 import AssignTicket from "../components/AssignTicket";
@@ -135,9 +141,12 @@ function getColumnsForType(
 }
 
 const Notifications = () => {
-  const { notifications, markAsRead, archive, unarchive, assignToMember } =
-    useNotifications();
-  const { currentUser } = useAuth();
+  const { data: notifications = [] } = useNotificationsQuery();
+  const markAsReadMutation = useMarkAsReadMutation();
+  const archiveMutation = useArchiveMutation();
+  const unarchiveMutation = useUnarchiveMutation();
+  const assignToMemberMutation = useAssignToMemberMutation();
+  const currentUser = useAppSelector((state) => state.auth.user);
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -253,23 +262,26 @@ const Notifications = () => {
   );
 
   const handleMarkAsRead = async () => {
-    await markAsRead(selectedIds);
+    await markAsReadMutation.mutateAsync(selectedIds);
     setSelectedIds([]);
   };
 
   const handleArchive = async () => {
-    await archive(selectedIds);
+    await archiveMutation.mutateAsync(selectedIds);
     setSelectedIds([]);
   };
 
   const handleUnArchive = async () => {
-    await unarchive(selectedIds);
+    await unarchiveMutation.mutateAsync(selectedIds);
     setSelectedIds([]);
   };
 
   const handleAssignTicket = async (memberId: string) => {
     try {
-      await assignToMember(selectedIds, memberId);
+      await assignToMemberMutation.mutateAsync({
+        notificationIds: selectedIds,
+        memberId,
+      });
       setSelectedIds([]);
       setIsOpenAssign(false);
     } catch {

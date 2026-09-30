@@ -8,7 +8,7 @@ import { Form, FormField, FormLabel } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { Spinner } from "~/components/ui/spinner";
 import type { VerifyPageState } from "~/types";
-import { useAuth } from "~/context/AuthContext";
+import { useRegisterMutation } from "~/queries/auth/mutations";
 
 const RegisterFormSchema = z
   .object({
@@ -56,7 +56,7 @@ type TypeRegisterFormSchema = z.infer<typeof RegisterFormSchema>;
 
 const RegisterForm = () => {
   const navigate = useNavigate();
-  const { register } = useAuth();
+  const registerMutation = useRegisterMutation();
 
   const form = useForm<TypeRegisterFormSchema>({
     resolver: zodResolver(RegisterFormSchema),
@@ -81,9 +81,7 @@ const RegisterForm = () => {
   } = form;
 
   const onSubmit = async (data: TypeRegisterFormSchema) => {
-    await new Promise((resolve) => setTimeout(resolve, 800));
-
-    const result = await register({
+    const result = await registerMutation.mutateAsync({
       firstName: data.firstName,
       middleName: data.middleName,
       lastName: data.lastName,

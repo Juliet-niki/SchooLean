@@ -3,7 +3,7 @@ import Sidebar from "../Sidebar";
 
 const MainLayout = () => {
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden max-w-[1400px] mx-auto">
       <aside className="max-w-[23%] shrink-0 overflow-y-auto hide-scrollbar">
         <Sidebar />
       </aside>

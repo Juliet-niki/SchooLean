@@ -22,8 +22,13 @@ import {
   ViewLogIcon,
 } from "~/assets/Icons";
 import { Button } from "~/components/ui/button";
-import { useNotifications } from "~/context/NotificationsContext";
-import { useAuth } from "~/context/AuthContext";
+import { useNotificationsQuery } from "~/queries/notifications/queries";
+import {
+  useMarkAsReadMutation,
+  useAddActionTakenMutation,
+  useRemoveAttachmentMutation,
+} from "~/queries/notifications/mutations";
+import { useAppSelector } from "~/store";
 import { cn } from "~/lib/utils";
 import { formatDateTime } from "~/utils/formatDate";
 import { CapitalizeFirstLetter } from "~/utils/formatText";
@@ -39,9 +44,11 @@ import { getTeamMember } from "~/data/teamMembersData";
 
 const NotificationDetails = () => {
   const [isAddActionTaken, setIsAddActionTaken] = useState(false);
-  const { notifications, markAsRead, addActionTaken, removeAttachment } =
-    useNotifications();
-  const { currentUser } = useAuth();
+  const { data: notifications = [] } = useNotificationsQuery();
+  const markAsReadMutation = useMarkAsReadMutation();
+  const addActionTakenMutation = useAddActionTakenMutation();
+  const removeAttachmentMutation = useRemoveAttachmentMutation();
+  const currentUser = useAppSelector((state) => state.auth.user);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -53,27 +60,29 @@ const NotificationDetails = () => {
 
   const handleMarkAsRead = async () => {
     if (!notification) return;
-    await markAsRead([notification.notificationId]);
+    await markAsReadMutation.mutateAsync([notification.notificationId]);
   };
 
   const handleRemoveAttachment = async (attachmentId: string) => {
     if (!notification) return;
-    await removeAttachment(notification.notificationId, attachmentId);
+    await removeAttachmentMutation.mutateAsync({
+      notificationId: notification.notificationId,
+      attachmentId,
+    });
   };
 
   const handleSaveAction = async (comment: string) => {
     if (!notification || !currentUser) return;
 
     try {
-      await addActionTaken(
-        notification.notificationId,
-        currentUser.userId,
-        comment,
-      );
-      setIsAddActionTaken(false); // only closes on success
+      await addActionTakenMutation.mutateAsync({
+        notificationId: notification.notificationId,
+        userId: currentUser.userId,
+        actionTaken: comment,
+      });
+      setIsAddActionTaken(false);
     } catch {
-      // modal stays open; context's `error` already holds a message
-      // the component can optionally read it via useNotifications().error
+      // modal stays open; error is surfaced by the mutation's onError
     }
   };
 

@@ -6,7 +6,7 @@ import type { VerifyPageState } from "~/types";
 import { DrawerDialog } from "~/components/DrawerDialog";
 import PopUtility from "~/components/PopUtility";
 import { toast } from "sonner";
-import { useAuth } from "~/context/AuthContext";
+import { useVerifyMutation, identifierExists } from "~/queries/auth/mutations";
 
 const Verification = () => {
   const [loading, setLoading] = useState(false);
@@ -14,7 +14,7 @@ const Verification = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as VerifyPageState | null;
-  const { verify, identifierExists } = useAuth();
+  const verifyMutation = useVerifyMutation();
 
   useEffect(() => {
     if (!state?.identifier) {
@@ -28,8 +28,6 @@ const Verification = () => {
     setLoading(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
       if (state.context === "forgot-password") {
         if (!identifierExists(state.identifier)) {
           toast.error("Verification failed.", { id: "verification-error" });
@@ -42,7 +40,10 @@ const Verification = () => {
         return;
       }
 
-      const result = await verify(state.identifier);
+      const result = await verifyMutation.mutateAsync({
+        identifier: state.identifier,
+        code,
+      });
 
       if (!result.success) {
         toast.error(result.error ?? "Verification failed. Please try again.", {

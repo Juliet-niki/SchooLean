@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { MoreIcon } from "~/assets/Icons";
+import FullScreenModal from "~/components/FullScreenModal";
 import SearchInput from "~/components/SearchInput";
 import StatusView from "~/components/StatusView";
 import TablePagination from "~/components/TablePagination";
@@ -9,8 +10,20 @@ import {
   PopoverTrigger,
 } from "~/components/ui/popover";
 import type { IParent, ISchool } from "~/types";
+import ParentProfile from "./ParentProfile";
+import ParentPaymentHistory from "./ParentPaymentHistory";
 
-const TableRow = ({ parent, school }: { parent: IParent; school: ISchool }) => {
+const TableRow = ({
+  parent,
+  school,
+  onViewProfile,
+  onPaymentHistory,
+}: {
+  parent: IParent;
+  school: ISchool;
+  onViewProfile: (parent: IParent) => void;
+  onPaymentHistory: (parent: IParent) => void;
+}) => {
   return (
     <tr className="text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] font-medium border-b border-[#EBEBEB]">
       <td className="py-3 px-4">
@@ -45,7 +58,8 @@ const TableRow = ({ parent, school }: { parent: IParent; school: ISchool }) => {
               >
                 <p>{student.name}</p>
                 <p>
-                  {student.class} {student.classArm}
+                  {student.education.currentClass}{" "}
+                  {student.education.currentClassArm}
                 </p>
               </div>
             );
@@ -78,9 +92,12 @@ const TableRow = ({ parent, school }: { parent: IParent; school: ISchool }) => {
           >
             <div className="flex flex-col gap-1 mb-2">
               {[
-                { label: "View Profile", onClick: () => {} },
+                { label: "View Profile", onClick: () => onViewProfile(parent) },
                 { label: "Fix Parent-Student Link", onClick: () => {} },
-                { label: "Payment History", onClick: () => {} },
+                {
+                  label: "Payment History",
+                  onClick: () => onPaymentHistory(parent),
+                },
                 { label: "Deactivate", onClick: () => {} },
               ].map((option) => (
                 <p
@@ -106,6 +123,10 @@ const TableRow = ({ parent, school }: { parent: IParent; school: ISchool }) => {
 const ParentTab = ({ school }: { school: ISchool }) => {
   const [searchText, setSearchText] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [openParentProfile, setOpenParentProfile] = useState(false);
+  const [openParentPaymentHistory, setOpenParentPaymentHistory] =
+    useState(false);
+  const [selectedParent, setSelectedParent] = useState<IParent | null>(null);
 
   const filteredParents = useMemo(() => {
     const search = searchText.toLowerCase().trim();
@@ -120,7 +141,9 @@ const ParentTab = ({ school }: { school: ISchool }) => {
         );
         if (!student) return false;
         const matchesName = student.name.toLowerCase().includes(search);
-        const matchesClass = student.class.toLowerCase().includes(search);
+        const matchesClass = student.education.currentClass
+          .toLowerCase()
+          .includes(search);
         return matchesName || matchesClass;
       });
 
@@ -138,80 +161,109 @@ const ParentTab = ({ school }: { school: ISchool }) => {
   );
 
   return (
-    <div className="flex flex-col gap-2 divide-y divide-[#E4E4E4]">
-      <div className="pl-4 pb-3">
-        <h2 className="text-[#4E4E4E] text-[clamp(15px,1.8vw,20px)] font-bold leading-tight pb-4 ml:pb-6">
-          Parents
-        </h2>
-        <SearchInput
-          setSearchText={(text) => {
-            setSearchText(text);
-            setCurrentPage(1);
-          }}
-          className="border-[#D5D5D5] h-10 w-80"
-          placeholder="Search for name of parent"
-        />
-      </div>
-      <div className="px-4">
-        <div className="shadow-md shadow-[#0000001A] rounded-[15px] overflow-x-auto hide-scrollbar">
-          <table className="w-full min-w-[700px] border-collapse table-fixed ">
-            <colgroup>
-              <col style={{ width: "33%" }} />
-              <col style={{ width: "33%" }} />
-              <col style={{ width: "22%" }} />
-              <col style={{ width: "12%" }} />
-            </colgroup>
-            <thead className="sticky top-0 z-10 text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] text-nowrap">
-              <tr>
-                {["Name", "Linked Children", "Login Activity", "Actions"].map(
-                  (col, index, arr) => (
-                    <th
-                      key={col}
-                      className={`py-3 px-4 font-bold bg-[#E6F7F0]
+    <>
+      <div className="flex flex-col gap-2 divide-y divide-[#E4E4E4]">
+        <div className="pl-4 pb-3">
+          <h2 className="text-[#4E4E4E] text-[clamp(15px,1.8vw,20px)] font-bold leading-tight pb-4 ml:pb-6">
+            Parents
+          </h2>
+          <SearchInput
+            setSearchText={(text) => {
+              setSearchText(text);
+              setCurrentPage(1);
+            }}
+            className="border-[#D5D5D5] h-10 w-80"
+            placeholder="Search for name of parent"
+          />
+        </div>
+        <div className="px-4">
+          <div className="shadow-md shadow-[#0000001A] rounded-[15px] overflow-x-auto hide-scrollbar">
+            <table className="w-full min-w-[700px] border-collapse table-fixed ">
+              <colgroup>
+                <col style={{ width: "33%" }} />
+                <col style={{ width: "33%" }} />
+                <col style={{ width: "22%" }} />
+                <col style={{ width: "12%" }} />
+              </colgroup>
+              <thead className="sticky top-0 z-10 text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] text-nowrap">
+                <tr>
+                  {["Name", "Linked Children", "Login Activity", "Actions"].map(
+                    (col, index, arr) => (
+                      <th
+                        key={col}
+                        className={`py-3 px-4 font-bold bg-[#E6F7F0]
                     ${index === 0 ? "rounded-tl-[15px] " : ""}
                     ${index === 1 ? "lg:px-8" : ""}
                     ${index === 2 ? "lg:px-8" : ""}
                     ${index === arr.length - 1 ? "rounded-tr-[15px] text-center" : "text-start"}
                   `}
-                    >
-                      {col}
-                    </th>
-                  ),
-                )}
-              </tr>
-            </thead>
-
-            <tbody>
-              {paginatedData.length > 0 ? (
-                paginatedData.map((parent) => (
-                  <TableRow
-                    key={parent.parentId}
-                    parent={parent}
-                    school={school}
-                  />
-                ))
-              ) : (
-                <tr>
-                  <td
-                    colSpan={4}
-                    className="py-10 text-center text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)]"
-                  >
-                    No parents found.
-                  </td>
+                      >
+                        {col}
+                      </th>
+                    ),
+                  )}
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-        <div className="pt-7">
-          <TablePagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={setCurrentPage}
-          />
+              </thead>
+              <tbody>
+                {paginatedData.length > 0 ? (
+                  paginatedData.map((parent) => (
+                    <TableRow
+                      key={parent.parentId}
+                      parent={parent}
+                      school={school}
+                      onViewProfile={(p) => {
+                        setOpenParentProfile(true);
+                        setSelectedParent(p);
+                      }}
+                      onPaymentHistory={(p) => {
+                        setOpenParentPaymentHistory(true);
+                        setSelectedParent(p);
+                      }}
+                    />
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan={4}
+                      className="py-10 text-center text-[#4E4E4E] text-[clamp(12px,1.2vw,14px)]"
+                    >
+                      No parents found.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+          <div className="pt-7">
+            <TablePagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          </div>
         </div>
       </div>
-    </div>
+      <FullScreenModal isOpen={openParentProfile}>
+        <ParentProfile
+          parent={selectedParent}
+          onBack={() => {
+            setOpenParentProfile(false);
+            setTimeout(() => setSelectedParent(null), 300);
+          }}
+          school={school}
+        />
+      </FullScreenModal>
+      <FullScreenModal isOpen={openParentPaymentHistory}>
+        <ParentPaymentHistory
+          parent={selectedParent}
+          onBack={() => {
+            setOpenParentPaymentHistory(false);
+            setTimeout(() => setSelectedParent(null), 300);
+          }}
+          school={school}
+        />
+      </FullScreenModal>
+    </>
   );
 };
 

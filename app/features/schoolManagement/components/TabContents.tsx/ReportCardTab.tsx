@@ -120,7 +120,7 @@ const ReportCardTab = ({ school }: { school: ISchool }) => {
       const matchesSearch =
         !search ||
         student.name.toLowerCase().includes(search) ||
-        student.class.toLowerCase().includes(search);
+        student.education.currentClass.toLowerCase().includes(search);
 
       const matchesSession =
         !filters.session ||
@@ -135,11 +135,12 @@ const ReportCardTab = ({ school }: { school: ISchool }) => {
       const matchesClass =
         !filters.class ||
         filters.class === "all" ||
-        student.class.toLowerCase() === filters.class.toLowerCase();
+        student.education.currentClass.toLowerCase() ===
+          filters.class.toLowerCase();
 
       const matchesClassArm =
         !filters.classArm ||
-        `${student.class} ${student.classArm}`.trim() ===
+        `${student.education.currentClass} ${student.education.currentClassArm}`.trim() ===
           filters.classArm.trim();
 
       return (

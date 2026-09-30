@@ -27,45 +27,134 @@ export type VerifyPageState = {
 
 // SCHOOL MANAGEMENT
 export interface IAdmin {
-  adminId: number;
+  adminId: string;
   name: string;
   email: string;
   role: string;
   profilePic: null | string;
+  phoneNumber: string;
+  dateOfBirth: string;
+  gender: string;
+  address: string;
+  country: string;
+  city: string;
+  postalCode: string;
+  username: string;
+  emailStatus: "VERIFIED" | "UNVERIFIED";
+  phoneStatus: "VERIFIED" | "UNVERIFIED";
+  accountStatus: "ACTIVE" | "DEACTIVATED";
+  lastLogin: string;
+  accountCreated: string;
+  lastUpdated: string;
+  permissions: "FULL_ACCESS" | "LIMITED";
+  schoolAccess: string;
+  assignedBy: string;
+  activitySummary: {
+    totalLogins: number;
+    actionsPerformed: number;
+    supportTickets: number;
+    announcementSent: number;
+  };
 }
 
 export interface ITeacher {
-  teacherId: number;
+  teacherId: string;
   name: string;
   email: string;
   profilePic: null | string;
   assignedSubjects: string[];
   assignedClass: string[];
   status: "ACTIVE" | "INACTIVE";
+  phoneNumber: string;
+  dateOfBirth: string;
+  gender: string;
+  country: string;
+  city: string;
+  postalCode: string;
+  address: string;
+  department: string;
+  position: string;
+  employmentType: string;
+  hireDate: string;
+  yearsOfExperience: string;
+  educationAndCertification: {
+    degree: string;
+    institution: string;
+    year: number;
+  }[];
+  skills: string[];
+  hobbiesAndInterest: string[];
 }
-
 export interface IStudent {
-  studentId: number;
+  studentId: string;
   name: string;
   profilePic: null | string;
-  class: string;
-  classArm: string;
+  status: "ACTIVE" | "INACTIVE";
   gender: string;
   age: number;
-  attendanceRate: number;
-  averageGrade: number;
-  status: "ACTIVE" | "INACTIVE";
+  dateOfBirth: string;
+  phoneNumber: string;
+  email: string;
+  address: string;
+  enrollmentDate: string;
+  education: {
+    currentGrade: string;
+    currentClass: string;
+    currentClassArm: string;
+    averageGrade: number;
+    attendanceRate: number;
+    classroomTeacher: string;
+    learningTrack: string;
+    program: string;
+    gpa: string;
+    academicStatus: "ON_TRACK" | "NEEDS_IMPROVEMENT";
+  };
+  guardians: {
+    name: string;
+    relationship: string;
+    phoneNumber: string;
+    email: string;
+  }[];
+  notes: string;
 }
 
 export interface IParent {
-  parentId: number;
+  parentId: string;
   name: string;
   profilePic: null | string;
   linkedChildren: {
-    studentId: number;
+    studentId: string;
+    childStatus: "ENROLLED" | "WITHDRAWN" | "SUSPENDED";
   }[];
   loginActivity: string;
   status: "ACTIVE" | "INACTIVE";
+  address: string;
+  phoneNumber: string;
+  email: string;
+  dateOfBirth: string;
+  gender: string;
+  nationality: string;
+  maritalStatus: string;
+  alternatePhone: string;
+  stateOfOrigin: string;
+  occupation: string;
+  company: string;
+  workPhone: string;
+  workEmail: string;
+  paymentHistory: ITransaction[];
+}
+
+export interface ITransaction {
+  transactionId: string;
+  date: string;
+  linkedStudent: {
+    studentId: string;
+  };
+  description: string;
+  amount: number;
+  paymentMethod: "DEBIT_CARD" | "BANK_TRANSFER";
+  status: "PAID" | "PENDING" | "FAILED";
+  receipt: ReactNode;
 }
 
 export interface IReportCard {
@@ -147,12 +236,33 @@ export interface ISchoolFailedTransaction {
   receiptError: "Network Error" | "Insufficient Funds" | string;
 }
 
+export interface ITransactionTimelineStep {
+  label: string;
+  description: string;
+  date: string;
+  completed: boolean;
+}
+
 export interface IParentFeesPayment {
   feeId: number;
   date: string;
-  parentId: number;
+  parentId: string;
+  studentId: string;
   amount: number;
   status: PaymentStatus;
+  feeCategory: string;
+  academicSession: string;
+  description: string;
+  transactionReference: string;
+  flutterwaveReference: string;
+  flutterwaveTransactionId: string;
+  paymentMethod: "BANK_TRANSFER" | "CARD";
+  cardDetails: string;
+  transactionType: string;
+  paymentLink: string;
+  gatewayResponseCode: string;
+  gatewayResponseMessage: string;
+  timeline: ITransactionTimelineStep[];
 }
 
 export interface IFeesPayment {
@@ -177,9 +287,9 @@ export type ActivityRole = "Admin" | "Staff" | "Student" | "Parent";
 export type ActivityUserType = "ADMIN" | "TEACHER" | "STUDENT" | "PARENT";
 
 export interface IActivityLogItem {
-  logId: number;
+  logId: string;
   user: {
-    id: number;
+    id: string;
     type: ActivityUserType;
   };
   role: ActivityRole;

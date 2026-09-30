@@ -9,7 +9,7 @@ import { Button } from "~/components/ui/button";
 import { Form, FormField, FormLabel } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { Spinner } from "~/components/ui/spinner";
-import { useAuth } from "~/context/AuthContext";
+import { useLoginMutation } from "~/queries/auth/mutations";
 import type { VerifyPageState } from "~/types";
 
 const LoginFormSchema = z.object({
@@ -26,7 +26,7 @@ type TypeLoginFormSchema = z.infer<typeof LoginFormSchema>;
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const loginMutation = useLoginMutation();
   const [unverifiedEmail, setUnverifiedEmail] = useState<string | null>(null);
 
   const form = useForm<TypeLoginFormSchema>({
@@ -45,9 +45,10 @@ const LoginForm = () => {
   } = form;
 
   const onSubmit = async (data: TypeLoginFormSchema) => {
-    await new Promise((resolve) => setTimeout(resolve, 800));
-
-    const result = await login(data.email, data.password);
+    const result = await loginMutation.mutateAsync({
+      email: data.email,
+      password: data.password,
+    });
 
     if (!result.success) {
       if (result.reason === "not_verified") {

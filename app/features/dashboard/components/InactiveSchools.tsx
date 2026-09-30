@@ -2,9 +2,9 @@ import { LeftIcon, MailIcon, PhoneIcon } from "~/assets/Icons";
 import { Button } from "~/components/ui/button";
 import { INACTIVE_SCHOOLS_DATA } from "~/data/platformData";
 
-const InactiveSchools = ({ onBack }: { onBack?: () => void }) => {
+const InactiveSchools = ({ onBack }: { onBack: () => void }) => {
   return (
-    <div className="flex flex-col gap-10 px-10 py-8 w-full">
+    <div className="flex flex-col gap-10 px-6 md:px-10 py-8 w-full">
       <Button
         variant="ghost"
         size="icon"

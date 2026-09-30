@@ -1,10 +1,17 @@
 import { Navigate, Outlet } from "react-router";
-import { useAuth } from "~/context/AuthContext";
-import { Spinner } from "../ui/spinner";
-import { Loader2Icon } from "lucide-react";
+import { useAppSelector } from "~/store";
 
+/**
+ * Route guard for all authenticated routes.
+ * Reads auth state from the Redux store (populated by AuthHydrator in root.tsx).
+ *
+ * No loading spinner needed — hydrateAuth() in AuthHydrator runs synchronously
+ * from localStorage before the first render, so hasHydrated flips to true
+ * on the very first state update after mount.
+ */
 const RequireAuth = () => {
-  const { isAuthenticated, hasHydrated } = useAuth();
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const hasHydrated = useAppSelector((state) => state.auth.hasHydrated);
 
   if (!hasHydrated) {
     return (

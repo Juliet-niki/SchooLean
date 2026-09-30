@@ -17,7 +17,7 @@ import FullScreenModal from "~/components/FullScreenModal";
 import InactiveSchools from "../components/InactiveSchools";
 import { Button } from "~/components/ui/button";
 import { useNavigate } from "react-router";
-import { useNotifications } from "~/context/NotificationsContext";
+import { useNotificationsQuery } from "~/queries/notifications/queries";
 
 const TOTAL_NEW_SCHOOLS: Record<string, number> = {
   week: 1289,
@@ -29,7 +29,7 @@ const Dashboard = () => {
   const [totalNewSchools, setTotalNewSchools] = useState("week");
   const navigate = useNavigate();
 
-  const { notifications } = useNotifications();
+  const { data: notifications = [] } = useNotificationsQuery();
 
   const unreadCount = notifications.filter(
     (n) => !n.isRead && !n.isArchived,
