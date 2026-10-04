@@ -56,7 +56,7 @@ const UserRows = ({
   onViewAuditLog,
 }: {
   user: ISchooleanUser;
-  onViewUser: (id: string, schoolID: string) => void;
+  onViewUser: (id: string, schoolID: string, role: string) => void;
   onSuspendAccount: (id: string) => void;
   onViewSchool: (id: string) => void;
   onSignOutAllSession: (id: string) => void;
@@ -178,7 +178,7 @@ const UserRows = ({
                     {
                       label: "View User",
                       onClick: () => {
-                        onViewUser(user.userID, school.schoolID);
+                        onViewUser(user.userID, school.schoolID, school.role);
                       },
                       icon: (
                         <ShowEyeIcon className="w-4 h-4" stroke="#4E4E4E" />
@@ -361,8 +361,12 @@ const SchooleanUsersTable = ({
     filteredData.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
   const endIndex = Math.min(currentPage * itemsPerPage, filteredData.length);
 
-  const handleViewUser = (userID: string, schoolID: string) => {
-    navigate(`/schoolean-users/${userID}/${schoolID}`);
+  const handleViewUser = (userID: string, schoolID: string, role: string) => {
+    if (role === "STUDENT") {
+      navigate(`/schoolean-users/student/${userID}/${schoolID}`);
+    } else {
+      navigate(`/schoolean-users/${userID}/${schoolID}`);
+    }
   };
 
   const handleViewSchool = (schoolId: string) => {

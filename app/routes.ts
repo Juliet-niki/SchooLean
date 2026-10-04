@@ -79,11 +79,11 @@ export default [
       ),
       route(
         "schoolean-users/:userID/:schoolID",
-        "features/schooleanUsers/pages/SchooleanUserDetails.tsx",
+        "features/schooleanUsers/pages/UsersDetails.tsx",
       ),
       route(
-        "student-profile",
-        "features/studentProfile/pages/StudentProfile.tsx",
+        "schoolean-users/student/:userID/:schoolID",
+        "features/schooleanUsers/pages/StudentProfile.tsx",
       ),
       route("storybook", "components/StoryBook.tsx"),
     ]),

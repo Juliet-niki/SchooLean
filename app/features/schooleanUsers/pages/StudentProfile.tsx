@@ -1,7 +1,7 @@
 import {
   LeftIcon,
   Person3Icon,
-  SupportTikcetIcon,
+  LogIcon,
   School3Icon,
   Student3Icon,
   CalendarIcon,
@@ -19,18 +19,17 @@ import {
 import { Button } from "~/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 
-import { studentProfileMock } from "../components/mock";
-import AcademicsTab from "../components/tabContents/AcademicsTab";
-import FeesPaymentsTab from "../components/tabContents/FeesPaymentsTab";
-import AttendanceTab from "../components/tabContents/AttendanceTab";
-import PersonalInfoTab from "../components/tabContents/PersonalInfoTab";
-import ActivityTab from "../components/tabContents/ActivityTab";
-import ReportCardsTab from "../components/tabContents/ReportCardsTab";
-import SecurityTab from "../components/tabContents/SecurityTab";
-import AuditLogTab from "../components/tabContents/AuditLogTab";
-
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import StatusView from "~/components/StatusView";
+import PersonalInfoTab from "../components/studentProfile/tabContents/PersonalInfoTab";
+import { STUDENT_PROFILE_MOCK } from "../components/studentProfile/components/mock";
+import AcademicsTab from "../components/studentProfile/tabContents/AcademicsTab";
+import ActivityTab from "../components/studentProfile/tabContents/ActivityTab";
+import AttendanceTab from "../components/studentProfile/tabContents/AttendanceTab";
+import AuditLogTab from "../components/studentProfile/tabContents/AuditLogTab";
+import FeesPaymentsTab from "../components/studentProfile/tabContents/FeesPaymentsTab";
+import ReportCardsTab from "../components/studentProfile/tabContents/ReportCardsTab";
+import SecurityTab from "../components/studentProfile/tabContents/SecurityTab";
 
 const TABS = [
   {
@@ -72,13 +71,13 @@ const TABS = [
   {
     value: "security",
     label: "Security",
-    icon: SupportTikcetIcon,
+    icon: Security2Icon,
     Content: SecurityTab,
   },
   {
     value: "auditLog",
     label: "Audit Log",
-    icon: Security2Icon,
+    icon: LogIcon,
     Content: AuditLogTab,
   },
 ];
@@ -95,8 +94,9 @@ const ACTIONS = [
 ];
 
 const StudentProfile = () => {
+  const { userID, schoolID } = useParams();
   const navigate = useNavigate();
-  const { student, school } = studentProfileMock;
+  const { student, school } = STUDENT_PROFILE_MOCK;
   const infoItems = [
     { title: school.name, subtitle: school.type, icon: School3Icon },
     { title: school.class, subtitle: "Class", icon: Student3Icon },
@@ -150,10 +150,10 @@ const StudentProfile = () => {
               {student.id} / {student.admissionNumber}
             </p>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-4 mt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-4 mt-2">
               {infoItems.map((item) => (
                 <div key={item.subtitle} className="flex items-center gap-3">
-                  <div className="size-8 lg:size-10 bg-[#0EB26B1A] border border-[#D1D1D1] rounded-full flex items-center justify-center">
+                  <div className="size-8 lg:size-10 bg-[#0EB26B1A] border border-[#D1D1D1] rounded-full flex items-center justify-center shrink-0">
                     <item.icon className="size-4 lg:size-5" fill="#0EB26B" />
                   </div>
                   <div className="flex flex-col">
@@ -171,7 +171,7 @@ const StudentProfile = () => {
         </div>
 
         {/* Actions Row */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 bg-white border border-[#CACACA] rounded-[5px] px-2 md:px-6 lg:px-9 py-2 md:py-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-white border border-[#CACACA] rounded-[5px] px-3 md:px-6 lg:px-9 py-3 md:py-5">
           {ACTIONS.map((item) => (
             <button
               key={item.label}

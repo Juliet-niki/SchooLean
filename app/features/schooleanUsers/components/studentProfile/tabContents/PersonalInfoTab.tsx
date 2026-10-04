@@ -1,5 +1,4 @@
-import { studentProfileMock } from "../mock";
-import { formatDate, getAge } from "../helpers";
+
 import StatusView from "~/components/StatusView";
 import {
   ClassIcon,
@@ -9,15 +8,17 @@ import {
   School3Icon,
   SectionIcon,
 } from "~/assets/Icons";
+import SectionHeader from "../components/SectionHeader";
+import { STUDENT_PROFILE_MOCK } from "../components/mock";
+import { formatDate } from "~/utils/formatDate";
+import { getAge } from "../components/helpers";
 
 const PersonalInfoTab = () => {
-  const { school, student } = studentProfileMock;
+  const { school, student } = STUDENT_PROFILE_MOCK;
 
   return (
     <div className="bg-white rounded-[5px] w-full border border-[#CACACA] overflow-hidden text-[clamp(15px,1.6vw,18px)] text-[#4E4E4E]">
-      <div className="px-6 py-4 ml:py-5 ml:px-8 bg-[#0EB26B17] rounded-[5px] border-b order-[#CACACA]">
-        <h3 className="text-[#0EB26B] font-semibold ">Personal Information</h3>
-      </div>
+      <SectionHeader title="Personal Information" />
       <div className="bg-[#F9F9F9] px-6 ml:px-10 py-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Left Side: School Info */}
         <div className="flex flex-col gap-4 ml:gap-6">
@@ -101,9 +102,11 @@ const InfoRow = ({
   value: React.ReactNode;
   icon?: React.ReactNode;
 }) => (
-  <div className="grid grid-cols-2 gap-4">
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-4">
     <div className="text-[#868686] font-medium flex items-center">
-      <span className={`shrink-0 ${icon ? "mr-4" : ""}`}>{icon}</span>
+      <span className={`hidden sm:block shrink-0 ${icon ? "mr-4" : ""}`}>
+        {icon}
+      </span>
       <span>{label}</span>
     </div>
     <span className="text-[#4E4E4E] font-semibold min-w-0 break-words">

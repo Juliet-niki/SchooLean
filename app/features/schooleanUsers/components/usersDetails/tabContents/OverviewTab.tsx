@@ -4,17 +4,17 @@ import { Button } from "~/components/ui/button";
 import type { ISchooleanUser, ISchoolSummary } from "~/data/schooleanUsersData";
 import { formatDate, formatDateTime } from "~/utils/formatDate";
 
-interface SchooleanUserOverviewProps {
+interface OverviewTabProps {
   user: ISchooleanUser;
   selectedSchool: ISchoolSummary;
   onAddRoleSchool?: () => void;
 }
 
-const SchooleanUserOverview = ({
+const OverviewTab = ({
   user,
   selectedSchool,
   onAddRoleSchool,
-}: SchooleanUserOverviewProps) => {
+}: OverviewTabProps) => {
   const ACTIVITY_ICON_MAP: Record<string, React.ReactNode> = {
     "Logged in": <LoginIcon className="w-4 h-4 md:w-6 md:h-6" />,
     "Updated profile": (
@@ -150,4 +150,4 @@ const SchooleanUserOverview = ({
   );
 };
 
-export default SchooleanUserOverview;
+export default OverviewTab;

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams, Navigate } from "react-router";
 import { LeftIcon, Mail2Icon, PhoneIcon } from "~/assets/Icons";
 import StatusView from "~/components/StatusView";
 import { Button } from "~/components/ui/button";
@@ -8,9 +8,9 @@ import {
   SCHOOLEAN_USER_DATA,
   type ISchooleanUser,
 } from "~/data/schooleanUsersData";
-import SchooleanUserOverview from "../components/tabContents/SchooleanUserOverview";
+import OverviewTab from "../components/usersDetails/tabContents/OverviewTab";
 
-const SchooleanUserDetails = () => {
+const UserDetails = () => {
   const [user, setUser] = useState<ISchooleanUser | null>(null);
 
   const navigate = useNavigate();
@@ -28,6 +28,12 @@ const SchooleanUserDetails = () => {
   const selectedSchool = user?.schoolSummary.find(
     (school) => school.schoolID === schoolID,
   );
+
+  if (selectedSchool?.role === "STUDENT") {
+    return (
+      <Navigate to={`/schoolean-users/student/${userID}/${schoolID}`} replace />
+    );
+  }
 
   if (!user) {
     return (
@@ -105,15 +111,12 @@ const SchooleanUserDetails = () => {
                         ? "School Admin"
                         : selectedSchool.role === "PARENT"
                           ? "Parent"
-                          : selectedSchool.role === "STUDENT"
-                            ? "Student"
-                            : "Non Academic Staff"
+                          : "Non Academic Staff"
                   }
                   green="Teacher"
                   purple="Parent"
                   blue="School Admin"
                   yellow="Non Academic Staff"
-                  pink="Student"
                 />
               )}
             </div>
@@ -170,7 +173,7 @@ const SchooleanUserDetails = () => {
           <div className="py-6">
             <TabsContent value="overview">
               {selectedSchool && (
-                <SchooleanUserOverview
+                <OverviewTab
                   user={user}
                   onAddRoleSchool={() => {}}
                   selectedSchool={selectedSchool}
@@ -187,4 +190,4 @@ const SchooleanUserDetails = () => {
   );
 };
 
-export default SchooleanUserDetails;
+export default UserDetails;

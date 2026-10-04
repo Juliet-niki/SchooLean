@@ -1,15 +1,19 @@
 import { useState } from "react";
-import { studentProfileMock } from "../mock";
-import { getReportSummary, getTopSubjects, ordinal } from "../helpers";
-import { Dialog, DialogContent, DialogTrigger } from "~/components/ui/dialog";
+import { STUDENT_PROFILE_MOCK } from "../components/mock";
 import {
-  CloseIcon,
+  getReportSummary,
+  getTopSubjects,
+  ordinal,
+} from "../components/helpers";
+import {
   GraduationCap2Icon,
+  CloseIcon,
   PositionIcon,
   PromotionBadgeIcon,
 } from "~/assets/Icons";
 import { DrawerDialog } from "~/components/DrawerDialog";
 import { PieChartCard } from "~/components/recharts/PieChartCard";
+import SectionHeader from "../components/SectionHeader";
 
 const SUB_TABS = ["Current Subjects", "Previous Subjects"];
 
@@ -26,26 +30,28 @@ const AcademicsTab = () => {
   const [activeSubTab, setActiveSubTab] = useState(SUB_TABS[0]);
 
   const { subjects, position, classSize, promotionalStatus } =
-    studentProfileMock.academics;
-  const { school } = studentProfileMock;
+    STUDENT_PROFILE_MOCK.academics;
+  const { school } = STUDENT_PROFILE_MOCK;
 
-  const { average } = getReportSummary(studentProfileMock);
-  const topSubjects = getTopSubjects(studentProfileMock);
+  const { average } = getReportSummary(subjects);
+  const topSubjects = getTopSubjects(subjects);
 
   return (
     <>
       <div className="bg-white rounded-[5px] w-full border border-[#CACACA] overflow-hidden text-[clamp(15px,1.6vw,18px)] text-[#4E4E4E] font-semibold ">
-        <div className="flex items-center gap-4 px-6 py-4 ml:py-5 ml:px-8 bg-[#0EB26B17] rounded-[5px] border-b border-[#CACACA]">
-          <GraduationCap2Icon className="size-5 ml:size-6" fill="#0EB26B" />
-          <h3 className="text-[#0EB26B] ">Academics</h3>
-        </div>
+        <SectionHeader
+          icon={
+            <GraduationCap2Icon className="size-5 ml:size-6" fill="#0EB26B" />
+          }
+          title="Academics"
+        />
         <div className="bg-white">
           <div className="flex items-center border-b border-[#E4E4E4] px-4 gap-4 ml:gap-6">
             {SUB_TABS.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveSubTab(tab)}
-                className={`px-6 py-4 text-[clamp(14px,1.5vw,16px)] ${
+                className={`px-2.5 sm:px-4 md:px-6 py-4 text-[clamp(14px,1.4vw,16px)] ${
                   activeSubTab === tab
                     ? "text-[#0EB26B] border-b-2 border-[#0EB26B]"
                     : "text-[#4E4E4E]"
@@ -58,7 +64,7 @@ const AcademicsTab = () => {
 
           {activeSubTab === "Current Subjects" && (
             <div className="p-6 space-y-4 ml:space-y-5">
-              <div className="border border-[#E4E4E4] rounded-[10px] overflow-x-auto hide-scrollbar">
+              <div className="border border-[#D9D9D9] rounded-[10px] overflow-x-auto hide-scrollbar">
                 <table className="w-full min-w-[800px] text-left border-collapse table-fixed">
                   <colgroup>
                     {TABLE_HEADERS.map((h) => (
@@ -66,18 +72,18 @@ const AcademicsTab = () => {
                     ))}
                   </colgroup>
                   <thead>
-                    <tr className="bg-[#E4F4EC] border-b border-[#E4E4E4]">
+                    <tr className="bg-[#0EB26B17] border-b border-[#CACACA]">
                       {TABLE_HEADERS.map((h) => (
                         <th
                           key={h.label}
-                          className="py-4 px-6 text-[clamp(16px,1.6vw,18px)]"
+                          className="py-4 px-6 text-[clamp(16px,1.6vw,18px)] font-semibold"
                         >
                           {h.label}
                         </th>
                       ))}
                     </tr>
                   </thead>
-                  <tbody className="">
+                  <tbody>
                     {subjects.map((item) => (
                       <tr
                         key={item.id}
@@ -102,7 +108,7 @@ const AcademicsTab = () => {
               <div className="flex justify-end">
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="bg-[#E4F4EC] text-[#0EB26B] border border-[#CACACA] px-6 py-3 rounded-md text-[clamp(14px,1.4vw,16px)]"
+                  className="bg-[#0EB26B17] text-[#0EB26B] border border-[#CACACA] px-6 py-2 rounded-md text-[clamp(14px,1.4vw,16px)] cursor-pointer"
                 >
                   View Academic Performance
                 </button>
@@ -207,7 +213,7 @@ export const AcademicPerformanceModal = ({
               <span className="text-[#868686] text-[clamp(13px,1.4vw,16px)] w-32 md:w-40 truncate">
                 {sub.name}
               </span>
-              <div className="flex-1 bg-[#E4F4EC] h-2 md:h-3 rounded-full overflow-hidden">
+              <div className="flex-1 bg-[#0EB26B17] h-2 md:h-3 rounded-full overflow-hidden">
                 <div
                   className="bg-[#0EB26B] h-full rounded-full"
                   style={{ width: `${sub.score}%` }}

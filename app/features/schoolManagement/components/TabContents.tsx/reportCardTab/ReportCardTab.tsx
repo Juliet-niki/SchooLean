@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { LeftIcon, MoreIcon } from "~/assets/Icons";
+import { MoreIcon } from "~/assets/Icons";
 import NestedDropdown from "~/components/NestedDropdown";
 import PopoverDropdown from "~/components/PopoverDropdown";
 import SearchInput from "~/components/SearchInput";
@@ -14,7 +14,7 @@ import { GRADING_SYSTEM, REPORT_CARD_TAB_FILTERS } from "~/data/schoolData";
 import type { IReportCard, ISchool, IStudent } from "~/types";
 import PerformanceAnalytics from "./PerformanceAnalytics";
 import FullScreenModal from "~/components/FullScreenModal";
-import { Button } from "~/components/ui/button";
+import ViewReportCard from "~/components/ViewReportCard";
 
 const TableRow = ({
   reportCard,
@@ -427,44 +427,10 @@ const ReportCardTab = ({ school }: { school: ISchool }) => {
         </div>
       </div>
       <FullScreenModal isOpen={selectedReportCardId !== null}>
-        <ViewReportCard
-          reportCardId={selectedReportCardId}
-          onBack={() => setSelectedReportCardId(null)}
-        />
+        <ViewReportCard onBack={() => setSelectedReportCardId(null)} />
       </FullScreenModal>
     </>
   );
 };
 
 export default ReportCardTab;
-
-export const ViewReportCard = ({
-  onBack,
-  reportCardId,
-}: {
-  onBack: () => void;
-  reportCardId: number | null;
-}) => {
-  return (
-    <div className="flex flex-col gap-5 w-full items-center px-20 py-10">
-      <Button
-        variant="ghost"
-        size="icon"
-        className="h-fit w-fit hover:bg-transparent mr-auto"
-        onClick={onBack}
-      >
-        <LeftIcon className="h-6 w-6" />
-      </Button>
-      <div className="flex-1 flex flex-col gap-10 ">
-        <img
-          src="/images/reportCard.png"
-          alt={`Report card ${reportCardId}`}
-          className="object-contain w-200 h-full"
-        />
-        <Button variant="default" size="lg" className="w-full">
-          Download
-        </Button>
-      </div>
-    </div>
-  );
-};

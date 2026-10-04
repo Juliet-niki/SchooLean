@@ -264,7 +264,6 @@ export interface IParentFeesPayment {
   gatewayResponseMessage: string;
   timeline: ITransactionTimelineStep[];
 }
-
 export interface IFeesPayment {
   subscription: ISubscriptionPlan;
   schoolPaymentHistory: ISchoolPaymentHistory[];
@@ -297,6 +296,15 @@ export interface IActivityLogItem {
   activityType: ActivityType;
   ipAddress: string;
   date: string;
+  status: "SUCCESS" | "FAILED";
+  title: string;
+  description: string;
+  module: string;
+  action: string;
+  target?: string; // omitted for logs with no real target entity (login/logout/export)
+  recordId?: string; // omitted when there's no specific record (login/logout/export)
+  device: string;
+  location: string;
 }
 
 export interface IActivitySummary {
@@ -308,6 +316,11 @@ export interface IActivitySummary {
 export interface IActivityLog {
   summary: IActivitySummary;
   logs: IActivityLogItem[];
+}
+
+export interface IResolvedActivityLog extends IActivityLogItem {
+  resolvedName: string;
+  resolvedProfilePic: string | null;
 }
 
 export interface IWebsitePages {

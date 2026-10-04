@@ -5,6 +5,7 @@ import {
   SafetyIcon,
   TriangleAlert2Icon,
 } from "~/assets/Icons";
+import FullScreenModal from "~/components/FullScreenModal";
 import PopoverDropdown from "~/components/PopoverDropdown";
 import SearchInput from "~/components/SearchInput";
 import TablePagination from "~/components/TablePagination";
@@ -15,8 +16,9 @@ import {
   PopoverTrigger,
 } from "~/components/ui/popover";
 import { ACTIVITY_LOG_TAB_FILTERS } from "~/data/schoolData";
-import type { IActivityLogItem, ISchool } from "~/types";
+import type { IActivityLogItem, IResolvedActivityLog, ISchool } from "~/types";
 import { formatDate } from "~/utils/formatDate";
+import LogDetails from "./LogDetails";
 
 const ITEMS_PER_PAGE = 7;
 
@@ -62,11 +64,6 @@ const getActivityColor = (activityType: string) => {
       return "bg-transparent text-[#4E4E4E]";
   }
 };
-
-interface IResolvedLog extends IActivityLogItem {
-  resolvedName: string;
-  resolvedProfilePic: string | null;
-}
 
 const fallBack = {
   name: "Unknown",
@@ -116,7 +113,13 @@ const TableHead = ({ columns }: { columns: string[] }) => (
 );
 
 // ---- Table Row ----
-const TableRow = ({ log }: { log: IResolvedLog }) => (
+const TableRow = ({
+  log,
+  onViewDetailedLog,
+}: {
+  log: IResolvedActivityLog;
+  onViewDetailedLog: (log: IResolvedActivityLog) => void;
+}) => (
   <tr className="text-[clamp(12px,1.4vw,16px)] text-[#4E4E4E] font-semibold border-b border-[#EBEBEB]">
     <td className="py-3 px-4">
       <div className="flex items-center gap-3">
@@ -167,7 +170,10 @@ const TableRow = ({ log }: { log: IResolvedLog }) => (
         >
           <div className="flex flex-col gap-1">
             {[
-              { label: "View detailed log", onClick: () => {} },
+              {
+                label: "View detailed log",
+                onClick: () => onViewDetailedLog(log),
+              },
               { label: "Export log", onClick: () => {} },
               { label: "Escalate issue", onClick: () => {} },
             ].map((option) => (
@@ -196,7 +202,12 @@ const ActivityLogTab = ({ school }: { school: ISchool }) => {
   const [searchText, setSearchText] = useState("");
   const [filters, setFilters] = useState<Record<string, string>>({});
 
-  const resolvedLogs = useMemo<IResolvedLog[]>(() => {
+  const [openLogDetails, setOpenLogDetails] = useState(false);
+  const [selectedLog, setSelectedLog] = useState<IResolvedActivityLog | null>(
+    null,
+  );
+
+  const resolvedLogs = useMemo<IResolvedActivityLog[]>(() => {
     return school.activityLog.logs.map((log) => {
       const { name, profilePic } = resolveUser(log, school);
       return { ...log, resolvedName: name, resolvedProfilePic: profilePic };
@@ -358,7 +369,14 @@ const ActivityLogTab = ({ school }: { school: ISchool }) => {
               <tbody>
                 {paginatedData.length > 0 ? (
                   paginatedData.map((log) => (
-                    <TableRow key={log.logId} log={log} />
+                    <TableRow
+                      key={log.logId}
+                      log={log}
+                      onViewDetailedLog={(l) => {
+                        setSelectedLog(l);
+                        setOpenLogDetails(true);
+                      }}
+                    />
                   ))
                 ) : (
                   <tr>
@@ -382,6 +400,17 @@ const ActivityLogTab = ({ school }: { school: ISchool }) => {
           </div>
         </div>
       </div>
+
+      {/* View Detail Log */}
+      <FullScreenModal isOpen={openLogDetails}>
+        <LogDetails
+          log={selectedLog}
+          onBack={() => {
+            setOpenLogDetails(false);
+            setTimeout(() => setSelectedLog(null), 300); // clear after transition
+          }}
+        />
+      </FullScreenModal>
     </div>
   );
 };
